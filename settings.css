@@ -1,0 +1,318 @@
+/* Settings Window */
+.settings-container {
+  display: flex;
+  height: 100%;
+  background: #fff;
+}
+
+.settings-sidebar {
+  width: 180px;
+  background: #d4d0c8;
+  border-right: 2px solid #808080;
+  padding: 10px 0;
+}
+
+.settings-nav-item {
+  padding: 10px 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-family: 'MS Sans Serif', sans-serif;
+  color: #000;
+  border-left: 3px solid transparent;
+}
+
+.settings-nav-item:hover {
+  background: #fff;
+}
+
+.settings-nav-item.active {
+  background: #fff;
+  border-left-color: #0000AA;
+  font-weight: bold;
+}
+
+.settings-nav-item span {
+  font-size: 16px;
+}
+
+.settings-content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.settings-tab {
+  display: none;
+}
+
+.settings-tab.active {
+  display: block;
+}
+
+.settings-tab h2 {
+  font-size: 18px;
+  margin: 0 0 5px 0;
+  font-family: 'MS Sans Serif', sans-serif;
+  color: #000;
+}
+
+.settings-description {
+  color: #666;
+  font-size: 11px;
+  margin: 0 0 20px 0;
+}
+
+.settings-section {
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #d4d0c8;
+}
+
+.settings-section:last-child {
+  border-bottom: none;
+}
+
+.settings-section h3 {
+  font-size: 13px;
+  margin: 0 0 15px 0;
+  font-family: 'MS Sans Serif', sans-serif;
+  color: #000;
+  font-weight: bold;
+}
+
+.setting-item {
+  margin-bottom: 15px;
+  padding: 8px;
+  background: #f0f0f0;
+  border: 1px solid #d4d0c8;
+}
+
+.setting-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+
+.setting-label input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+}
+
+.setting-name {
+  font-size: 12px;
+  font-weight: bold;
+  font-family: 'MS Sans Serif', sans-serif;
+  color: #000;
+}
+
+.setting-desc {
+  font-size: 11px;
+  color: #666;
+  margin: 0;
+  padding-left: 22px;
+}
+
+.settings-actions {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 2px solid #d4d0c8;
+}
+
+.settings-btn {
+  background: #d4d0c8;
+  border: 2px outset #fff;
+  padding: 6px 16px;
+  font-family: 'MS Sans Serif', sans-serif;
+  font-size: 11px;
+  cursor: pointer;
+  color: #000;
+}
+
+.settings-btn:hover {
+  background: #e0e0e0;
+}
+
+.settings-btn:active {
+  border-style: inset;
+}
+
+/* Notification Toast */
+.settings-notification {
+  position: fixed;
+  bottom: 50px;
+  right: 20px;
+  background: #FFFFD0;
+  border: 2px solid #000;
+  padding: 12px 20px;
+  font-family: 'MS Sans Serif', sans-serif;
+  font-size: 11px;
+  box-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+  z-index: 100001;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+}
+
+.settings-notification.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Accessibility Features */
+
+/* High Contrast Mode */
+.high-contrast {
+  filter: contrast(1.5);
+}
+
+.high-contrast .window {
+  background: #000;
+  color: #fff;
+  border-color: #fff;
+}
+
+.high-contrast .title-bar {
+  background: #000080;
+  color: #fff;
+}
+
+.high-contrast .window-content {
+  background: #000;
+  color: #fff;
+}
+
+.high-contrast .desktop {
+  background: #000;
+}
+
+.high-contrast .icon span {
+  color: #fff;
+  text-shadow: 1px 1px 2px #000;
+}
+
+.high-contrast button {
+  border-color: #fff;
+  color: #fff;
+}
+
+/* Reduced Motion */
+.reduced-motion,
+.reduced-motion * {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+
+/* Focus Indicators */
+.focus-visible *:focus {
+  outline: 3px solid #0000AA !important;
+  outline-offset: 2px;
+}
+
+.focus-visible .icon:focus {
+  outline: 3px dashed #fff !important;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.focus-visible button:focus {
+  outline: 3px solid #000 !important;
+}
+
+/* Keyboard Navigation Helper */
+.icon[tabindex]:focus,
+.window-controls button:focus {
+  outline: 2px solid #000;
+  outline-offset: 2px;
+}
+
+/* Range Sliders */
+.setting-slider {
+  width: 100%;
+  height: 20px;
+  margin: 10px 0;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+}
+
+.setting-slider::-webkit-slider-track {
+  width: 100%;
+  height: 6px;
+  background: #d4d0c8;
+  border: 1px inset #808080;
+}
+
+.setting-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #d4d0c8;
+  border: 2px outset #fff;
+  cursor: pointer;
+  margin-top: -8px;
+}
+
+.setting-slider::-webkit-slider-thumb:active {
+  border-style: inset;
+}
+
+.setting-slider::-moz-range-track {
+  width: 100%;
+  height: 6px;
+  background: #d4d0c8;
+  border: 1px inset #808080;
+}
+
+.setting-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #d4d0c8;
+  border: 2px outset #fff;
+  cursor: pointer;
+}
+
+.setting-slider::-moz-range-thumb:active {
+  border-style: inset;
+}
+
+/* Keyboard Shortcuts */
+.shortcut-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.shortcut-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 8px;
+  background: #f0f0f0;
+  border: 1px solid #d4d0c8;
+}
+
+.shortcut-key {
+  background: #fff;
+  border: 2px outset #d4d0c8;
+  padding: 4px 12px;
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  font-weight: bold;
+  white-space: nowrap;
+  min-width: 120px;
+  text-align: center;
+}
+
+.shortcut-desc {
+  font-size: 11px;
+  color: #000;
+  flex: 1;
+}

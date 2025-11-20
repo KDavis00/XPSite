@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kae's Classic Desktop</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="games.css">
+  <link rel="stylesheet" href="portfolio.css">
+  <link rel="stylesheet" href="settings.css">
+  <link rel="stylesheet" href="mediaplayer.css">
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+</head>
+
+<body>
+
+  <!-- Desktop -->
+  <div class="desktop">
+    <!-- Desktop icons -->
+    <div class="icon" style="top: 20px; left: 20px;">
+      <img src="Windows 2000/My Computer.ico" alt="My Computer">
+      <span>My Computer</span>
+    </div>
+    <div class="icon" style="top: 110px; left: 20px;">
+      <img src="Windows 2000/Dustbin.ico" alt="Recycle Bin">
+      <span>Recycle Bin</span>
+    </div>
+    <div class="icon" data-window="ieWindow" style="top: 200px; left: 20px;">
+      <img src="Windows 2000/Internet Explorer.ico" alt="Internet Explorer">
+      <span>Internet Explorer</span>
+    </div>
+    <div class="icon" data-window="projectsWindow" style="top: 290px; left: 20px;">
+      <img src="Windows 2000/Folder Closed.ico" alt="Projects">
+      <span>My Projects</span>
+    </div>
+    <div class="icon" data-window="aboutWindow" style="top: 20px; left: 100px;">
+      <img src="Windows 2000/Default Document.ico" alt="About Me">
+      <span>About Me</span>
+    </div>
+    <div class="icon" data-window="contactWindow" style="top: 110px; left: 100px;">
+      <img src="Windows 2000/Network (3).ico" alt="Contact">
+      <span>Contact</span>
+    </div>
+    <div class="icon" data-window="msnWindow" style="top: 200px; left: 100px;">
+      <img src="Windows 2000/Network.ico" alt="Social Links">
+      <span>Connect</span>
+    </div>
+    <div class="icon" data-window="paintWindow" style="top: 290px; left: 100px;">
+      <img src="Windows 2000/Paint.ico" alt="Paint">
+      <span>Paint</span>
+    </div>
+    <div class="icon" data-window="videoWindow" style="top: 380px; left: 20px;">
+      <img src="Windows 2000/Folder Closed.ico" alt="Media Folder">
+      <span>Videos</span>
+    </div>
+    <div class="icon" data-window="settingsWindow" style="top: 380px; left: 100px;">
+      <img src="Windows 2000/Settings.ico" alt="Settings">
+      <span>Settings</span>
+    </div>
+    <div class="icon" data-window="mediaPlayerWindow" style="top: 470px; left: 20px;">
+      <img src="Windows 2000/Windows_Media_Player_4.svg" alt="Media Player">
+      <span>Media Player</span>
+    </div>
+
+
+    <!-- Projects Folder Window -->
+    <div class="window" id="projectsWindow">
+      <div class="title-bar">
+        <span class="title">My Projects</span>
+        <div class="window-controls">
+          <button class="minimize">_</button>
+          <button class="maximize">□</button>
+          <button class="close">×</button>
+        </div>
+      </div>
+      <div class="window-content folder-content" id="projectsContent">
+      </div>
+    </div>
+
+    <!-- Internet Explorer Window -->
+    <div class="window" id="ieWindow" style="width: 600px; height: 450px;">
+      <div class="title-bar">
+        <span class="title">Internet Explorer</span>
+        <div class="window-controls">
+          <button class="minimize">_</button>
+          <button class="maximize">□</button>
+          <button class="close">×</button>
+        </div>
+      </div>
+      <div class="ie-toolbar">
+        <button class="ie-btn" onclick="document.getElementById('ieFrame').contentWindow.history.back()">◄</button>
+        <button class="ie-btn" onclick="document.getElementById('ieFrame').contentWindow.history.forward()">►</button>
+        <button class="ie-btn" onclick="document.getElementById('ieFrame').contentWindow.location.reload()">↻</button>
+        <input type="text" class="ie-address-bar" id="ieAddressBar" value="https://kdavis00.github.io/GCA_KaeD/"
+          placeholder="Enter URL...">
+        <button class="ie-btn ie-go" onclick="navigateIE()">Go</button>
+      </div>
+      <div class="window-content" style="padding: 0; display: block;">
+        <iframe id="ieFrame" src="https://kdavis00.github.io/GCA_KaeD/"
+          style="width: 100%; height: 100%; border: none;"></iframe>
+      </div>
+    </div>
+
+    <!-- Video Player Window -->
+    <div class="window" id="videoWindow">
+      <div class="title-bar">
+        <span class="title">Videos</span>
+        <div class="window-controls">
+          <button class="minimize">_</button>
+          <button class="maximize">□</button>
+          <button class="close">×</button>
+        </div>
+      </div>
+      <div class="window-content folder-content">
+        <div class="file-icon" onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')">
+          <img src="Windows 2000/Default Document.ico" alt="Video 1">
+          <span>Video 1</span>
+        </div>
+        <div class="file-icon" onclick="playVideo('https://www.w3schools.com/html/mov_bbb.mp4')">
+          <img src="Windows 2000/Default Document.ico" alt="Video 2">
+          <span>Sample Video</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Minesweeper Window -->
+    <div class="window" id="minesweeperWindow" style="width: 250px; height: auto;">
+      <div class="title-bar">
+        <span class="title">Minesweeper</span>
+        <div class="window-controls">
+          <button class="minimize">_</button>
+          <button class="maximize">□</button>
+          <button class="close">×</button>
+        </div>
+      </div>
+      <div class="window-content" style="padding: 0; display: block;">
+        <div class="minesweeper-container" id="minesweeperGame"></div>
+      </div>
+    </div>
+
+    <!-- Solitaire Window -->
+    <div class="window" id="solitaireWindow" style="width: 600px; height: auto;">
+      <div class="title-bar">
+        <span class="title">Solitaire</span>
+        <div class="window-controls">
+          <button class="minimize">_</button>
+          <button class="maximize">□</button>
+          <button class="close">×</button>
+        </div>
+      </div>
+      <div class="window-content" style="padding: 0; display: block;">
+        <div class="solitaire-container" id="solitaireGame"></div>
+      </div>
+    </div>
+
+    <!-- About Me Window -->
+    <div class="window" id="aboutWindow" style="width: 500px; height: auto;">
+      <div class="title-bar">
+        <span class="title">About Me</span>
+        <div class="window-controls">
+          <button class="minimize">_</button>
+          <button class="maximize">□</button>
+          <button class="close">×</button>
+        </div>
+      </div>
+      <div class="window-content" style="padding: 0; display: block;">
+        <div id="aboutContent"></div>
+      </div>
+    </div>
+
+    <!-- Contact Window -->
+    <div class="window" id="contactWindow" style="width: 450px; height: auto;">
+      <div class="title-bar">
+        <span class="title">Contact Me</span>
+        <div class="window-controls">
+          <button class="minimize">_</button>
+          <button class="maximize">□</button>
+          <button class="close">×</button>
+        </div>
+      </div>
+      <div class="window-content" style="padding: 0; display: block;">
+        <div id="contactContent"></div>
+      </div>
+    </div>
+
+    <!-- MSN Widget Window -->
+    <div class="window" id="msnWindow" style="width: 320px; height: auto;">
+      <div class="title-bar">
+        <span class="title">MSN Messenger - Social Links</span>
+        <div class="window-controls">
+          <button class="minimize">_</button>
+          <button class="maximize">□</button>
+          <button class="close">×</button>
+        </div>
+      </div>
+      <div class="window-content" style="padding: 0; display: block;">
+        <div id="msnContent"></div>
+      </div>
+    </div>
+
+    <!-- Paint Window -->
+    <div class="window" id="paintWindow" style="width: 540px; height: auto;">
+      <div class="title-bar">
+        <span class="title">Paint</span>
+        <div class="window-controls">
+          <button class="minimize">_</button>
+          <button class="maximize">□</button>
+          <button class="close">×</button>
+        </div>
+      </div>
+      <div class="window-content paint-container" style="padding: 0; display: block;">
+        <div id="paintContent"></div>
+      </div>
+    </div>
+
+    <!-- Settings Window -->
+    <div class="window" id="settingsWindow" style="width: 650px; height: 500px;">
+      <div class="title-bar">
+        <span class="title">⚙️ Settings</span>
+        <div class="window-controls">
+          <button class="minimize">_</button>
+          <button class="maximize">□</button>
+          <button class="close">×</button>
+        </div>
+      </div>
+      <div class="window-content" style="padding: 0;">
+        <div id="settingsContent"></div>
+      </div>
+    </div>
+
+    <!-- Media Player Window -->
+    <div class="window" id="mediaPlayerWindow" style="width: 300px; height: auto;">
+      <div class="title-bar">
+        <img src="Windows 2000/Windows_Media_Player_4.svg" alt="" style="width: 16px; height: 16px; margin-right: 4px;">
+        <span class="title">Windows Media Player</span>
+        <div class="window-controls">
+          <button class="minimize">_</button>
+          <button class="maximize">□</button>
+          <button class="close">×</button>
+        </div>
+      </div>
+      <div class="media-menu-bar">
+        <span class="media-menu-item">File</span>
+        <span class="media-menu-item">View</span>
+        <span class="media-menu-item">Play</span>
+        <span class="media-menu-item">Favorites</span>
+        <span class="media-menu-item">Go</span>
+        <span class="media-menu-item">Help</span>
+      </div>
+      <div class="media-toolbar">
+        <button class="toolbar-btn" title="Back">◀</button>
+        <button class="toolbar-btn" title="Forward">▶</button>
+        <button class="toolbar-btn" title="Search">🔍</button>
+        <span class="toolbar-label">Radio</span>
+        <button class="toolbar-btn" title="Music">🎵</button>
+        <span class="toolbar-label">Music</span>
+        <button class="toolbar-btn" title="Media Guide">📁</button>
+        <span class="toolbar-label">Media Guide</span>
+      </div>
+      <div class="window-content" style="padding: 0; display: block;">
+        <div class="media-player-container">
+          <div class="media-screen">
+            <div class="media-logo">
+              <img src="img/windows-media-logo.png" alt="Windows Media" style="max-width: 200px; display: none;" id="mediaLogo">
+              <video id="mediaVideo" style="width: 100%; height: 200px; background: #000; display: block;">
+                Your browser does not support video playback.
+              </video>
+            </div>
+          </div>
+          <div class="media-position-bar">
+            <span class="position-marker">⏮</span>
+            <input type="range" class="media-seekbar" id="seekbar" value="0" min="0" max="100">
+          </div>
+          <div class="media-controls">
+            <div class="media-buttons">
+              <button class="media-control-btn" onclick="mediaPlayer.play()" title="Play">▶</button>
+              <button class="media-control-btn" onclick="mediaPlayer.pause()" title="Pause">⏸</button>
+              <button class="media-control-btn" onclick="mediaPlayer.stop()" title="Stop">⏹</button>
+              <button class="media-control-btn" title="Previous">⏮</button>
+              <button class="media-control-btn" title="Rewind">⏪</button>
+              <button class="media-control-btn" title="Fast Forward">⏩</button>
+              <button class="media-control-btn" title="Next">⏭</button>
+              <button class="media-control-btn" title="Playlist">☰</button>
+              <div class="media-spacer"></div>
+              <button class="media-control-btn" title="Volume">🔊</button>
+              <input type="range" class="media-volume" id="volume" value="50" min="0" max="100" orient="vertical">
+            </div>
+          </div>
+          <div class="media-info-panel">
+            <div class="info-row">
+              <span class="info-label">Show:</span>
+              <span class="info-value" id="mediaShow"></span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Clip:</span>
+              <span class="info-value" id="mediaClip"></span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Author:</span>
+              <span class="info-value" id="mediaAuthor"></span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Copyright:</span>
+              <span class="info-value" id="mediaCopyright"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Taskbar -->
+    <div class="taskbar">
+      <button class="start-button"><img src="Windows 2000/Windows_start_button.svg" alt="Start"> Start</button>
+      <div class="taskbar-items"></div>
+      <div class="time" id="clock"></div>
+    </div>
+
+    <!-- Date/Time Panel -->
+    <div class="datetime-panel" id="datetimePanel">
+      <div class="datetime-header">
+        <span class="datetime-title">Date/Time Properties</span>
+        <div class="window-controls">
+          <button class="minimize">_</button>
+          <button class="maximize">□</button>
+          <button class="close" onclick="document.getElementById('datetimePanel').style.display='none'">×</button>
+        </div>
+      </div>
+      <div class="datetime-content">
+        <div class="datetime-tab">Date & Time</div>
+        <div class="datetime-sections">
+          <div class="datetime-left">
+            <div class="datetime-group">
+              <label>Date</label>
+              <div class="datetime-selectors">
+                <select class="datetime-select" id="monthSelect">
+                  <option>January</option>
+                  <option>February</option>
+                  <option>March</option>
+                  <option>April</option>
+                  <option selected>May</option>
+                  <option>June</option>
+            </div>
+          </div>
+          <div class="datetime-right">
+            <div class="datetime-group">
+              <label>Time</label>
+              <div class="analog-clock">
+                <canvas id="analogClock" width="180" height="180"></canvas>
+              </div>
+              <div class="digital-time" id="digitalTime">4:32:20 PM</div>
+            </div>
+          </div>
+        </div>
+        <div class="datetime-timezone">
+          <label>Time zone</label>
+          <select class="datetime-select-wide">
+            <option>(GMT-05:00) Eastern Time (US & Canada)</option>
+          </select>
+          <label class="datetime-checkbox">
+            <input type="checkbox" checked> Automatically adjust clock for daylight saving changes
+          </label>
+        </div>
+        <div class="datetime-buttons">
+          <button class="win-button">OK</button>
+          <button class="win-button">Cancel</button>
+          <button class="win-button">Apply</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Start Menu -->
+    <div class="start-menu" id="startMenu">
+      <div class="start-menu-banner">
+        <span class="banner-text">Windows<span class="banner-version">2000 Professional</span></span>
+      </div>
+      <div class="start-menu-content">
+        <ul>
+          <li class="menu-item-gray">
+            <img src="Windows 2000/Settings.ico" alt="">
+            Set Program Access and Defaults
+          </li>
+          <li class="menu-item-gray">
+            <img src="Windows 2000/Network.ico" alt="">
+            Windows Update
+          </li>
+          <li class="separator"></li>
+          <li class="submenu-parent menu-item-blue">
+            <img src="Windows 2000/Folder Closed.ico" alt="">
+            Programs
+            <span class="arrow">►</span>
+            <ul class="submenu">
+              <li class="submenu-parent">
+                <img src="Windows 2000/Folder Closed.ico" alt="">
+                Games
+                <span class="arrow">►</span>
+                <ul class="submenu">
+                  <li data-window="minesweeperWindow">Minesweeper</li>
+                  <li data-window="solitaireWindow">Solitaire</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li class="submenu-parent">
+            <img src="Windows 2000/Default Document.ico" alt="">
+            Documents
+            <span class="arrow">►</span>
+          </li>
+          <li class="submenu-parent" data-window="settingsWindow">
+            <img src="Windows 2000/Settings.ico" alt="">
+            Settings
+            <span class="arrow">►</span>
+          </li>
+          <li class="submenu-parent">
+            <img src="Windows 2000/Search.ico" alt="">
+            Search
+            <span class="arrow">►</span>
+          </li>
+          <li>
+            <img src="Windows 2000/Help.ico" alt="">
+            Help
+          </li>
+          <li>
+            <img src="Windows 2000/Folder Closed.ico" alt="">
+            Run...
+          </li>
+          <li class="separator"></li>
+          <li>
+            <img src="Windows 2000/Network (3).ico" alt="">
+            Log Off Administrator...
+          </li>
+          <li onclick="shutdown()">
+            <img src="Windows 2000/Shutdown.ico" alt="">
+            Shut Down...
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <script src="about.js"></script>
+<script src="contact.js"></script>
+<script src="projects.js"></script>
+<script src="settings.js"></script>
+<script src="minesweeper.js"></script>
+<script src="solitaire.js"></script>
+<script src="script.js"></script>
+</body>
+
+</html>

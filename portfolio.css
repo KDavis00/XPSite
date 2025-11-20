@@ -1,0 +1,574 @@
+/* Paint Styles */
+.paint-container {
+  background: #d4d0c8;
+  padding: 0;
+}
+
+.paint-toolbar {
+  background: #d4d0c8;
+  padding: 8px;
+  border-bottom: 2px solid #808080;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.paint-tools {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.tool-btn {
+  background: #d4d0c8;
+  border: 2px solid;
+  border-color: #fff #808080 #808080 #fff;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 11px;
+}
+
+.tool-btn.active {
+  border-color: #808080 #fff #fff #808080;
+  background: #b0b0b0;
+}
+
+.tool-btn:hover {
+  background: #e0e0e0;
+}
+
+.paint-colors {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.color-palette {
+  display: grid;
+  grid-template-columns: repeat(10, 24px);
+  gap: 3px;
+}
+
+.color-preset {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #000;
+  cursor: pointer;
+}
+
+.color-preset:hover {
+  border-color: #fff;
+  box-shadow: 0 0 3px #000;
+}
+
+#colorPicker {
+  width: 40px;
+  height: 28px;
+  border: 2px solid #808080;
+  cursor: pointer;
+}
+
+.paint-actions {
+  display: flex;
+  gap: 5px;
+}
+
+.action-btn {
+  background: #d4d0c8;
+  border: 2px solid;
+  border-color: #fff #808080 #808080 #fff;
+  padding: 4px 12px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.action-btn:active {
+  border-color: #808080 #fff #fff #808080;
+}
+
+#paintCanvas {
+  display: block;
+  background: white;
+  cursor: crosshair;
+  border: 2px solid #808080;
+  margin: 10px;
+}
+
+/* About Me Styles */
+.about-me-content {
+  padding: 20px;
+  background: #d4d0c8;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.about-header {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #808080;
+}
+
+.profile-photo {
+  width: 120px;
+  height: 120px;
+  border: 3px solid #808080;
+  border-radius: 5px;
+}
+
+.about-intro h2 {
+  margin: 0 0 10px 0;
+  color: #000080;
+}
+
+.tagline {
+  color: #666;
+  font-style: italic;
+  margin: 0;
+}
+
+.about-section {
+  margin-bottom: 20px;
+}
+
+.about-section h3 {
+  color: #000080;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #808080;
+}
+
+.skill-bar {
+  margin-bottom: 12px;
+}
+
+.skill-label {
+  font-weight: bold;
+  margin-bottom: 4px;
+  font-size: 12px;
+}
+
+.skill-progress {
+  background: #fff;
+  border: 1px solid #808080;
+  height: 20px;
+  position: relative;
+}
+
+.skill-fill {
+  background: linear-gradient(to bottom, #0078d7, #004a8c);
+  height: 100%;
+  transition: width 1s ease;
+}
+
+.experience-item {
+  margin-bottom: 15px;
+  padding: 10px;
+  background: #fff;
+  border: 1px solid #808080;
+}
+
+.experience-item strong {
+  color: #000080;
+}
+
+.experience-item p {
+  margin: 5px 0 0 0;
+  font-size: 13px;
+}
+
+/* Contact Form Styles */
+.contact-form-content {
+  padding: 20px;
+  background: #d4d0c8;
+}
+
+.contact-form-content h3 {
+  color: #000080;
+  margin-bottom: 15px;
+}
+
+.win-form {
+  background: #d4d0c8;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 12px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 5px;
+  border: 2px solid;
+  border-color: #808080 #fff #fff #808080;
+  font-family: Tahoma, sans-serif;
+  font-size: 12px;
+  box-sizing: border-box;
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.win-button {
+  background: #d4d0c8;
+  border: 2px solid;
+  border-color: #fff #808080 #808080 #fff;
+  padding: 5px 20px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.win-button:active {
+  border-color: #808080 #fff #fff #808080;
+}
+
+.contact-status {
+  margin-top: 15px;
+  padding: 10px;
+  font-weight: bold;
+  min-height: 20px;
+}
+
+/* MSN Widget Styles */
+.msn-widget {
+  background: linear-gradient(to bottom, #7c9dd4, #d4e4f7);
+  padding: 15px;
+  border-radius: 5px;
+  font-family: Tahoma, sans-serif;
+}
+
+.msn-header {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #5a7fb0;
+}
+
+.msn-avatar {
+  width: 48px;
+  height: 48px;
+  border: 2px solid #fff;
+  border-radius: 3px;
+}
+
+.msn-name {
+  font-weight: bold;
+  font-size: 14px;
+  color: #000;
+}
+
+.msn-status {
+  font-size: 11px;
+  color: #333;
+  margin-top: 2px;
+}
+
+.msn-links {
+  background: rgba(255,255,255,0.6);
+  padding: 10px;
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+
+.msn-links h4 {
+  margin: 0 0 10px 0;
+  font-size: 12px;
+  color: #000080;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  margin-bottom: 5px;
+  background: #fff;
+  border: 1px solid #999;
+  text-decoration: none;
+  color: #000;
+  border-radius: 3px;
+  font-size: 12px;
+  transition: background 0.2s;
+}
+
+.social-link:hover {
+  background: #e6f2ff;
+  border-color: #0078d7;
+}
+
+.link-icon {
+  font-size: 16px;
+}
+
+.msn-personal-message {
+  background: rgba(255,255,255,0.4);
+  padding: 8px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-style: italic;
+  text-align: center;
+  color: #333;
+}
+
+/* Project Items */
+.project-item {
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.project-item:hover {
+  background: rgba(0,0,255,0.1);
+}
+
+/* Boot Sequence Styles */
+#bootScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s;
+}
+
+.boot-content {
+  text-align: center;
+  color: #fff;
+}
+
+.boot-logo h1 {
+  font-size: 36px;
+  margin: 0 0 10px 0;
+  font-weight: normal;
+}
+
+.boot-logo p {
+  font-size: 18px;
+  margin: 0 0 40px 0;
+}
+
+.boot-progress {
+  width: 300px;
+  height: 20px;
+  background: #333;
+  border: 2px solid #666;
+  margin: 0 auto 20px;
+  overflow: hidden;
+}
+
+.boot-bar {
+  height: 100%;
+  background: linear-gradient(to right, #0078d7, #00bcf2);
+  animation: bootProgress 3s ease-in-out;
+}
+
+@keyframes bootProgress {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+.boot-text {
+  font-size: 14px;
+  color: #aaa;
+  margin-top: 20px;
+}
+
+/* Context Menu Styles */
+.context-menu {
+  position: absolute;
+  background: #d4d0c8;
+  border: 2px solid;
+  border-color: #fff #808080 #808080 #fff;
+  box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  min-width: 180px;
+  z-index: 9999;
+  display: none;
+}
+
+.context-item {
+  padding: 6px 30px 6px 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+}
+
+.context-item:hover {
+  background: #000080;
+  color: #fff;
+}
+
+.context-icon {
+  width: 20px;
+  text-align: center;
+}
+
+.context-divider {
+  height: 1px;
+  background: #808080;
+  margin: 2px 0;
+}
+
+/* Shutdown Screen */
+#shutdownScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-family: 'MS Sans Serif', sans-serif;
+}
+
+.shutdown-content {
+  text-align: center;
+}
+
+.shutdown-content h2 {
+  font-size: 24px;
+  margin-bottom: 30px;
+  color: #c0c0c0;
+}
+
+.shutdown-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #333;
+  border-top: 4px solid #fff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
+.shutdown-message {
+  margin-top: 30px;
+}
+
+.shutdown-box {
+  background: #000;
+  padding: 20px;
+  border: 2px solid #808080;
+}
+
+.shutdown-box p {
+  color: #c0c0c0;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.shutdown-btn {
+  background: #000;
+  color: #fff;
+  border: 2px solid #808080;
+  padding: 8px 20px;
+  font-family: 'MS Sans Serif', sans-serif;
+  font-size: 12px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.shutdown-btn:hover {
+  background: #333;
+}
+
+.shutdown-btn:active {
+  border-style: inset;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Blue Screen of Death */
+#bsodScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #0000AA;
+  z-index: 100000;
+  color: #FFFFFF;
+  font-family: 'Courier New', monospace;
+  padding: 40px;
+  overflow-y: auto;
+  cursor: pointer;
+}
+
+.bsod-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.bsod-content h1 {
+  font-size: 28px;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+
+.bsod-content p {
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 10px 0;
+}
+
+.bsod-error {
+  color: #FFFF00;
+  font-weight: bold;
+  margin: 20px 0 !important;
+  font-size: 16px;
+}
+
+.bsod-skills {
+  margin: 30px 0;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #FFFFFF;
+}
+
+.bsod-skills p {
+  margin: 5px 0;
+  font-size: 13px;
+}
+
+.bsod-footer {
+  margin-top: 40px !important;
+  text-align: center;
+  animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
