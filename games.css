@@ -1,4 +1,4 @@
-/* Minesweeper Styles */
+/* MINESWEEPER STYLES */
 .minesweeper-container {
   padding: 10px;
   background: #c0c0c0;
@@ -100,7 +100,7 @@
   cursor: default;
 }
 
-/* Solitaire Styles */
+/* SOLITAIRE STYLES */
 .solitaire-container {
   padding: 20px;
   background: #008000;
@@ -236,7 +236,7 @@
   position: absolute;
 }
 
-/* Hearts Styles */
+/* HEARTS STYLES */
 .hearts-container {
   padding: 20px;
   background: #2a5;
@@ -352,7 +352,7 @@
   border-radius: 5px;
 }
 
-/* Pinball Styles */
+/* PINBALL STYLES */
 .pinball-container {
   padding: 20px;
   background: #0f0f1e;

@@ -1,74 +1,44 @@
-// SETTINGS APPLICATION: MAIN CLASS
-// Manages all accessibility and display settings for the portfolio
-// Features:
-// - High contrast mode for better visibility
-// - Adjustable text and icon sizes
-// - Reduced motion for users sensitive to animations
-// - Screen reader support with ARIA labels
-// - Keyboard navigation enhancements
-// Settings are persisted in localStorage
+// Settings Application
 class Settings {
   constructor() {
     this.settings = this.loadSettings();
     this.applySettings();
   }
 
-  // Load settings from localStorage or use defaults
-  // Merges saved settings with default values to handle new settings
   loadSettings() {
     const defaults = {
-      theme: 'default', // default, dark, highContrast
       highContrast: false,
-      darkMode: false,
       textSize: 100,
       iconSize: 100,
       reducedMotion: false,
       screenReader: true,
       keyboardNav: true,
-      focusIndicator: false,
-      disableTransparency: false,
-      cursorSize: 'normal', // normal, large, xl
-      readingMode: false,
-      colorBlindMode: 'none', // none, deuteranopia, protanopia, tritanopia
-      rtlMode: false // Right-to-left text direction
+      focusIndicator: true
     };
     
     const saved = localStorage.getItem('accessibilitySettings');
     return saved ? { ...defaults, ...JSON.parse(saved) } : defaults;
   }
 
-  // Save current settings to localStorage and apply them to the UI
-  // Called whenever a setting is changed
   saveSettings() {
     localStorage.setItem('accessibilitySettings', JSON.stringify(this.settings));
     this.applySettings();
   }
 
-  // Apply all settings to the document
-  // Modifies CSS classes, styles, and DOM attributes based on settings
   applySettings() {
     const root = document.documentElement;
     
-    // Remove all theme classes first
-    root.classList.remove('high-contrast', 'dark-mode', 'theme-default');
-    
-    // Apply theme
-    if (this.settings.theme === 'highContrast' || this.settings.highContrast) {
+    // High Contrast Mode
+    if (this.settings.highContrast) {
       root.classList.add('high-contrast');
-      this.settings.theme = 'highContrast';
-    } else if (this.settings.theme === 'dark' || this.settings.darkMode) {
-      root.classList.add('dark-mode');
-      this.settings.theme = 'dark';
     } else {
-      root.classList.add('theme-default');
-      this.settings.theme = 'default';
+      root.classList.remove('high-contrast');
     }
 
-    // Text Size - Scales all text using CSS zoom
-    const zoomValue = this.settings.textSize / 100;
-    document.body.style.zoom = zoomValue;
+    // Text Size
+    root.style.fontSize = this.settings.textSize + '%';
 
-    // Icon Size - Dynamically resizes all desktop icons
+    // Icon Size
     document.querySelectorAll('.icon img').forEach(img => {
       const baseSize = 32;
       const newSize = (baseSize * this.settings.iconSize / 100);
@@ -76,65 +46,26 @@ class Settings {
       img.style.height = newSize + 'px';
     });
 
-    // Reduced Motion - Disables animations for accessibility
+    // Reduced Motion
     if (this.settings.reducedMotion) {
       root.classList.add('reduced-motion');
     } else {
       root.classList.remove('reduced-motion');
     }
 
-    // Keyboard Navigation Indicators - Shows visible focus outline
+    // Keyboard Navigation Indicators
     if (this.settings.focusIndicator) {
       root.classList.add('focus-visible');
     } else {
       root.classList.remove('focus-visible');
     }
 
-    // Screen Reader Announcements - Enables ARIA support
+    // Screen Reader Announcements
     if (this.settings.screenReader) {
       this.enableScreenReaderMode();
     }
-
-    // Disable Transparency - Removes transparency effects
-    if (this.settings.disableTransparency) {
-      root.classList.add('no-transparency');
-    } else {
-      root.classList.remove('no-transparency');
-    }
-
-    // Cursor Size - Enlarges mouse cursor
-    root.classList.remove('cursor-large', 'cursor-xl');
-    if (this.settings.cursorSize === 'large') {
-      root.classList.add('cursor-large');
-    } else if (this.settings.cursorSize === 'xl') {
-      root.classList.add('cursor-xl');
-    }
-
-    // Reading Mode - Simplified layout with better spacing
-    if (this.settings.readingMode) {
-      root.classList.add('reading-mode');
-    } else {
-      root.classList.remove('reading-mode');
-    }
-
-    // Color Blind Modes - Apply color filters
-    root.classList.remove('deuteranopia', 'protanopia', 'tritanopia');
-    if (this.settings.colorBlindMode !== 'none') {
-      root.classList.add(this.settings.colorBlindMode);
-    }
-
-    // RTL Mode - Right-to-left text direction
-    if (this.settings.rtlMode) {
-      root.setAttribute('dir', 'rtl');
-      document.body.classList.add('rtl-mode');
-    } else {
-      root.setAttribute('dir', 'ltr');
-      document.body.classList.remove('rtl-mode');
-    }
   }
 
-  // Enable screen reader support by adding ARIA attributes
-  // Adds role, tabindex, and aria-modal attributes to interactive elements
   enableScreenReaderMode() {
     // Add ARIA labels where needed
     document.querySelectorAll('.icon').forEach(icon => {
@@ -152,27 +83,182 @@ class Settings {
     });
   }
 
-  // Update a single setting and save to localStorage
-  // Key: setting name (e.g., 'highContrast')
-  // Value: new value for the setting
   updateSetting(key, value) {
     this.settings[key] = value;
     this.saveSettings();
   }
 }
 
-// SETTINGS WINDOW: UI INITIALIZATION
-// Initialize the settings window with tabs and controls
-// Creates a multi-tab interface for accessibility options, keyboard shortcuts, display, and about info
+// Settings Window Content
+function initSettings() {
+  const settingsContent = document.getElementById('settingsContent');
+  if (!settingsContent) return;
+
+  settingsContent.innerHTML = `
+    <div class="settings-container">
+      <div class="settings-sidebar">
+        <div class="settings-tab active" data-tab="display">
+          <img src="Windows 2000/Settings.ico" alt="">
+          Display
+        </div>
+        <div class="settings-tab" data-tab="themes">
+          <img src="Windows 2000/Paint.ico" alt="">
+          Themes
+        </div>
+        <div class="settings-tab" data-tab="desktop">
+          <img src="Windows 2000/Folder Closed.ico" alt="">
+          Desktop
+        </div>
+        <div class="settings-tab" data-tab="screensaver">
+          <img src="Windows 2000/Default Document.ico" alt="">
+          Screen Saver
+        </div>
+        <div class="settings-tab" data-tab="about">
+          <img src="Windows 2000/Help.ico" alt="">
+          About
+        </div>
+      </div>
+      <div class="settings-content">
+        <div class="settings-panel active" id="displayPanel">
+          <h3>Display Settings</h3>
+          <div class="settings-group">
+            <label>Screen Resolution</label>
+            <select class="settings-select">
+              <option>800 x 600 pixels</option>
+              <option selected>1024 x 768 pixels</option>
+              <option>1280 x 1024 pixels</option>
+              <option>1920 x 1080 pixels</option>
+            </select>
+          </div>
+          <div class="settings-group">
+            <label>Color Quality</label>
+            <select class="settings-select">
+              <option>16 bit</option>
+              <option selected>32 bit</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="settings-panel" id="themesPanel">
+          <h3>Theme Settings</h3>
+          <div class="settings-group">
+            <label>Desktop Background</label>
+            <select class="settings-select" id="backgroundSelect">
+              <option value="default">Windows 2000 Default (Teal)</option>
+              <option value="bliss">Bliss (Green Hills)</option>
+              <option value="blue">Azure Blue</option>
+              <option value="black">Black</option>
+            </select>
+            <button class="win-button" onclick="applyBackground()">Apply</button>
+          </div>
+          <div class="settings-group">
+            <label>Window Color</label>
+            <select class="settings-select">
+              <option selected>Classic Windows</option>
+              <option>High Contrast</option>
+              <option>Desert</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="settings-panel" id="desktopPanel">
+          <h3>Desktop Icons</h3>
+          <div class="settings-group">
+            <label class="settings-checkbox">
+              <input type="checkbox" checked> My Computer
+            </label>
+            <label class="settings-checkbox">
+              <input type="checkbox" checked> Recycle Bin
+            </label>
+            <label class="settings-checkbox">
+              <input type="checkbox" checked> Internet Explorer
+            </label>
+            <label class="settings-checkbox">
+              <input type="checkbox"> My Network Places
+            </label>
+          </div>
+        </div>
+        
+        <div class="settings-panel" id="screensaverPanel">
+          <h3>Screen Saver</h3>
+          <div class="settings-group">
+            <label>Screen Saver</label>
+            <select class="settings-select">
+              <option>(None)</option>
+              <option>3D Flying Objects</option>
+              <option>3D Text</option>
+              <option>Blank</option>
+              <option selected>Starfield</option>
+            </select>
+          </div>
+          <div class="settings-group">
+            <label>Wait: <span id="waitMinutes">10</span> minutes</label>
+            <input type="range" min="1" max="60" value="10" oninput="document.getElementById('waitMinutes').textContent = this.value">
+          </div>
+        </div>
+        
+        <div class="settings-panel" id="aboutPanel">
+          <h3>About Windows 2000</h3>
+          <div class="about-info">
+            <img src="img/k_ded.png" alt="Logo" style="max-width: 100px; margin-bottom: 10px;">
+            <p><strong>Microsoft Windows 2000</strong></p>
+            <p>Professional Edition</p>
+            <p>Version 5.0 (Build 2195)</p>
+            <hr>
+            <p><strong>Portfolio Site</strong></p>
+            <p>Created by: Kae Davis</p>
+            <p>A nostalgic Windows 2000 themed portfolio</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Tab switching
+  document.querySelectorAll('.settings-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.settings-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.settings-panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab + 'Panel').classList.add('active');
+    });
+  });
+}
+
+function applyBackground() {
+  const select = document.getElementById('backgroundSelect');
+  const desktop = document.querySelector('.desktop');
+  
+  switch(select.value) {
+    case 'bliss':
+      desktop.style.background = 'linear-gradient(180deg, #5a9fd4 0%, #306998 100%)';
+      break;
+    case 'blue':
+      desktop.style.background = '#5a9fd4';
+      break;
+    case 'black':
+      desktop.style.background = '#000';
+      break;
+    default:
+      desktop.style.background = 'linear-gradient(135deg, #1e5799 0%, #2989d8 50%, #207cca 100%)';
+  }
+}
+
+// Initialize on DOM load
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initSettings);
+} else {
+  initSettings();
+}
+
+// Initialize Settings
 function initSettings() {
   const settingsWindow = document.getElementById('settingsWindow');
   if (settingsWindow.dataset.initialized) return;
   settingsWindow.dataset.initialized = 'true';
 
   const settingsApp = new Settings();
-  const content = document.getElementById('settingsContent');
-  
-  if (!content) return;
+  const content = settingsWindow.querySelector('.window-content');
 
   content.innerHTML = `
     <div class="settings-container">
@@ -208,29 +294,14 @@ function initSettings() {
             </div>
 
             <div class="setting-item">
-              <div class="setting-name">Text Size</div>
-              <select id="textSize" class="setting-select">
-                <option value="75" ${settingsApp.settings.textSize === 75 ? 'selected' : ''}>75% - Small</option>
-                <option value="85" ${settingsApp.settings.textSize === 85 ? 'selected' : ''}>85%</option>
-                <option value="100" ${settingsApp.settings.textSize === 100 ? 'selected' : ''}>100% - Normal</option>
-                <option value="110" ${settingsApp.settings.textSize === 110 ? 'selected' : ''}>110%</option>
-                <option value="125" ${settingsApp.settings.textSize === 125 ? 'selected' : ''}>125% - Large</option>
-                <option value="150" ${settingsApp.settings.textSize === 150 ? 'selected' : ''}>150% - Extra Large</option>
-                <option value="175" ${settingsApp.settings.textSize === 175 ? 'selected' : ''}>175%</option>
-                <option value="200" ${settingsApp.settings.textSize === 200 ? 'selected' : ''}>200% - Huge</option>
-              </select>
+              <div class="setting-name">Text Size: <span id="textSizeValue">${settingsApp.settings.textSize}%</span></div>
+              <input type="range" id="textSize" min="75" max="200" step="5" value="${settingsApp.settings.textSize}" class="setting-slider">
               <p class="setting-desc">Adjust text size across the entire site</p>
             </div>
 
             <div class="setting-item">
-              <div class="setting-name">Icon Size</div>
-              <select id="iconSize" class="setting-select">
-                <option value="50" ${settingsApp.settings.iconSize === 50 ? 'selected' : ''}>50% - Tiny</option>
-                <option value="75" ${settingsApp.settings.iconSize === 75 ? 'selected' : ''}>75% - Small</option>
-                <option value="100" ${settingsApp.settings.iconSize === 100 ? 'selected' : ''}>100% - Normal</option>
-                <option value="125" ${settingsApp.settings.iconSize === 125 ? 'selected' : ''}>125% - Large</option>
-                <option value="150" ${settingsApp.settings.iconSize === 150 ? 'selected' : ''}>150% - Extra Large</option>
-              </select>
+              <div class="setting-name">Icon Size: <span id="iconSizeValue">${settingsApp.settings.iconSize}%</span></div>
+              <input type="range" id="iconSize" min="50" max="150" step="10" value="${settingsApp.settings.iconSize}" class="setting-slider">
               <p class="setting-desc">Adjust desktop icon size</p>
             </div>
 
@@ -303,10 +374,6 @@ function initSettings() {
                 <span class="shortcut-key">Arrow Keys</span>
                 <span class="shortcut-desc">Navigate through menus and options</span>
               </div>
-              <div class="shortcut-item">
-                <span class="shortcut-key">Ctrl + Z</span>
-                <span class="shortcut-desc">Undo changes (in Paint and other apps)</span>
-              </div>
             </div>
           </div>
 
@@ -354,65 +421,8 @@ function initSettings() {
           <div class="settings-section">
             <h3>Theme</h3>
             <div class="setting-item">
-              <div class="setting-name">Color Theme</div>
-              <select id="themeSelect" class="setting-select">
-                <option value="default" ${settingsApp.settings.theme === 'default' ? 'selected' : ''}>Windows 2000 Classic</option>
-                <option value="dark" ${settingsApp.settings.theme === 'dark' ? 'selected' : ''}>Dark Mode</option>
-                <option value="highContrast" ${settingsApp.settings.theme === 'highContrast' ? 'selected' : ''}>High Contrast</option>
-              </select>
-              <p class="setting-desc">Choose your preferred color theme</p>
-            </div>
-          </div>
-
-          <div class="settings-section">
-            <h3>Visual Effects</h3>
-            <div class="setting-item">
-              <label>
-                <input type="checkbox" id="disableTransparency" ${settingsApp.settings.disableTransparency ? 'checked' : ''}>
-                <span>Disable Transparency</span>
-              </label>
-              <p class="setting-desc">Remove transparency effects for better contrast</p>
-            </div>
-            <div class="setting-item">
-              <label>
-                <input type="checkbox" id="readingMode" ${settingsApp.settings.readingMode ? 'checked' : ''}>
-                <span>Reading Mode</span>
-              </label>
-              <p class="setting-desc">Simplified layout with increased spacing and margins</p>
-            </div>
-            <div class="setting-item">
-              <label>
-                <input type="checkbox" id="rtlMode" ${settingsApp.settings.rtlMode ? 'checked' : ''}>
-                <span>Right-to-Left (RTL)</span>
-              </label>
-              <p class="setting-desc">Enable right-to-left text direction for RTL languages</p>
-            </div>
-          </div>
-
-          <div class="settings-section">
-            <h3>Cursor Size</h3>
-            <div class="setting-item">
-              <div class="setting-name">Mouse Cursor</div>
-              <select id="cursorSizeSelect" class="setting-select">
-                <option value="normal" ${settingsApp.settings.cursorSize === 'normal' ? 'selected' : ''}>Normal</option>
-                <option value="large" ${settingsApp.settings.cursorSize === 'large' ? 'selected' : ''}>Large</option>
-                <option value="xl" ${settingsApp.settings.cursorSize === 'xl' ? 'selected' : ''}>Extra Large</option>
-              </select>
-              <p class="setting-desc">Enlarge the mouse cursor for better visibility</p>
-            </div>
-          </div>
-
-          <div class="settings-section">
-            <h3>Color Blind Mode</h3>
-            <div class="setting-item">
-              <div class="setting-name">Color Filter</div>
-              <select id="colorBlindModeSelect" class="setting-select">
-                <option value="none" ${settingsApp.settings.colorBlindMode === 'none' ? 'selected' : ''}>None</option>
-                <option value="deuteranopia" ${settingsApp.settings.colorBlindMode === 'deuteranopia' ? 'selected' : ''}>Deuteranopia (Red-Green)</option>
-                <option value="protanopia" ${settingsApp.settings.colorBlindMode === 'protanopia' ? 'selected' : ''}>Protanopia (Red-Blind)</option>
-                <option value="tritanopia" ${settingsApp.settings.colorBlindMode === 'tritanopia' ? 'selected' : ''}>Tritanopia (Blue-Yellow)</option>
-              </select>
-              <p class="setting-desc">Apply color filters for color blindness accessibility</p>
+              <p class="setting-name">Classic Windows 2000 Theme</p>
+              <p class="setting-desc">The authentic retro experience</p>
             </div>
           </div>
         </div>
@@ -457,84 +467,34 @@ function initSettings() {
     checkbox.addEventListener('change', (e) => {
       settingsApp.updateSetting(e.target.id, e.target.checked);
       
-      // If high contrast is unchecked, reset theme to default
-      if (e.target.id === 'highContrast' && !e.target.checked) {
-        settingsApp.settings.theme = 'default';
-        const themeSelect = content.querySelector('#themeSelect');
-        if (themeSelect) {
-          themeSelect.value = 'default';
-        }
-        settingsApp.applySettings();
-        settingsApp.saveSettings();
-      }
-      
-      // Apply settings immediately for visual changes
-      settingsApp.applySettings();
-      
       // Show confirmation
       showNotification(`Setting updated: ${e.target.nextElementSibling.textContent}`);
     });
   });
 
   // Range slider handlers
-  const textSizeSelect = content.querySelector('#textSize');
-  const iconSizeSelect = content.querySelector('#iconSize');
-  const themeSelect = content.querySelector('#themeSelect');
+  const textSizeSlider = content.querySelector('#textSize');
+  const iconSizeSlider = content.querySelector('#iconSize');
 
-  if (textSizeSelect) {
-    textSizeSelect.value = settingsApp.settings.textSize;
-    textSizeSelect.addEventListener('change', (e) => {
-      settingsApp.settings.textSize = parseInt(e.target.value);
-      settingsApp.applySettings();
-      settingsApp.saveSettings();
-      showNotification('Text size: ' + e.target.options[e.target.selectedIndex].text);
+  if (textSizeSlider) {
+    textSizeSlider.addEventListener('input', (e) => {
+      content.querySelector('#textSizeValue').textContent = e.target.value + '%';
+    });
+    
+    textSizeSlider.addEventListener('change', (e) => {
+      settingsApp.updateSetting('textSize', parseInt(e.target.value));
+      showNotification(`Text size: ${e.target.value}%`);
     });
   }
 
-  if (iconSizeSelect) {
-    iconSizeSelect.value = settingsApp.settings.iconSize;
-    iconSizeSelect.addEventListener('change', (e) => {
-      settingsApp.settings.iconSize = parseInt(e.target.value);
-      settingsApp.applySettings();
-      settingsApp.saveSettings();
-      showNotification('Icon size: ' + e.target.options[e.target.selectedIndex].text);
+  if (iconSizeSlider) {
+    iconSizeSlider.addEventListener('input', (e) => {
+      content.querySelector('#iconSizeValue').textContent = e.target.value + '%';
     });
-  }
-
-  // Theme selector
-  if (themeSelect) {
-    themeSelect.value = settingsApp.settings.theme;
-    themeSelect.addEventListener('change', (e) => {
-      settingsApp.settings.theme = e.target.value;
-      settingsApp.settings.highContrast = e.target.value === 'highContrast';
-      settingsApp.settings.darkMode = e.target.value === 'dark';
-      settingsApp.applySettings();
-      settingsApp.saveSettings();
-      showNotification('Theme changed to ' + e.target.options[e.target.selectedIndex].text);
-    });
-  }
-
-  // Cursor size selector
-  const cursorSizeSelect = content.querySelector('#cursorSizeSelect');
-  if (cursorSizeSelect) {
-    cursorSizeSelect.value = settingsApp.settings.cursorSize;
-    cursorSizeSelect.addEventListener('change', (e) => {
-      settingsApp.settings.cursorSize = e.target.value;
-      settingsApp.applySettings();
-      settingsApp.saveSettings();
-      showNotification('Cursor size: ' + e.target.options[e.target.selectedIndex].text);
-    });
-  }
-
-  // Color blind mode selector
-  const colorBlindModeSelect = content.querySelector('#colorBlindModeSelect');
-  if (colorBlindModeSelect) {
-    colorBlindModeSelect.value = settingsApp.settings.colorBlindMode;
-    colorBlindModeSelect.addEventListener('change', (e) => {
-      settingsApp.settings.colorBlindMode = e.target.value;
-      settingsApp.applySettings();
-      settingsApp.saveSettings();
-      showNotification('Color filter: ' + e.target.options[e.target.selectedIndex].text);
+    
+    iconSizeSlider.addEventListener('change', (e) => {
+      settingsApp.updateSetting('iconSize', parseInt(e.target.value));
+      showNotification(`Icon size: ${e.target.value}%`);
     });
   }
 
@@ -542,8 +502,6 @@ function initSettings() {
   settingsWindow.settingsApp = settingsApp;
 }
 
-// Reset all settings to default values
-// Clears localStorage and reinitializes the settings window
 function resetSettings() {
   if (confirm('Reset all accessibility settings to defaults?')) {
     localStorage.removeItem('accessibilitySettings');
@@ -554,8 +512,6 @@ function resetSettings() {
   }
 }
 
-// Display a temporary notification message
-// Shows a toast-style notification that auto-dismisses after 2 seconds
 function showNotification(message) {
   const notification = document.createElement('div');
   notification.className = 'settings-notification';
@@ -572,12 +528,7 @@ function showNotification(message) {
   }, 2000);
 }
 
-// GLOBAL KEYBOARD SHORTCUTS
-// Add global keyboard shortcuts for quick access to features
-// Ctrl+Shift+B: Show BSOD easter egg
-// Ctrl+Shift+S: Open settings
-// Alt+F4: Close active window
-// Ctrl+Plus/Minus: Adjust text size
+// Add keyboard shortcut for BSOD (Ctrl+Shift+B)
 document.addEventListener('keydown', (e) => {
   if (e.ctrlKey && e.shiftKey && e.key === 'B') {
     showBSOD();
@@ -630,6 +581,5 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// GLOBAL SETTINGS INSTANCE
-// Initialize Settings instance globally for use across the application
+// Initialize Settings instance globally
 const globalSettings = new Settings();

@@ -1,4 +1,7 @@
-// Boot Sequence
+// BOOT SEQUENCE: WINDOWS 2000 STARTUP
+// Displays a nostalgic Windows 2000 boot animation when page loads
+// Shows logo, loading bar, and status messages
+// Automatically opens Settings window after boot completes
 function showBootSequence() {
   const bootScreen = document.createElement('div');
   bootScreen.id = 'bootScreen';
@@ -6,8 +9,8 @@ function showBootSequence() {
     <div class="boot-content">
       <div class="boot-logo">
         <img src="img/k_ded.png" alt="Logo" class="boot-image">
-        <h1>Microsoft Windows 2000</h1>
-        <p>Professional</p>
+        <h1>Windows Kae00</h1>
+        <p>Aspiring Professional</p>
       </div>
       <div class="boot-progress">
         <div class="boot-bar"></div>
@@ -17,6 +20,9 @@ function showBootSequence() {
   `;
   document.body.appendChild(bootScreen);
 
+  // Boot sequence timing:
+  // 0s: Initial screen
+  // 1s: Loading system files message
   setTimeout(() => {
     bootScreen.querySelector('.boot-text').textContent = 'Loading system files...';
   }, 1000);
@@ -25,36 +31,43 @@ function showBootSequence() {
     bootScreen.querySelector('.boot-text').textContent = 'Initializing desktop...';
   }, 2000);
 
+  // 3s: Fade out boot screen and initialize desktop
   setTimeout(() => {
     bootScreen.style.opacity = '0';
     setTimeout(() => {
       bootScreen.remove();
       playStartupSound();
+      
+      // Show settings window on boot
+      const settingsWindow = document.getElementById('settingsWindow');
+      if (settingsWindow) {
+        // Initialize settings content first
+        if (typeof initSettings === 'function') {
+          initSettings();
+        }
+        settingsWindow.style.display = 'block';
+        settingsWindow.style.left = 'calc(100vw - 680px)'; // Position on the right
+        settingsWindow.style.top = '50px';
+        bringToFront(settingsWindow);
+        updateTaskbar();
+      }
     }, 500);
   }, 3000);
-
-  setTimeout(() => {
-        bootScreen.style.display = 'none';
-        // Show settings window on boot
-        const settingsWindow = document.getElementById('settingsWindow');
-        if (settingsWindow) {
-            settingsWindow.style.display = 'block';
-            settingsWindow.style.left = 'calc(100vw - 680px)'; // Position on the right
-            settingsWindow.style.top = '50px';
-            bringToFront(settingsWindow);
-            updateTaskbar();
-        }
-    }, 3000);
 }
 
+// Play Windows startup sound (placeholder for future implementation)
 function playStartupSound() {
   // Optional: Add Windows startup sound
-  console.log('🔊 Windows startup sound!');
+  // Could add audio here in the future
 }
 
-// Right-Click Context Menu
+// RIGHT-CLICK CONTEXT MENU
+// Creates a Windows 2000 style right-click context menu
+// Shows options like Refresh and Properties when right-clicking desktop
+
 let contextMenu = null;
 
+// Create the context menu element with menu items
 function createContextMenu() {
   contextMenu = document.createElement('div');
   contextMenu.id = 'contextMenu';
@@ -63,11 +76,6 @@ function createContextMenu() {
     <div class="context-item" data-action="refresh">
       <span class="context-icon">🔄</span>
       <span>Refresh</span>
-    </div>
-    <div class="context-divider"></div>
-    <div class="context-item" data-action="bsod">
-      <span class="context-icon">💀</span>
-      <span>Blue Screen (Easter Egg)</span>
     </div>
     <div class="context-divider"></div>
     <div class="context-item" data-action="properties">
@@ -87,6 +95,7 @@ function createContextMenu() {
   });
 }
 
+// Show context menu at specified coordinates
 function showContextMenu(x, y) {
   if (!contextMenu) createContextMenu();
   
@@ -95,12 +104,15 @@ function showContextMenu(x, y) {
   contextMenu.style.display = 'block';
 }
 
+// Hide the context menu
 function hideContextMenu() {
   if (contextMenu) {
     contextMenu.style.display = 'none';
   }
 }
 
+// Handle context menu item clicks
+// Actions: refresh (reload page), properties (show info), bsod (easter egg)
 function handleContextAction(action) {
   switch(action) {
     case 'refresh':
@@ -115,17 +127,23 @@ function handleContextAction(action) {
   }
 }
 
+// Show portfolio properties/information in an alert
 function showProperties() {
   alert('Windows 2000 Portfolio\n\nDeveloper: Your Name\nVersion: 1.0\nBuilt with: HTML, CSS, JavaScript\n\n© 2025');
 }
 
-// Desktop right-click
+// DESKTOP EVENT LISTENERS
+// Set up right-click menu and other desktop interactions
 document.addEventListener('DOMContentLoaded', () => {
   const desktop = document.querySelector('.desktop');
   
   desktop.addEventListener('contextmenu', (e) => {
-    e.preventDefault();
-    showContextMenu(e.pageX, e.pageY);
+    // Only show custom context menu on desktop area, not on other elements
+    if (e.target === desktop || e.target.classList.contains('desktop')) {
+      e.preventDefault();
+      showContextMenu(e.pageX, e.pageY);
+    }
+    // Allow browser context menu on all other elements
   });
 
   document.addEventListener('click', (e) => {
@@ -138,7 +156,9 @@ document.addEventListener('DOMContentLoaded', () => {
   showBootSequence();
 });
 
-// Shutdown sequence
+// SHUTDOWN SEQUENCE
+// Displays a classic Windows 2000 shutdown animation
+// Shows "shutting down" message followed by "safe to turn off" screen
 function shutdown() {
   const shutdownScreen = document.createElement('div');
   shutdownScreen.id = 'shutdownScreen';
@@ -167,11 +187,15 @@ function shutdown() {
   }, 2000);
 }
 
-// Blue Screen of Death Easter Egg
+// BLUE SCREEN OF DEATH (BSOD) EASTER EGG
+// A fun easter egg that displays a "Blue Screen of Death"
+// Instead of showing errors, it showcases the developer's skills!
+// Activated by Ctrl+Shift+B keyboard shortcut
 function showBSOD() {
   const bsod = document.createElement('div');
   bsod.id = 'bsodScreen';
   
+  // List of "error codes" that are actually developer skills
   const skills = [
     'EXCEPTIONAL_JAVASCRIPT_SKILLS',
     'ADVANCED_CSS_MASTERY',
@@ -183,8 +207,10 @@ function showBSOD() {
     'PROBLEM_SOLVING_EXCELLENCE'
   ];
   
+  // Pick a random skill to display as the "error"
   const randomSkill = skills[Math.floor(Math.random() * skills.length)];
   
+  // Create BSOD screen with humorous "error" message showcasing skills
   bsod.innerHTML = `
     <div class="bsod-content">
       <h1>Windows</h1>
@@ -212,12 +238,12 @@ If you've seen this developer before, then you already know they're amazing.</p>
   
   document.body.appendChild(bsod);
   
-  // Click anywhere to close
+  // Click anywhere to close the BSOD
   bsod.addEventListener('click', () => {
     bsod.remove();
   });
   
-  // Press any key to close
+  // Press any key to close the BSOD
   const keyHandler = (e) => {
     bsod.remove();
     document.removeEventListener('keydown', keyHandler);
@@ -225,7 +251,8 @@ If you've seen this developer before, then you already know they're amazing.</p>
   document.addEventListener('keydown', keyHandler);
 }
 
-// Add keyboard shortcut for BSOD (Ctrl+Shift+B)
+// KEYBOARD SHORTCUTS: BSOD ACTIVATION
+// Ctrl+Shift+B triggers the Blue Screen of Death easter egg
 document.addEventListener('keydown', (e) => {
   if (e.ctrlKey && e.shiftKey && e.key === 'B') {
     showBSOD();

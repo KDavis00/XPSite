@@ -1,5 +1,14 @@
-// Solitaire Game
+// SOLITAIRE GAME (KLONDIKE)
+// A classic Klondike Solitaire implementation
+// Features:
+// - Standard 52-card deck
+// - Stock, waste, foundation, and tableau piles
+// - Drag and drop card movement
+// - Click to select/move cards
+// - Hint system
+// - Win detection
 class Solitaire {
+  // Initialize game state with empty piles
   constructor(container) {
     this.container = container;
     this.deck = [];
@@ -12,6 +21,9 @@ class Solitaire {
     this.init();
   }
 
+  // Create the game UI layout
+  // Top row: stock/waste piles and foundations
+  // Bottom: 7 tableau columns
   init() {
     this.container.innerHTML = `
       <div class="solitaire-header">
@@ -70,6 +82,7 @@ class Solitaire {
     }
   }
 
+  // Shuffle the deck using Fisher-Yates algorithm
   shuffle() {
     for (let i = this.deck.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -77,6 +90,9 @@ class Solitaire {
     }
   }
 
+  // Start a new game
+  // Creates and shuffles deck, deals cards to tableau (1-7 cards per column)
+  // Top card in each tableau column is face-up
   newGame() {
     this.createDeck();
     this.shuffle();
@@ -87,7 +103,8 @@ class Solitaire {
     this.selected = null;
     this.selectedSource = null;
     
-    // Deal tableau
+    // Deal tableau: Column 1 gets 1 card, column 2 gets 2 cards, etc.
+    // Only the top card in each column is face-up
     for (let i = 0; i < 7; i++) {
       for (let j = i; j < 7; j++) {
         const card = this.stock.pop();
@@ -100,6 +117,8 @@ class Solitaire {
     this.setupDragDrop();
   }
 
+  // Draw card from stock to waste pile
+  // If stock is empty, recycle waste pile back to stock
   drawCard() {
     if (this.stock.length > 0) {
       const card = this.stock.pop();
@@ -117,6 +136,9 @@ class Solitaire {
     this.setupDragDrop();
   }
 
+  // Check if a card can be placed on a tableau pile
+  // Rules: Must alternate colors and be one rank lower
+  // Only Kings can be placed on empty tableau piles
   canPlaceOnTableau(card, targetPile) {
     if (targetPile.length === 0) {
       return card.rank === 13; // Only Kings on empty piles
@@ -125,6 +147,9 @@ class Solitaire {
     return topCard.color !== card.color && topCard.rank === card.rank + 1;
   }
 
+  // Check if a card can be placed on a foundation pile
+  // Rules: Must be same suit and one rank higher
+  // Only Aces can start a foundation pile
   canPlaceOnFoundation(card, foundationPile) {
     if (foundationPile.length === 0) {
       return card.rank === 1; // Only Aces on empty foundations
@@ -133,6 +158,9 @@ class Solitaire {
     return topCard.suit === card.suit && topCard.rank === card.rank - 1;
   }
 
+  // Move a card from one location to another
+  // Handles removing from source and adding to destination
+  // Flips the next card in tableau if needed
   moveCard(card, from, to, fromIndex) {
     if (from === 'waste') {
       this.waste.pop();
@@ -159,6 +187,8 @@ class Solitaire {
     this.checkWin();
   }
 
+  // Check if the game has been won
+  // Win condition: All 52 cards are in the foundation piles
   checkWin() {
     const totalInFoundations = this.foundations.reduce((sum, pile) => sum + pile.length, 0);
     if (totalInFoundations === 52) {
@@ -166,6 +196,8 @@ class Solitaire {
     }
   }
 
+  // Provide a hint to the player
+  // Suggests moving waste or tableau cards to foundations
   showHint() {
     // Simple hint: try to move waste card to foundation
     if (this.waste.length > 0) {
@@ -196,12 +228,14 @@ class Solitaire {
     alert('No obvious moves. Try drawing from the stock!');
   }
 
+  // Render the entire game state to the DOM
+  // Updates stock, waste, foundations, and tableau piles
   render() {
-    // Render stock
+    // Render stock pile - shows card back or recycle icon when empty
     const stockEl = this.container.querySelector('[data-pile="stock"]');
     stockEl.innerHTML = this.stock.length > 0 ? '<div class="card card-back"></div>' : '<div class="card-empty">↻</div>';
     
-    // Render waste
+    // Render waste pile - shows top card if any
     const wasteEl = this.container.querySelector('[data-pile="waste"]');
     wasteEl.innerHTML = '';
     if (this.waste.length > 0) {
@@ -211,7 +245,7 @@ class Solitaire {
       wasteEl.appendChild(cardEl);
     }
     
-    // Render foundations
+    // Render foundations - 4 piles for each suit (Ace to King)
     for (let i = 0; i < 4; i++) {
       const foundEl = this.container.querySelector(`[data-foundation="${i}"]`);
       foundEl.innerHTML = '';
@@ -227,7 +261,7 @@ class Solitaire {
       }
     }
     
-    // Render tableau
+    // Render tableau - 7 columns with cascading cards
     for (let i = 0; i < 7; i++) {
       const tabEl = this.container.querySelector(`[data-tableau="${i}"]`);
       tabEl.innerHTML = '';
@@ -257,6 +291,8 @@ class Solitaire {
     }
   }
 
+  // Handle card selection for click-based movement
+  // First click selects, second click attempts to place
   selectCard(card, source, index) {
     if (this.selected) {
       // Try to place selected card
@@ -321,6 +357,9 @@ class Solitaire {
     }
   }
 
+  // Create a DOM element for a playing card
+  // Shows card back if face-down, or suit/value if face-up
+  // Enables dragging for face-up cards
   createCardElement(card) {
     const cardEl = document.createElement('div');
     cardEl.draggable = true;
@@ -329,6 +368,7 @@ class Solitaire {
       cardEl.className = 'card card-back';
       cardEl.draggable = false;
     } else {
+      // Face-up card: show value, suit, and enable dragging
       cardEl.className = `card card-${card.color}`;
       cardEl.innerHTML = `
         <div class="card-corner">
@@ -353,6 +393,8 @@ class Solitaire {
     return cardEl;
   }
 
+  // Find where a card is currently located
+  // Returns object with type (waste/tableau) and pile/index information
   findCardSource(card) {
     // Find where the card is
     if (this.waste.length > 0 && this.waste[this.waste.length - 1] === card) {
@@ -369,6 +411,8 @@ class Solitaire {
     return null;
   }
 
+  // Set up drag and drop event handlers
+  // Enables dragging cards to foundations and tableau piles
   setupDragDrop() {
     // Foundation drop zones
     for (let i = 0; i < 4; i++) {
@@ -409,6 +453,9 @@ class Solitaire {
     }
   }
 
+  // Execute a card move from source to destination
+  // Handles moving single cards or sequences (tableau to tableau)
+  // Flips hidden cards when tableau columns are revealed
   performMove(source, dest) {
     if (source.type === 'waste') {
       const card = this.waste.pop();

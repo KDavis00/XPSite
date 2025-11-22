@@ -15,54 +15,303 @@
 
 <body>
 
+  <!-- Skip to main content for screen readers -->
+  <a href="#desktop" class="sr-only">Skip to main content</a>
+
   <!-- Desktop -->
-  <div class="desktop">
+  <div class="desktop" role="main" aria-label="Desktop" id="desktop">
     <!-- Desktop icons -->
-    <div class="icon" style="top: 20px; left: 20px;">
-      <img src="Windows 2000/My Computer.ico" alt="My Computer">
+    <div class="icon" data-window="myComputerWindow" role="button" tabindex="0" aria-label="My Computer">
+      <img src="Windows 2000/My Computer.ico" alt="" aria-hidden="true">
       <span>My Computer</span>
     </div>
-    <div class="icon" style="top: 110px; left: 20px;">
-      <img src="Windows 2000/Dustbin.ico" alt="Recycle Bin">
+    <div class="icon recycle-bin-icon" data-window="recycleBinWindow" role="button" tabindex="0" aria-label="Recycle Bin">
+      <img src="Windows 2000/Dustbin.ico" alt="" aria-hidden="true">
       <span>Recycle Bin</span>
     </div>
-    <div class="icon" data-window="ieWindow" style="top: 200px; left: 20px;">
+    <div class="icon" data-window="ieWindow" role="button" tabindex="0" aria-label="Internet Explorer">
       <img src="Windows 2000/Internet Explorer.ico" alt="Internet Explorer">
       <span>Internet Explorer</span>
     </div>
-    <div class="icon" data-window="projectsWindow" style="top: 290px; left: 20px;">
+    <div class="icon" data-window="projectsWindow" role="button" tabindex="0" aria-label="Projects">
       <img src="Windows 2000/Folder Closed.ico" alt="Projects">
       <span>My Projects</span>
     </div>
-    <div class="icon" data-window="aboutWindow" style="top: 20px; left: 100px;">
+    <div class="icon" data-window="aboutWindow" role="button" tabindex="0" aria-label="About Me">
       <img src="Windows 2000/Default Document.ico" alt="About Me">
       <span>About Me</span>
     </div>
-    <div class="icon" data-window="contactWindow" style="top: 110px; left: 100px;">
+    <div class="icon" data-window="contactWindow" role="button" tabindex="0" aria-label="Contact">
       <img src="Windows 2000/Network (3).ico" alt="Contact">
       <span>Contact</span>
     </div>
-    <div class="icon" data-window="msnWindow" style="top: 200px; left: 100px;">
+    <div class="icon" data-window="msnWindow" role="button" tabindex="0" aria-label="MSN Messenger">
       <img src="Windows 2000/Network.ico" alt="Social Links">
       <span>Connect</span>
     </div>
-    <div class="icon" data-window="paintWindow" style="top: 290px; left: 100px;">
+    <div class="icon" data-window="paintWindow" role="button" tabindex="0" aria-label="Paint">
       <img src="Windows 2000/Paint.ico" alt="Paint">
       <span>Paint</span>
     </div>
-    <div class="icon" data-window="videoWindow" style="top: 380px; left: 20px;">
+    <div class="icon" data-window="videoWindow" role="button" tabindex="0" aria-label="Videos">
       <img src="Windows 2000/Folder Closed.ico" alt="Media Folder">
       <span>Videos</span>
     </div>
-    <div class="icon" data-window="settingsWindow" style="top: 380px; left: 100px;">
+    <div class="icon" data-window="settingsWindow" role="button" tabindex="0" aria-label="Settings">
       <img src="Windows 2000/Settings.ico" alt="Settings">
       <span>Settings</span>
     </div>
-    <div class="icon" data-window="mediaPlayerWindow" style="top: 470px; left: 20px;">
-      <img src="Windows 2000/Windows_Media_Player_4.svg" alt="Media Player">
+    <div class="icon" data-window="mediaPlayerWindow" role="button" tabindex="0" aria-label="Media Player">
+      <img src="Windows 2000/Windows_Media_Player_4.svg" alt="" aria-hidden="true">
       <span>Media Player</span>
     </div>
+    <div class="icon" data-window="artFolderWindow" role="button" tabindex="0" aria-label="Art Folder">
+      <img src="Windows 2000/Folder Closed.ico" alt="" aria-hidden="true">
+      <span>Art</span>
+    </div>
+    <div class="icon" data-window="musicPlayerWindow" role="button" tabindex="0" aria-label="Music Player">
+      <img src="Windows 2000/Windows_Media_Player_4.svg" alt="" aria-hidden="true">
+      <span>Music Player</span>
+    </div>
 
+
+    <!-- My Computer Window -->
+    <div class="window" id="myComputerWindow" style="width: 600px; height: 450px;">
+      <div class="title-bar">
+        <span class="title">My Computer</span>
+        <div class="window-controls">
+          <button class="minimize" aria-label="Minimize window">_</button>
+          <button class="maximize" aria-label="Maximize window">□</button>
+          <button class="close" aria-label="Close window">×</button>
+        </div>
+      </div>
+      <div class="window-content explorer-window" style="padding: 0; display: block;">
+        <div class="explorer-container">
+          <div class="explorer-left">
+            <div class="explorer-section">
+              <div class="explorer-section-title">System Tasks</div>
+              <div class="explorer-link" onclick="openSystemInfo()">View system information</div>
+              <div class="explorer-link" onclick="openSettings()">Change a setting</div>
+            </div>
+            <div class="explorer-section">
+              <div class="explorer-section-title">Other Places</div>
+              <div class="explorer-link" onclick="openWindow('projectsWindow')">My Projects</div>
+              <div class="explorer-link" onclick="openWindow('aboutWindow')">About Me</div>
+              <div class="explorer-link" onclick="openWindow('contactWindow')">Contact</div>
+              <div class="explorer-link" onclick="openWindow('msnWindow')">Connect</div>
+            </div>
+          </div>
+          <div class="explorer-right">
+            <div class="explorer-toolbar">
+              <span class="explorer-breadcrumb">My Computer</span>
+            </div>
+            <div class="explorer-content">
+              <div class="explorer-item" onclick="openWindow('cDriveWindow')">
+                <img src="Windows 2000/Folder Closed.ico" alt="C Drive">
+                <span>Local Disk (C:)</span>
+              </div>
+              <div class="explorer-item" onclick="openWindow('desktopFolderWindow')">
+                <img src="Windows 2000/My Computer.ico" alt="Desktop">
+                <span>Desktop</span>
+              </div>
+              <div class="explorer-item" onclick="openWindow('projectsWindow')">
+                <img src="Windows 2000/Folder Closed.ico" alt="Projects">
+                <span>My Projects</span>
+              </div>
+              <div class="explorer-item" onclick="openWindow('videoWindow')">
+                <img src="Windows 2000/Folder Closed.ico" alt="Videos">
+                <span>Videos</span>
+              </div>
+              <div class="explorer-item" onclick="openWindow('aboutWindow')">
+                <img src="Windows 2000/My Documents.ico" alt="About Me">
+                <span>About Me</span>
+              </div>
+              <div class="explorer-item" onclick="openWindow('contactWindow')">
+                <img src="Windows 2000/Network (3).ico" alt="Contact">
+                <span>Contact</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recycle Bin Window -->
+    <div class="window" id="recycleBinWindow" style="width: 500px; height: 400px;">
+      <div class="title-bar">
+        <span class="title">Recycle Bin</span>
+        <div class="window-controls">
+          <button class="minimize" aria-label="Minimize window">_</button>
+          <button class="maximize" aria-label="Maximize window">□</button>
+          <button class="close" aria-label="Close window">×</button>
+        </div>
+      </div>
+      <div class="window-content" style="padding: 0; display: block;">
+        <div class="recycle-bin-toolbar" style="background: #d4d0c8; padding: 8px; border-bottom: 1px solid #808080; display: flex; gap: 8px;">
+          <button class="win-button" onclick="emptyRecycleBin()" style="display: flex; align-items: center; gap: 4px;">
+            <span>🗑️</span> Empty Recycle Bin
+          </button>
+          <button class="win-button" onclick="restoreAllItems()" style="display: flex; align-items: center; gap: 4px;">
+            <span>↶</span> Restore All
+          </button>
+        </div>
+        <div id="recycleBinContent" class="folder-content" style="min-height: 300px; position: relative;">
+          <div id="recycleBinEmpty" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: #666;">
+            <img src="Windows 2000/Dustbin.ico" alt="" style="width: 64px; height: 64px; opacity: 0.5; margin-bottom: 10px;">
+            <p style="font-size: 14px; margin: 0;">Recycle Bin is empty.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- C: Drive Window -->
+    <div class="window" id="cDriveWindow" style="width: 550px; height: 450px;">
+      <div class="title-bar">
+        <span class="title">Local Disk (C:)</span>
+        <div class="window-controls">
+          <button class="minimize" aria-label="Minimize window">_</button>
+          <button class="maximize" aria-label="Maximize window">□</button>
+          <button class="close" aria-label="Close window">×</button>
+        </div>
+      </div>
+      <div class="window-content folder-content" id="cDriveContent">
+        <div class="file-icon">
+          <img src="Windows 2000/Folder Closed.ico" alt="Windows">
+          <span>Windows</span>
+        </div>
+        <div class="file-icon">
+          <img src="Windows 2000/Folder Closed.ico" alt="Program Files">
+          <span>Program Files</span>
+        </div>
+        <div class="file-icon">
+          <img src="Windows 2000/Folder Closed.ico" alt="Documents and Settings">
+          <span>Documents and Settings</span>
+        </div>
+        <div class="file-icon">
+          <img src="Windows 2000/Folder Closed.ico" alt="Temp">
+          <span>Temp</span>
+        </div>
+        <div class="file-icon">
+          <img src="Windows 2000/Default Document.ico" alt="autoexec.bat">
+          <span>autoexec.bat</span>
+        </div>
+        <div class="file-icon">
+          <img src="Windows 2000/Default Document.ico" alt="config.sys">
+          <span>config.sys</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Desktop Folder Window -->
+    <div class="window" id="desktopFolderWindow" style="width: 550px; height: 450px;">
+      <div class="title-bar">
+        <span class="title">Desktop</span>
+        <div class="window-controls">
+          <button class="minimize" aria-label="Minimize window">_</button>
+          <button class="maximize" aria-label="Maximize window">□</button>
+          <button class="close" aria-label="Close window">×</button>
+        </div>
+      </div>
+      <div class="window-content folder-content" id="desktopFolderContent">
+        <div class="file-icon">
+          <img src="Windows 2000/My Computer.ico" alt="My Computer">
+          <span>My Computer</span>
+        </div>
+        <div class="file-icon">
+          <img src="Windows 2000/Dustbin.ico" alt="Recycle Bin">
+          <span>Recycle Bin</span>
+        </div>
+        <div class="file-icon">
+          <img src="Windows 2000/Internet Explorer.ico" alt="Internet Explorer">
+          <span>Internet Explorer</span>
+        </div>
+        <div class="file-icon">
+          <img src="Windows 2000/Folder Closed.ico" alt="My Projects">
+          <span>My Projects</span>
+        </div>
+        <div class="file-icon">
+          <img src="Windows 2000/Default Document.ico" alt="About Me">
+          <span>About Me</span>
+        </div>
+        <div class="file-icon">
+          <img src="Windows 2000/Network (3).ico" alt="Contact">
+          <span>Contact</span>
+        </div>
+        <div class="file-icon">
+          <img src="Windows 2000/Network.ico" alt="Connect">
+          <span>Connect</span>
+        </div>
+        <div class="file-icon">
+          <img src="Windows 2000/Paint.ico" alt="Paint">
+          <span>Paint</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Art Folder Window -->
+    <div class="window" id="artFolderWindow" style="width: 500px; height: 400px;">
+      <div class="title-bar">
+        <span class="title">Art</span>
+        <div class="window-controls">
+          <button class="minimize" aria-label="Minimize window">_</button>
+          <button class="maximize" aria-label="Maximize window">□</button>
+          <button class="close" aria-label="Close window">×</button>
+        </div>
+      </div>
+      <div class="window-content folder-content" id="artFolderContent">
+        <div class="file-icon">
+          <img src="Windows 2000/Default Document.ico" alt="Artwork">
+          <span>Sketch 1</span>
+        </div>
+        <div class="file-icon">
+          <img src="Windows 2000/Default Document.ico" alt="Artwork">
+          <span>Digital Art</span>
+        </div>
+        <div class="file-icon">
+          <img src="Windows 2000/Default Document.ico" alt="Artwork">
+          <span>Portfolio</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Music Player Window -->
+    <div class="window" id="musicPlayerWindow" style="width: 320px; height: auto;">
+      <div class="title-bar">
+        <img src="Windows 2000/Windows_Media_Player_4.svg" alt="" style="width: 16px; height: 16px; margin-right: 4px;" aria-hidden="true">
+        <span class="title">Music Player</span>
+        <div class="window-controls">
+          <button class="minimize" aria-label="Minimize window">_</button>
+          <button class="maximize" aria-label="Maximize window">□</button>
+          <button class="close" aria-label="Close window">×</button>
+        </div>
+      </div>
+      <div class="window-content" style="padding: 0; display: block;">
+        <div class="music-player-container" style="padding: 15px; background: linear-gradient(to bottom, #1a1a1a, #0a0a0a); color: #fff;">
+          <div class="music-display" style="text-align: center; margin-bottom: 15px;">
+            <div style="font-size: 32px; margin-bottom: 10px;">🎵</div>
+            <div id="musicTitle" style="font-size: 14px; font-weight: bold; margin-bottom: 5px;">No track loaded</div>
+            <div id="musicArtist" style="font-size: 12px; color: #999;">---</div>
+          </div>
+          <div class="music-progress" style="margin-bottom: 15px;">
+            <input type="range" id="musicSeekbar" value="0" min="0" max="100" style="width: 100%; cursor: pointer;">
+            <div style="display: flex; justify-content: space-between; font-size: 11px; color: #999; margin-top: 5px;">
+              <span id="musicCurrentTime">0:00</span>
+              <span id="musicDuration">0:00</span>
+            </div>
+          </div>
+          <div class="music-controls" style="display: flex; justify-content: center; gap: 10px; margin-bottom: 15px;">
+            <button class="media-control-btn" style="background: #333; border: 1px solid #555; color: #fff; padding: 8px 12px; cursor: pointer; border-radius: 3px;" title="Previous">⏮</button>
+            <button class="media-control-btn" id="musicPlayBtn" style="background: #0066cc; border: 1px solid #0055aa; color: #fff; padding: 8px 16px; cursor: pointer; border-radius: 3px;" title="Play">▶</button>
+            <button class="media-control-btn" style="background: #333; border: 1px solid #555; color: #fff; padding: 8px 12px; cursor: pointer; border-radius: 3px;" title="Next">⏭</button>
+          </div>
+          <div class="music-volume" style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 16px;">🔊</span>
+            <input type="range" id="musicVolume" value="50" min="0" max="100" style="flex: 1; cursor: pointer;">
+          </div>
+          <audio id="musicAudio" style="display: none;"></audio>
+        </div>
+      </div>
+    </div>
 
     <!-- Projects Folder Window -->
     <div class="window" id="projectsWindow">
@@ -113,7 +362,7 @@
         </div>
       </div>
       <div class="window-content folder-content">
-        <div class="file-icon" onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ')">
+        <div class="file-icon" onclick="playVideo('https://www.youtube.com/embed/dQw4w9WgXcQ?si=WdmjSBRnQcWEfNyO')">
           <img src="Windows 2000/Default Document.ico" alt="Video 1">
           <span>Video 1</span>
         </div>
@@ -310,10 +559,10 @@
     </div>
 
     <!-- Taskbar -->
-    <div class="taskbar">
-      <button class="start-button"><img src="Windows 2000/Windows_start_button.svg" alt="Start"> Start</button>
-      <div class="taskbar-items"></div>
-      <div class="time" id="clock"></div>
+    <div class="taskbar" role="navigation" aria-label="Taskbar">
+      <button class="start-button" aria-label="Start Menu" aria-expanded="false"><img src="Windows 2000/Windows_start_button.svg" alt="" aria-hidden="true"> Start</button>
+      <div class="taskbar-items" role="list" aria-label="Open windows"></div>
+      <div class="time" id="clock" role="timer" aria-live="polite"></div>
     </div>
 
     <!-- Date/Time Panel -->
@@ -340,6 +589,20 @@
                   <option>April</option>
                   <option selected>May</option>
                   <option>June</option>
+                  <option>July</option>
+                  <option>August</option>
+                  <option>September</option>
+                  <option>October</option>
+                  <option>November</option>
+                  <option>December</option>
+                </select>
+                <select class="datetime-select" id="yearSelect">
+                  <option>2024</option>
+                  <option selected>2025</option>
+                  <option>2026</option>
+                </select>
+              </div>
+              <div id="calendar"></div>
             </div>
           </div>
           <div class="datetime-right">
@@ -370,7 +633,7 @@
     </div>
 
     <!-- Start Menu -->
-    <div class="start-menu" id="startMenu">
+    <div class="start-menu" id="startMenu" role="menu" aria-label="Start Menu">
       <div class="start-menu-banner">
         <span class="banner-text">Windows<span class="banner-version">2000 Professional</span></span>
       </div>
@@ -437,12 +700,13 @@
       </div>
     </div>
 
-    <script src="about.js"></script>
-<script src="contact.js"></script>
-<script src="projects.js"></script>
+    <script src="portfolio.js"></script>
 <script src="settings.js"></script>
 <script src="minesweeper.js"></script>
 <script src="solitaire.js"></script>
+<script src="paint.js"></script>
+<script src="mediaplayer.js"></script>
+<script src="boot.js"></script>
 <script src="script.js"></script>
 </body>
 

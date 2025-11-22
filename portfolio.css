@@ -1,4 +1,4 @@
-/* Paint Styles */
+/* PAINT STYLES */
 .paint-container {
   background: #d4d0c8;
   padding: 0;
@@ -6,11 +6,11 @@
 
 .paint-toolbar {
   background: #d4d0c8;
-  padding: 8px;
+  padding: 4px;
   border-bottom: 2px solid #808080;
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 6px;
 }
 
 .paint-tools {
@@ -23,7 +23,7 @@
   background: #d4d0c8;
   border: 2px solid;
   border-color: #fff #808080 #808080 #fff;
-  padding: 4px 8px;
+  padding: 2px 6px;
   cursor: pointer;
   font-size: 11px;
 }
@@ -73,11 +73,34 @@
   gap: 5px;
 }
 
+.canvas-size-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.canvas-size-controls label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.canvas-size-controls input[type="number"] {
+  width: 70px;
+  padding: 2px 4px;
+  border: 2px solid;
+  border-color: #808080 #fff #fff #808080;
+  background: #fff;
+  font-size: 11px;
+}
+
 .action-btn {
   background: #d4d0c8;
   border: 2px solid;
   border-color: #fff #808080 #808080 #fff;
-  padding: 4px 12px;
+  padding: 2px 8px;
   cursor: pointer;
   font-weight: bold;
 }
@@ -91,15 +114,16 @@
   background: white;
   cursor: crosshair;
   border: 2px solid #808080;
-  margin: 10px;
+  margin: 10px auto;
 }
 
-/* About Me Styles */
+/* ABOUT ME STYLES */
 .about-me-content {
   padding: 20px;
   background: #d4d0c8;
   max-height: 500px;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .about-header {
@@ -179,7 +203,7 @@
   font-size: 13px;
 }
 
-/* Contact Form Styles */
+/* CONTACT FORM STYLES */
 .contact-form-content {
   padding: 20px;
   background: #d4d0c8;
@@ -247,7 +271,7 @@
   min-height: 20px;
 }
 
-/* MSN Widget Styles */
+/* MSN WIDGET STYLES */
 .msn-widget {
   background: linear-gradient(to bottom, #7c9dd4, #d4e4f7);
   padding: 15px;
@@ -330,7 +354,7 @@
   color: #333;
 }
 
-/* Project Items */
+/* PROJECT ITEMS */
 .project-item {
   cursor: pointer;
   transition: background 0.2s;
@@ -340,7 +364,7 @@
   background: rgba(0,0,255,0.1);
 }
 
-/* Boot Sequence Styles */
+/* BOOT SEQUENCE STYLES */
 #bootScreen {
   position: fixed;
   top: 0;
@@ -397,7 +421,7 @@
   margin-top: 20px;
 }
 
-/* Context Menu Styles */
+/* CONTEXT MENU STYLES */
 .context-menu {
   position: absolute;
   background: #d4d0c8;
@@ -434,7 +458,7 @@
   margin: 2px 0;
 }
 
-/* Shutdown Screen */
+/* SHUTDOWN SCREEN */
 #shutdownScreen {
   position: fixed;
   top: 0;
@@ -510,7 +534,7 @@
   100% { transform: rotate(360deg); }
 }
 
-/* Blue Screen of Death */
+/* BLUE SCREEN OF DEATH */
 #bsodScreen {
   position: fixed;
   top: 0;

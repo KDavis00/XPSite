@@ -1,4 +1,4 @@
-/* Settings Window */
+/* SETTINGS WINDOW */
 .settings-container {
   display: flex;
   height: 100%;
@@ -142,7 +142,7 @@
   border-style: inset;
 }
 
-/* Notification Toast */
+/* NOTIFICATION TOAST */
 .settings-notification {
   position: fixed;
   bottom: 50px;
@@ -164,9 +164,9 @@
   transform: translateY(0);
 }
 
-/* Accessibility Features */
+/* ACCESSIBILITY FEATURES */
 
-/* High Contrast Mode */
+/* HIGH CONTRAST MODE */
 .high-contrast {
   filter: contrast(1.5);
 }
@@ -201,7 +201,7 @@
   color: #fff;
 }
 
-/* Reduced Motion */
+/* REDUCED MOTION */
 .reduced-motion,
 .reduced-motion * {
   animation-duration: 0.01ms !important;
@@ -209,29 +209,27 @@
   transition-duration: 0.01ms !important;
 }
 
-/* Focus Indicators */
+/* FOCUS INDICATORS */
 .focus-visible *:focus {
-  outline: 3px solid #0000AA !important;
-  outline-offset: 2px;
+  outline: none;
 }
 
 .focus-visible .icon:focus {
-  outline: 3px dashed #fff !important;
   background: rgba(255, 255, 255, 0.2);
+  outline: none;
 }
 
 .focus-visible button:focus {
-  outline: 3px solid #000 !important;
+  outline: none;
 }
 
-/* Keyboard Navigation Helper */
+/* KEYBOARD NAVIGATION HELPER */
 .icon[tabindex]:focus,
 .window-controls button:focus {
-  outline: 2px solid #000;
-  outline-offset: 2px;
+  outline: none;
 }
 
-/* Range Sliders */
+/* RANGE SLIDERS */
 .setting-slider {
   width: 100%;
   height: 20px;
@@ -239,14 +237,18 @@
   cursor: pointer;
   -webkit-appearance: none;
   appearance: none;
-  background: transparent;
+  background: linear-gradient(to right, #808080 0%, #808080 100%);
+  background-size: 100% 2px;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: none;
 }
 
 .setting-slider::-webkit-slider-track {
   width: 100%;
-  height: 6px;
-  background: #d4d0c8;
-  border: 1px inset #808080;
+  height: 2px;
+  background: #808080;
+  border: none;
 }
 
 .setting-slider::-webkit-slider-thumb {
@@ -257,7 +259,7 @@
   background: #d4d0c8;
   border: 2px outset #fff;
   cursor: pointer;
-  margin-top: -8px;
+  margin-top: -9px;
 }
 
 .setting-slider::-webkit-slider-thumb:active {
@@ -266,9 +268,9 @@
 
 .setting-slider::-moz-range-track {
   width: 100%;
-  height: 6px;
-  background: #d4d0c8;
-  border: 1px inset #808080;
+  height: 2px;
+  background: #808080;
+  border: none;
 }
 
 .setting-slider::-moz-range-thumb {
@@ -283,7 +285,7 @@
   border-style: inset;
 }
 
-/* Keyboard Shortcuts */
+/* KEYBOARD SHORTCUTS */
 .shortcut-list {
   display: flex;
   flex-direction: column;
@@ -316,3 +318,540 @@
   color: #000;
   flex: 1;
 }
+
+/* THEME SELECTOR */
+.setting-select {
+  width: 100%;
+  padding: 4px 8px;
+  background: #fff;
+  border: 2px inset #808080;
+  font-family: 'MS Sans Serif', sans-serif;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.setting-select:focus {
+  outline: 1px dotted #000;
+  outline-offset: -2px;
+}
+
+/* DARK MODE THEME */
+.dark-mode {
+  background: #1a1a1a;
+  color: #e0e0e0;
+}
+
+.dark-mode .desktop {
+  background: #0d0d0d;
+}
+
+.dark-mode .window {
+  background: #2d2d2d;
+  border-color: #000;
+  box-shadow: inset 1px 1px 0 #444, inset -1px -1px 0 #000;
+}
+
+.dark-mode .title-bar {
+  background: linear-gradient(to bottom, #1a1a2e 0%, #0f0f1e 100%);
+  color: #fff;
+  border-bottom: 2px solid #444;
+}
+
+.dark-mode .window-content {
+  background: #2d2d2d;
+  color: #e0e0e0;
+  border-color: #444 #000 #000 #444;
+}
+
+.dark-mode .folder-content {
+  background: #1a1a1a;
+}
+
+.dark-mode .taskbar {
+  background: #1f1f1f;
+  border-top: 2px solid #000;
+}
+
+.dark-mode .start-button,
+.dark-mode .taskbar-items span,
+.dark-mode .time {
+  background: #2d2d2d;
+  border-color: #444 #000 #000 #444;
+  color: #e0e0e0;
+}
+
+.dark-mode .start-menu {
+  background: #2d2d2d;
+  border-color: #444 #000 #000 #444;
+}
+
+.dark-mode .start-menu li {
+  color: #e0e0e0;
+}
+
+.dark-mode .start-menu li:hover {
+  background: #1a1a2e;
+}
+
+.dark-mode .icon span {
+  color: #fff;
+  text-shadow: 1px 1px 2px #000;
+}
+
+.dark-mode button,
+.dark-mode .win-button,
+.dark-mode .action-btn {
+  background: #2d2d2d;
+  border-color: #444 #000 #000 #444;
+  color: #e0e0e0;
+}
+
+.dark-mode button:hover,
+.dark-mode .win-button:hover {
+  background: #4a4a4a;
+}
+
+.dark-mode input[type="text"],
+.dark-mode input[type="email"],
+.dark-mode textarea,
+.dark-mode select {
+  background: #1a1a1a;
+  color: #e0e0e0;
+  border-color: #000 #444 #444 #000;
+}
+
+.dark-mode .explorer-left,
+.dark-mode .settings-sidebar {
+  background: #2d2d2d;
+  border-right-color: #000;
+}
+
+.dark-mode .settings-nav-item:hover {
+  background: #3d3d3d;
+}
+
+.dark-mode .settings-nav-item.active {
+  background: #3d3d3d;
+}
+
+.dark-mode .settings-content {
+  background: #1a1a1a;
+}
+
+.dark-mode .setting-item {
+  background: #2d2d2d;
+  border-color: #444;
+}
+
+.dark-mode .setting-desc {
+  color: #aaa;
+}
+
+.dark-mode .context-menu {
+  background: #2d2d2d;
+  border-color: #000;
+  color: #e0e0e0;
+}
+
+.dark-mode .settings-notification {
+  background: #3d3d3d;
+  border-color: #666;
+  color: #e0e0e0;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+}
+
+.dark-mode p,
+.dark-mode h1,
+.dark-mode h2,
+.dark-mode h3,
+.dark-mode h4,
+.dark-mode h5,
+.dark-mode h6,
+.dark-mode span,
+.dark-mode div,
+.dark-mode label {
+  color: #e0e0e0;
+}
+
+.dark-mode a {
+  color: #66b3ff;
+}
+
+.dark-mode a:visited {
+  color: #b366ff;
+}
+
+.dark-mode .tab-content,
+.dark-mode .explorer-content,
+.dark-mode .about-content,
+.dark-mode .contact-content,
+.dark-mode .projects-grid {
+  color: #e0e0e0;
+}
+
+.dark-mode .project-title,
+.dark-mode .section-title {
+  color: #66b3ff;
+}
+
+.dark-mode .project-desc,
+.dark-mode .tech-tag {
+  color: #ccc;
+}
+
+.dark-mode .file-icon span {
+  color: #e0e0e0;
+}
+
+.dark-mode canvas {
+  background: #1a1a1a;
+  border-color: #444;
+}
+
+.dark-mode .game-score,
+.dark-mode .game-status,
+.dark-mode .game-controls {
+  color: #e0e0e0;
+}
+
+/* ENHANCED HIGH CONTRAST THEME */
+.high-contrast {
+  background: #000;
+  color: #fff;
+}
+
+.high-contrast .desktop {
+  background: #000;
+}
+
+.high-contrast .window {
+  background: #000;
+  border: 3px solid #fff;
+  box-shadow: none;
+}
+
+.high-contrast .title-bar {
+  background: #000;
+  color: #ffff00;
+  border: 2px solid #fff;
+  border-bottom: 3px solid #fff;
+  font-weight: bold;
+}
+
+.high-contrast .window-content {
+  background: #000;
+  color: #fff;
+  border: 2px solid #fff;
+}
+
+.high-contrast .folder-content {
+  background: #000;
+  border: 2px solid #fff;
+}
+
+.high-contrast .taskbar {
+  background: #000;
+  border: 3px solid #fff;
+  border-bottom: none;
+}
+
+.high-contrast .start-button,
+.high-contrast .taskbar-items span,
+.high-contrast .time {
+  background: #000;
+  border: 2px solid #fff;
+  color: #ffff00;
+  font-weight: bold;
+}
+
+.high-contrast .start-button:hover,
+.high-contrast .taskbar-items span:hover {
+  background: #fff;
+  color: #000;
+}
+
+.high-contrast .start-menu {
+  background: #000;
+  border: 3px solid #fff;
+}
+
+.high-contrast .start-menu li {
+  color: #fff;
+  font-weight: bold;
+}
+
+.high-contrast .start-menu li:hover {
+  background: #fff;
+  color: #000;
+}
+
+.high-contrast .icon span {
+  color: #ffff00;
+  text-shadow: 2px 2px 4px #000;
+  font-weight: bold;
+  background: #000;
+  padding: 2px 4px;
+  border: 1px solid #fff;
+}
+
+.high-contrast button,
+.high-contrast .win-button,
+.high-contrast .action-btn {
+  background: #000;
+  border: 2px solid #fff;
+  color: #ffff00;
+  font-weight: bold;
+}
+
+.high-contrast button:hover,
+.high-contrast .win-button:hover,
+.high-contrast .action-btn:hover {
+  background: #fff;
+  color: #000;
+}
+
+.high-contrast input[type="text"],
+.high-contrast input[type="email"],
+.high-contrast textarea,
+.high-contrast select,
+.high-contrast input[type="range"],
+.high-contrast input[type="number"] {
+  background: #000;
+  color: #ffff00;
+  border: 2px solid #fff;
+  font-weight: bold;
+}
+
+.high-contrast .explorer-left,
+.high-contrast .settings-sidebar {
+  background: #000;
+  border-right: 3px solid #fff;
+}
+
+.high-contrast .settings-content {
+  background: #000;
+}
+
+.high-contrast .setting-item {
+  background: #000;
+  border: 2px solid #fff;
+  color: #fff;
+}
+
+.high-contrast .setting-label {
+  color: #ffff00;
+  font-weight: bold;
+}
+
+.high-contrast .setting-desc {
+  color: #fff;
+}
+
+.high-contrast .shortcut-item {
+  background: #000;
+  border: 2px solid #fff;
+}
+
+.high-contrast .shortcut-key {
+  background: #000;
+  color: #ffff00;
+  border: 2px solid #fff;
+  font-weight: bold;
+}
+
+.high-contrast .shortcut-desc {
+  color: #fff;
+  font-weight: bold;
+}
+
+.high-contrast .context-menu {
+  background: #000;
+  border: 3px solid #fff;
+  color: #ffff00;
+}
+
+.high-contrast .context-menu-item:hover {
+  background: #fff;
+  color: #000;
+}
+
+.high-contrast a {
+  color: #00ffff;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.high-contrast a:visited {
+  color: #ff00ff;
+}
+
+.high-contrast .tab-button {
+  background: #000;
+  border: 2px solid #fff;
+  color: #fff;
+  font-weight: bold;
+}
+
+.high-contrast .tab-button.active {
+  background: #fff;
+  color: #000;
+}
+
+.high-contrast .settings-notification {
+  background: #000;
+  border: 3px solid #fff;
+  color: #ffff00;
+  font-weight: bold;
+  box-shadow: none;
+}
+
+.high-contrast p,
+.high-contrast h1,
+.high-contrast h2,
+.high-contrast h3,
+.high-contrast h4,
+.high-contrast h5,
+.high-contrast h6,
+.high-contrast span,
+.high-contrast div,
+.high-contrast label {
+  color: #fff;
+  font-weight: bold;
+}
+
+.high-contrast .tab-content,
+.high-contrast .explorer-content,
+.high-contrast .about-content,
+.high-contrast .contact-content,
+.high-contrast .projects-grid {
+  color: #fff;
+  background: #000;
+}
+
+.high-contrast .project-title,
+.high-contrast .section-title {
+  color: #ffff00;
+  font-weight: bold;
+}
+
+.high-contrast .project-desc,
+.high-contrast .tech-tag {
+  color: #fff;
+  font-weight: bold;
+  background: #000;
+  border: 2px solid #fff;
+  padding: 2px 4px;
+}
+
+.high-contrast .file-icon span {
+  color: #ffff00;
+  background: #000;
+  border: 1px solid #fff;
+  padding: 2px 4px;
+  font-weight: bold;
+}
+
+.high-contrast canvas {
+  background: #fff;
+  border: 3px solid #fff;
+}
+
+.high-contrast .game-score,
+.high-contrast .game-status,
+.high-contrast .game-controls {
+  color: #ffff00;
+  font-weight: bold;
+}
+
+.high-contrast .explorer-item,
+.high-contrast .folder-item {
+  color: #fff;
+  border: 2px solid #fff;
+  background: #000;
+}
+
+.high-contrast .explorer-item:hover,
+.high-contrast .folder-item:hover {
+  background: #fff;
+  color: #000;
+}
+
+/* CURSOR SIZE SETTINGS */
+.cursor-large * {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path fill="white" stroke="black" stroke-width="1" d="M3 3 L3 27 L10 20 L15 30 L18 29 L13 19 L22 19 Z"/></svg>') 0 0, auto;
+}
+
+.cursor-xl * {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><path fill="white" stroke="black" stroke-width="2" d="M4 4 L4 40 L15 30 L22 45 L27 43 L20 28 L33 28 Z"/></svg>') 0 0, auto;
+}
+
+/* DISABLE TRANSPARENCY */
+.no-transparency .window,
+.no-transparency .taskbar,
+.no-transparency .start-menu,
+.no-transparency .context-menu,
+.no-transparency .title-bar {
+  opacity: 1 !important;
+  background-color: #c0c0c0 !important;
+}
+
+.no-transparency .window-content {
+  background-color: #fff !important;
+  opacity: 1 !important;
+}
+
+/* READING MODE */
+.reading-mode {
+  line-height: 1.8 !important;
+}
+
+.reading-mode .window-content,
+.reading-mode .tab-content,
+.reading-mode .folder-content {
+  padding: 30px !important;
+  line-height: 1.8 !important;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.reading-mode p {
+  margin-bottom: 1.5em !important;
+  line-height: 1.8 !important;
+}
+
+.reading-mode h1,
+.reading-mode h2,
+.reading-mode h3 {
+  margin-top: 1.5em !important;
+  margin-bottom: 0.8em !important;
+  line-height: 1.4 !important;
+}
+
+/* COLOR BLIND MODES */
+/* Deuteranopia (Red-Green Color Blindness) */
+.deuteranopia {
+  filter: url('#deuteranopia-filter');
+}
+
+.deuteranopia * {
+  filter: hue-rotate(180deg) saturate(0.7);
+}
+
+/* Protanopia (Red-Blind) */
+.protanopia {
+  filter: url('#protanopia-filter');
+}
+
+.protanopia * {
+  filter: grayscale(0.3) sepia(0.4) hue-rotate(-20deg);
+}
+
+/* Tritanopia (Blue-Yellow Color Blindness) */
+.tritanopia {
+  filter: url('#tritanopia-filter');
+}
+
+.tritanopia * {
+  filter: hue-rotate(90deg) saturate(0.8);
+}
+
