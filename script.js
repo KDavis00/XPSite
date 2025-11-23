@@ -26,11 +26,13 @@ function makeDraggable(el) {
       const windowHeight = el.offsetHeight;
       const viewportWidth = window.innerWidth;
       const viewportHeight = window.innerHeight;
+      const taskbarHeight = 32; // Taskbar height at bottom
       
       // Constrain to viewport boundaries
       // Minimum: keep at least 50px of title bar visible
+      // Maximum: don't go past the taskbar (leave space for it)
       newLeft = Math.max(0, Math.min(newLeft, viewportWidth - Math.min(windowWidth, 50)));
-      newTop = Math.max(0, Math.min(newTop, viewportHeight - 50));
+      newTop = Math.max(0, Math.min(newTop, viewportHeight - taskbarHeight - windowHeight));
       
       el.style.left = newLeft + 'px';
       el.style.top = newTop + 'px';
@@ -181,9 +183,10 @@ function initializeWindows() {
         win.dataset.originalLeft = win.style.left || '100px';
         win.dataset.originalTop = win.style.top || '100px';
         
+        const taskbarHeight = 32;
         win.classList.add('maximized');
         win.style.width = '100%';
-        win.style.height = 'calc(100vh - 30px)';
+        win.style.height = `calc(100vh - ${taskbarHeight}px)`;
         win.style.left = '0';
         win.style.top = '0';
       }
@@ -711,6 +714,32 @@ function openWindow(windowId) {
   if (!win) return;
   
   win.style.display = 'block';
+  
+  // Center window on first open if it doesn't have a position
+  // Exception: Settings window positions at top right
+  if (!win.dataset.positioned) {
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    const windowWidth = win.offsetWidth;
+    const windowHeight = win.offsetHeight;
+    const taskbarHeight = 32;
+    
+    let left, top;
+    
+    if (windowId === 'settingsWindow') {
+      // Position settings window at top right corner
+      left = viewportWidth - windowWidth;
+      top = 0;
+    } else {
+      // Center other windows
+      left = Math.max(0, (viewportWidth - windowWidth) / 2);
+      top = Math.max(0, (viewportHeight - taskbarHeight - windowHeight) / 2);
+    }
+    
+    win.style.left = left + 'px';
+    win.style.top = top + 'px';
+    win.dataset.positioned = 'true';
+  }
   
   // Get the window title from the title bar
   const titleElement = win.querySelector('.title');

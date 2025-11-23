@@ -121,9 +121,8 @@
 .about-me-content {
   padding: 20px;
   background: #d4d0c8;
-  max-height: 500px;
-  overflow-y: auto;
-  overflow-x: hidden;
+  max-height: none;
+  overflow: visible;
 }
 
 .about-header {
@@ -595,4 +594,136 @@
 @keyframes blink {
   0%, 49% { opacity: 1; }
   50%, 100% { opacity: 0; }
+}
+
+/* RESPONSIVE DESIGN FOR SMALLER SCREENS */
+@media (max-width: 768px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 10px;
+  }
+
+  .project-card {
+    padding: 12px;
+  }
+
+  .project-title {
+    font-size: 14px;
+  }
+
+  .project-desc {
+    font-size: 11px;
+  }
+
+  .tech-tags {
+    gap: 4px;
+  }
+
+  .tech-tag {
+    font-size: 9px;
+    padding: 2px 6px;
+  }
+
+  .about-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .profile-photo {
+    width: 100px;
+    height: 100px;
+  }
+
+  .about-intro h2 {
+    font-size: 18px;
+  }
+
+  .about-section {
+    padding: 0;
+  }
+
+  .skill-bar {
+    margin: 8px 0;
+  }
+
+  .skill-label {
+    font-size: 11px;
+  }
+
+  .experience-item {
+    font-size: 11px;
+    padding: 8px;
+  }
+
+  .contact-form-content {
+    padding: 10px;
+  }
+
+  .form-group label {
+    font-size: 11px;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    font-size: 12px;
+    padding: 6px;
+  }
+
+  .social-links {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .social-link {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .bsod-content h1 {
+    font-size: 20px;
+  }
+
+  .bsod-content p {
+    font-size: 12px;
+  }
+
+  .bsod-error {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .projects-grid {
+    padding: 8px;
+  }
+
+  .project-card {
+    padding: 10px;
+  }
+
+  .about-me-content {
+    padding: 10px;
+  }
+
+  .profile-photo {
+    width: 80px;
+    height: 80px;
+  }
+
+  .about-intro h2 {
+    font-size: 16px;
+  }
+
+  .tagline {
+    font-size: 11px;
+  }
+
+  .about-section h3 {
+    font-size: 14px;
+  }
+
+  .about-section p {
+    font-size: 11px;
+  }
 }

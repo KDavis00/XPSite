@@ -83,10 +83,14 @@ class Solitaire {
   }
 
   // Shuffle the deck using Fisher-Yates algorithm
+  // Multiple passes for better randomization
   shuffle() {
-    for (let i = this.deck.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [this.deck[i], this.deck[j]] = [this.deck[j], this.deck[i]];
+    // Perform 3 passes of Fisher-Yates for better distribution
+    for (let pass = 0; pass < 3; pass++) {
+      for (let i = this.deck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [this.deck[i], this.deck[j]] = [this.deck[j], this.deck[i]];
+      }
     }
   }
 

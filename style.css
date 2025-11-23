@@ -433,6 +433,7 @@ body {
 
 .start-menu .submenu li {
   padding: 3px 8px;
+  color: #000;
 }
 
 .start-menu .submenu-parent:hover > .submenu {

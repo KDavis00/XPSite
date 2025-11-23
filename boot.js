@@ -38,19 +38,49 @@ function showBootSequence() {
       bootScreen.remove();
       playStartupSound();
       
-      // Show settings window on boot
-      const settingsWindow = document.getElementById('settingsWindow');
-      if (settingsWindow) {
-        // Initialize settings content first
-        if (typeof initSettings === 'function') {
-          initSettings();
-        }
-        settingsWindow.style.display = 'block';
-        settingsWindow.style.left = 'calc(100vw - 680px)'; // Position on the right
-        settingsWindow.style.top = '50px';
-        bringToFront(settingsWindow);
-        updateTaskbar();
+      // Create welcome sticky note on boot
+      if (!stickyNotesApp) {
+        initStickyNotes();
       }
+      
+      // Always show welcome note on boot (clears previous notes)
+      // Clear any existing notes first to ensure only one welcome note
+      stickyNotesApp.notes.forEach(note => {
+        const noteEl = document.getElementById(`sticky-note-${note.id}`);
+        if (noteEl) noteEl.remove();
+      });
+      stickyNotesApp.notes = [];
+      
+      const welcomeContent = `Welcome to Windows Kae00! 👋
+
+Keyboard Shortcuts:
+━━━━━━━━━━━━━━━━━
+⚙️  Settings: Ctrl+Shift+S
+📝  New Note: Ctrl+Shift+N
+
+Tips:
+• Double-click icons to open
+• Right-click for menu
+• Drag windows to move
+• Click 🎨 to change colors
+
+Enjoy exploring!`;
+      
+      const note = stickyNotesApp.createNote(
+        welcomeContent,
+        window.innerWidth - 270, // Position on right side
+        20 // Top margin
+      );
+      note.color = '#bae1ff'; // Blue color for welcome note
+      note.width = 250;
+      note.height = 320; // Taller to fit all content
+      const noteEl = document.getElementById(`sticky-note-${note.id}`);
+      if (noteEl) {
+        noteEl.style.backgroundColor = note.color;
+        noteEl.style.width = note.width + 'px';
+        noteEl.style.height = note.height + 'px';
+      }
+      stickyNotesApp.saveNotes();
     }, 500);
   }, 3000);
 }
@@ -251,10 +281,21 @@ If you've seen this developer before, then you already know they're amazing.</p>
   document.addEventListener('keydown', keyHandler);
 }
 
-// KEYBOARD SHORTCUTS: BSOD ACTIVATION
+// KEYBOARD SHORTCUTS
 // Ctrl+Shift+B triggers the Blue Screen of Death easter egg
+// Ctrl+Shift+S opens Settings window
+// Ctrl+Shift+N creates a new sticky note
 document.addEventListener('keydown', (e) => {
   if (e.ctrlKey && e.shiftKey && e.key === 'B') {
     showBSOD();
+  }
+  if (e.ctrlKey && e.shiftKey && e.key === 'S') {
+    const settingsWindow = document.getElementById('settingsWindow');
+    if (settingsWindow) {
+      openWindow(settingsWindow);
+    }
+  }
+  if (e.ctrlKey && e.shiftKey && e.key === 'N') {
+    createStickyNote();
   }
 });

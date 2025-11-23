@@ -424,3 +424,72 @@
   background: #4ecdc4;
   color: white;
 }
+
+/* RESPONSIVE DESIGN FOR GAMES */
+@media (max-width: 768px) {
+  .minesweeper-container {
+    padding: 8px;
+  }
+
+  .mine-grid {
+    gap: 1px;
+  }
+
+  .mine-cell {
+    width: 22px;
+    height: 22px;
+    font-size: 11px;
+  }
+
+  .solitaire-container {
+    padding: 8px;
+    transform: scale(0.9);
+    transform-origin: top center;
+  }
+
+  .solitaire-card {
+    width: 50px;
+    height: 70px;
+    font-size: 16px;
+  }
+
+  .solitaire-controls {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .solitaire-controls button {
+    width: 100%;
+    font-size: 11px;
+    padding: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mine-cell {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+  }
+
+  .mine-counter,
+  .timer {
+    font-size: 16px;
+    min-width: 35px;
+  }
+
+  .solitaire-container {
+    transform: scale(0.75);
+  }
+
+  .solitaire-card {
+    width: 45px;
+    height: 63px;
+    font-size: 14px;
+  }
+
+  .pinball-container {
+    transform: scale(0.8);
+    transform-origin: top center;
+  }
+}

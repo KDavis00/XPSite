@@ -389,8 +389,33 @@
   color: #e0e0e0;
 }
 
+.dark-mode .start-menu li.menu-item-blue {
+  background: #000080;
+  color: #fff;
+}
+
+.dark-mode .start-menu li.menu-item-gray {
+  background: #3d3d3d;
+  color: #e0e0e0;
+}
+
 .dark-mode .start-menu li:hover {
   background: #1a1a2e;
+}
+
+.dark-mode .start-menu .submenu {
+  background: #2d2d2d;
+  border: 2px solid #444;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.dark-mode .start-menu .submenu li {
+  color: #e0e0e0 !important;
+}
+
+.dark-mode .start-menu .submenu li:hover {
+  background: #1a1a2e;
+  color: #e0e0e0 !important;
 }
 
 .dark-mode .icon span {
@@ -514,7 +539,7 @@
   color: #e0e0e0;
 }
 
-/* ENHANCED HIGH CONTRAST THEME */
+/* ENHANCED HIGH CONTRAST THEME (DARK) */
 .high-contrast {
   background: #000;
   color: #fff;
@@ -580,9 +605,37 @@
   font-weight: bold;
 }
 
+.high-contrast .start-menu li.menu-item-blue {
+  background: #000;
+  color: #ffff00;
+  border: 2px solid #fff;
+}
+
+.high-contrast .start-menu li.menu-item-gray {
+  background: #000;
+  color: #fff;
+  border: 1px solid #fff;
+}
+
 .high-contrast .start-menu li:hover {
   background: #fff;
   color: #000;
+}
+
+.high-contrast .start-menu .submenu {
+  background: #000;
+  border: 3px solid #fff;
+  box-shadow: none;
+}
+
+.high-contrast .start-menu .submenu li {
+  color: #fff !important;
+  font-weight: bold;
+}
+
+.high-contrast .start-menu .submenu li:hover {
+  background: #fff;
+  color: #000 !important;
 }
 
 .high-contrast .icon span {
@@ -632,6 +685,10 @@
   background: #000;
 }
 
+.high-contrast .settings-container {
+  background: #000;
+}
+
 .high-contrast .setting-item {
   background: #000;
   border: 2px solid #fff;
@@ -645,6 +702,23 @@
 
 .high-contrast .setting-desc {
   color: #fff;
+}
+
+.high-contrast .settings-nav-item {
+  color: #fff;
+  background: #000;
+  border-left-color: transparent;
+}
+
+.high-contrast .settings-nav-item:hover {
+  background: #fff;
+  color: #000;
+}
+
+.high-contrast .settings-nav-item.active {
+  background: #fff;
+  color: #000;
+  border-left-color: #ffff00;
 }
 
 .high-contrast .shortcut-item {
@@ -719,6 +793,11 @@
   font-weight: bold;
 }
 
+.high-contrast .setting-name,
+.high-contrast .settings-tab h2 {
+  color: #ffff00;
+}
+
 .high-contrast .tab-content,
 .high-contrast .explorer-content,
 .high-contrast .about-content,
@@ -775,6 +854,430 @@
   background: #fff;
   color: #000;
 }
+
+.high-contrast ::selection {
+  background: #ffff00;
+  color: #000;
+}
+
+/* LIGHT HIGH CONTRAST THEME */
+.high-contrast-light {
+  background: #fff;
+  color: #000;
+}
+
+.high-contrast-light .desktop {
+  background: #fff;
+}
+
+.high-contrast-light .window {
+  background: #fff;
+  border: 3px solid #000;
+  box-shadow: none;
+}
+
+.high-contrast-light .title-bar {
+  background: #fff;
+  color: #000;
+  border: 2px solid #000;
+  border-bottom: 3px solid #000;
+  font-weight: bold;
+}
+
+.high-contrast-light .window-content {
+  background: #fff;
+  color: #000;
+  border: 2px solid #000;
+}
+
+.high-contrast-light .folder-content {
+  background: #fff;
+  border: 2px solid #000;
+}
+
+.high-contrast-light .taskbar {
+  background: #fff;
+  border: 3px solid #000;
+  border-bottom: none;
+}
+
+.high-contrast-light .start-button,
+.high-contrast-light .taskbar-items span,
+.high-contrast-light .time {
+  background: #fff;
+  border: 2px solid #000;
+  color: #000;
+  font-weight: bold;
+}
+
+.high-contrast-light .start-button:hover,
+.high-contrast-light .taskbar-items span:hover {
+  background: #000;
+  color: #fff;
+}
+
+.high-contrast-light .start-menu {
+  background: #fff;
+  border: 3px solid #000;
+}
+
+.high-contrast-light .start-menu li {
+  color: #000;
+  font-weight: bold;
+}
+
+.high-contrast-light .start-menu li.menu-item-blue {
+  background: #fff;
+  color: #000;
+  border: 2px solid #000;
+}
+
+.high-contrast-light .start-menu li.menu-item-gray {
+  background: #fff;
+  color: #000;
+  border: 1px solid #000;
+}
+
+.high-contrast-light .start-menu li:hover {
+  background: #000;
+  color: #fff;
+}
+
+.high-contrast-light .start-menu .submenu {
+  background: #fff;
+  border: 3px solid #000;
+  box-shadow: none;
+}
+
+.high-contrast-light .start-menu .submenu li {
+  color: #000 !important;
+  font-weight: bold;
+}
+
+.high-contrast-light .start-menu .submenu li:hover {
+  background: #000;
+  color: #fff !important;
+}
+
+.high-contrast-light .icon span {
+  color: #000;
+  text-shadow: none;
+  font-weight: bold;
+  background: #fff;
+  padding: 2px 4px;
+  border: 2px solid #000;
+}
+
+.high-contrast-light button,
+.high-contrast-light .win-button,
+.high-contrast-light .action-btn {
+  background: #fff;
+  border: 2px solid #000;
+  color: #000;
+  font-weight: bold;
+}
+
+.high-contrast-light button:hover,
+.high-contrast-light .win-button:hover,
+.high-contrast-light .action-btn:hover {
+  background: #000;
+  color: #fff;
+}
+
+.high-contrast-light input[type="text"],
+.high-contrast-light input[type="email"],
+.high-contrast-light textarea,
+.high-contrast-light select,
+.high-contrast-light input[type="range"],
+.high-contrast-light input[type="number"] {
+  background: #fff;
+  color: #000;
+  border: 2px solid #000;
+  font-weight: bold;
+}
+
+.high-contrast-light .explorer-left,
+.high-contrast-light .settings-sidebar {
+  background: #fff;
+  border-right: 3px solid #000;
+}
+
+.high-contrast-light .settings-content {
+  background: #fff;
+}
+
+.high-contrast-light .settings-container {
+  background: #fff;
+}
+
+.high-contrast-light .setting-item {
+  background: #fff;
+  border: 2px solid #000;
+  color: #000;
+}
+
+.high-contrast-light .setting-label {
+  color: #000;
+  font-weight: bold;
+}
+
+.high-contrast-light .setting-desc {
+  color: #000;
+}
+
+.high-contrast-light .settings-nav-item {
+  color: #000;
+  background: #fff;
+  border-left-color: transparent;
+}
+
+.high-contrast-light .settings-nav-item:hover {
+  background: #000;
+  color: #fff;
+}
+
+.high-contrast-light .settings-nav-item.active {
+  background: #000;
+  color: #fff;
+  border-left-color: #000;
+  border-left-width: 5px;
+}
+
+.high-contrast-light .shortcut-item {
+  background: #fff;
+  border: 2px solid #000;
+}
+
+.high-contrast-light .shortcut-key {
+  background: #fff;
+  color: #000;
+  border: 2px solid #000;
+  font-weight: bold;
+}
+
+.high-contrast-light .shortcut-desc {
+  color: #000;
+  font-weight: bold;
+}
+
+.high-contrast-light .context-menu {
+  background: #fff;
+  border: 3px solid #000;
+  color: #000;
+}
+
+.high-contrast-light .context-menu-item:hover {
+  background: #000;
+  color: #fff;
+}
+
+.high-contrast-light a {
+  color: #0000ff;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.high-contrast-light a:visited {
+  color: #800080;
+}
+
+.high-contrast-light .tab-button {
+  background: #fff;
+  border: 2px solid #000;
+  color: #000;
+  font-weight: bold;
+}
+
+.high-contrast-light .tab-button.active {
+  background: #000;
+  color: #fff;
+}
+
+.high-contrast-light .settings-notification {
+  background: #fff;
+  border: 3px solid #000;
+  color: #000;
+  font-weight: bold;
+  box-shadow: none;
+}
+
+.high-contrast-light p,
+.high-contrast-light h1,
+.high-contrast-light h2,
+.high-contrast-light h3,
+.high-contrast-light h4,
+.high-contrast-light h5,
+.high-contrast-light h6,
+.high-contrast-light span,
+.high-contrast-light div,
+.high-contrast-light label {
+  color: #000;
+  font-weight: bold;
+}
+
+.high-contrast-light .setting-name,
+.high-contrast-light .settings-tab h2 {
+  color: #000;
+}
+
+.high-contrast-light .tab-content,
+.high-contrast-light .explorer-content,
+.high-contrast-light .about-content,
+.high-contrast-light .contact-content,
+.high-contrast-light .projects-grid {
+  color: #000;
+  background: #fff;
+}
+
+.high-contrast-light .project-title,
+.high-contrast-light .section-title {
+  color: #000;
+  font-weight: bold;
+}
+
+.high-contrast-light .project-desc,
+.high-contrast-light .tech-tag {
+  color: #000;
+  font-weight: bold;
+  background: #fff;
+  border: 2px solid #000;
+  padding: 2px 4px;
+}
+
+.high-contrast-light .file-icon span {
+  color: #000;
+  background: #fff;
+  border: 2px solid #000;
+  padding: 2px 4px;
+  font-weight: bold;
+}
+
+.high-contrast-light canvas {
+  background: #fff;
+  border: 3px solid #000;
+}
+
+.high-contrast-light .game-score,
+.high-contrast-light .game-status,
+.high-contrast-light .game-controls {
+  color: #000;
+  font-weight: bold;
+}
+
+.high-contrast-light .explorer-item,
+.high-contrast-light .folder-item {
+  color: #000;
+  border: 2px solid #000;
+  background: #fff;
+}
+
+.high-contrast-light .explorer-item:hover,
+.high-contrast-light .folder-item:hover {
+  background: #000;
+  color: #fff;
+}
+
+.high-contrast-light ::selection {
+  background: #000;
+  color: #fff;
+}
+
+.high-contrast-light .window-controls button {
+  background: #fff;
+  color: #000;
+  border: 2px solid #000;
+  font-weight: bold;
+}
+
+.high-contrast-light .window-controls button:hover {
+  background: #000;
+  color: #fff;
+}
+
+.high-contrast .window-controls button {
+  background: #000;
+  color: #ffff00;
+  border: 2px solid #fff;
+  font-weight: bold;
+}
+
+.high-contrast .window-controls button:hover {
+  background: #fff;
+  color: #000;
+}
+
+/* Sudoku game styles for high contrast modes */
+.high-contrast .sudoku-cell,
+.high-contrast-light .sudoku-cell {
+  border: 1px solid;
+  font-weight: bold;
+}
+
+.high-contrast .sudoku-cell {
+  background: #000;
+  color: #fff;
+  border-color: #fff;
+}
+
+.high-contrast-light .sudoku-cell {
+  background: #fff;
+  color: #000;
+  border-color: #000;
+}
+
+.high-contrast .sudoku-cell.initial {
+  color: #ffff00;
+  font-weight: bold;
+}
+
+.high-contrast-light .sudoku-cell.initial {
+  color: #000;
+  font-weight: bold;
+  background: #e0e0e0;
+}
+
+.high-contrast .sudoku-cell.selected {
+  border: 3px solid #ffff00;
+}
+
+.high-contrast-light .sudoku-cell.selected {
+  border: 3px solid #000;
+  background: #f0f0f0;
+}
+
+.high-contrast .sudoku-cell.error {
+  background: #ff0000;
+  color: #fff;
+}
+
+.high-contrast-light .sudoku-cell.error {
+  background: #ff0000;
+  color: #fff;
+}
+
+.high-contrast .sudoku-cell.hint {
+  background: #ffff00;
+  color: #000;
+}
+
+.high-contrast-light .sudoku-cell.hint {
+  background: #ffff00;
+  color: #000;
+}
+
+.high-contrast #sudokuBoard,
+.high-contrast-light #sudokuBoard {
+  border: 3px solid;
+}
+
+.high-contrast #sudokuBoard {
+  border-color: #fff;
+}
+
+.high-contrast-light #sudokuBoard {
+  border-color: #000;
+}
+
 
 /* CURSOR SIZE SETTINGS */
 .cursor-large * {
@@ -855,3 +1358,129 @@
   filter: hue-rotate(90deg) saturate(0.8);
 }
 
+/* RESPONSIVE DESIGN FOR SETTINGS */
+@media (max-width: 768px) {
+  .settings-container {
+    flex-direction: column;
+  }
+
+  .settings-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 2px solid #808080;
+    padding: 5px 0;
+    display: flex;
+    overflow-x: auto;
+  }
+
+  .settings-nav-item {
+    padding: 8px 12px;
+    font-size: 11px;
+    white-space: nowrap;
+    border-left: none;
+    border-bottom: 3px solid transparent;
+  }
+
+  .settings-nav-item.active {
+    border-left: none;
+    border-bottom-color: #0000AA;
+  }
+
+  .settings-content {
+    padding: 10px;
+  }
+
+  .settings-tab h2 {
+    font-size: 16px;
+  }
+
+  .settings-description {
+    font-size: 10px;
+  }
+
+  .settings-section h3 {
+    font-size: 12px;
+  }
+
+  .setting-item {
+    padding: 6px;
+    margin-bottom: 10px;
+  }
+
+  .setting-label {
+    font-size: 11px;
+  }
+
+  .setting-desc {
+    font-size: 10px;
+  }
+
+  .setting-select {
+    font-size: 10px;
+    padding: 3px 6px;
+  }
+
+  .shortcut-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    padding: 6px;
+  }
+
+  .shortcut-key {
+    font-size: 10px;
+    padding: 3px 8px;
+    min-width: auto;
+  }
+
+  .shortcut-desc {
+    font-size: 10px;
+  }
+
+  .color-preset {
+    width: 35px !important;
+    height: 35px !important;
+  }
+
+  #backgroundColorPicker {
+    width: 50px !important;
+    height: 25px !important;
+  }
+
+  .win-button {
+    font-size: 10px;
+    padding: 3px 8px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .settings-sidebar {
+    padding: 3px 0;
+  }
+
+  .settings-nav-item {
+    padding: 6px 10px;
+    font-size: 10px;
+  }
+
+  .settings-nav-item span {
+    font-size: 14px;
+  }
+
+  .settings-content {
+    padding: 8px;
+  }
+
+  .settings-tab h2 {
+    font-size: 14px;
+  }
+
+  .setting-item {
+    padding: 5px;
+  }
+
+  .color-preset {
+    width: 30px !important;
+    height: 30px !important;
+  }
+}

@@ -17,7 +17,7 @@ class Settings {
   // Merges saved settings with default values to handle new settings
   loadSettings() {
     const defaults = {
-      theme: 'default', // default, dark, highContrast
+      theme: 'default', // default, dark, highContrast, highContrastLight
       highContrast: false,
       darkMode: false,
       textSize: 100,
@@ -30,7 +30,9 @@ class Settings {
       cursorSize: 'normal', // normal, large, xl
       readingMode: false,
       colorBlindMode: 'none', // none, deuteranopia, protanopia, tritanopia
-      rtlMode: false // Right-to-left text direction
+      rtlMode: false, // Right-to-left text direction
+      backgroundColor: '#42477a', // Desktop background color
+      previousBackgroundColor: null // Previous background color
     };
     
     const saved = localStorage.getItem('accessibilitySettings');
@@ -50,12 +52,15 @@ class Settings {
     const root = document.documentElement;
     
     // Remove all theme classes first
-    root.classList.remove('high-contrast', 'dark-mode', 'theme-default');
+    root.classList.remove('high-contrast', 'high-contrast-light', 'dark-mode', 'theme-default');
     
     // Apply theme
     if (this.settings.theme === 'highContrast' || this.settings.highContrast) {
       root.classList.add('high-contrast');
       this.settings.theme = 'highContrast';
+    } else if (this.settings.theme === 'highContrastLight') {
+      root.classList.add('high-contrast-light');
+      this.settings.theme = 'highContrastLight';
     } else if (this.settings.theme === 'dark' || this.settings.darkMode) {
       root.classList.add('dark-mode');
       this.settings.theme = 'dark';
@@ -130,6 +135,11 @@ class Settings {
     } else {
       root.setAttribute('dir', 'ltr');
       document.body.classList.remove('rtl-mode');
+    }
+
+    // Background Color - Custom desktop background
+    if (this.settings.backgroundColor) {
+      document.querySelector('.desktop').style.backgroundColor = this.settings.backgroundColor;
     }
   }
 
@@ -358,7 +368,8 @@ function initSettings() {
               <select id="themeSelect" class="setting-select">
                 <option value="default" ${settingsApp.settings.theme === 'default' ? 'selected' : ''}>Windows 2000 Classic</option>
                 <option value="dark" ${settingsApp.settings.theme === 'dark' ? 'selected' : ''}>Dark Mode</option>
-                <option value="highContrast" ${settingsApp.settings.theme === 'highContrast' ? 'selected' : ''}>High Contrast</option>
+                <option value="highContrast" ${settingsApp.settings.theme === 'highContrast' ? 'selected' : ''}>High Contrast (Dark)</option>
+                <option value="highContrastLight" ${settingsApp.settings.theme === 'highContrastLight' ? 'selected' : ''}>High Contrast (Light)</option>
               </select>
               <p class="setting-desc">Choose your preferred color theme</p>
             </div>
@@ -413,6 +424,29 @@ function initSettings() {
                 <option value="tritanopia" ${settingsApp.settings.colorBlindMode === 'tritanopia' ? 'selected' : ''}>Tritanopia (Blue-Yellow)</option>
               </select>
               <p class="setting-desc">Apply color filters for color blindness accessibility</p>
+            </div>
+          </div>
+
+          <div class="settings-section">
+            <h3>Background Color</h3>
+            <div class="setting-item">
+              <div class="setting-name">Desktop Background</div>
+              <div style="display: flex; gap: 10px; align-items: center; margin: 10px 0;">
+                <input type="color" id="backgroundColorPicker" value="${settingsApp.settings.backgroundColor}" style="width: 60px; height: 30px; cursor: pointer; border: 2px inset #808080;">
+                <button id="resetBackgroundColor" class="win-button" style="padding: 4px 12px;">Reset to Default</button>
+                ${settingsApp.settings.previousBackgroundColor ? `<button id="usePreviousColor" class="win-button" style="padding: 4px 12px; background: ${settingsApp.settings.previousBackgroundColor};" title="Previous: ${settingsApp.settings.previousBackgroundColor}">Use Previous</button>` : ''}
+              </div>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px;">
+                <button class="color-preset" data-color="#42477a" style="width: 40px; height: 40px; background: #42477a; border: 2px outset #fff; cursor: pointer;" title="Slate Blue (Default)"></button>
+                <button class="color-preset" data-color="#008080" style="width: 40px; height: 40px; background: #008080; border: 2px outset #fff; cursor: pointer;" title="Teal"></button>
+                <button class="color-preset" data-color="#000080" style="width: 40px; height: 40px; background: #000080; border: 2px outset #fff; cursor: pointer;" title="Navy Blue"></button>
+                <button class="color-preset" data-color="#800000" style="width: 40px; height: 40px; background: #800000; border: 2px outset #fff; cursor: pointer;" title="Maroon"></button>
+                <button class="color-preset" data-color="#008000" style="width: 40px; height: 40px; background: #008000; border: 2px outset #fff; cursor: pointer;" title="Green"></button>
+                <button class="color-preset" data-color="#808080" style="width: 40px; height: 40px; background: #808080; border: 2px outset #fff; cursor: pointer;" title="Gray"></button>
+                <button class="color-preset" data-color="#800080" style="width: 40px; height: 40px; background: #800080; border: 2px outset #fff; cursor: pointer;" title="Purple"></button>
+                <button class="color-preset" data-color="#000000" style="width: 40px; height: 40px; background: #000000; border: 2px outset #fff; cursor: pointer;" title="Black"></button>
+              </div>
+              <p class="setting-desc">Choose a custom color for your desktop background</p>
             </div>
           </div>
         </div>
@@ -537,6 +571,51 @@ function initSettings() {
       showNotification('Color filter: ' + e.target.options[e.target.selectedIndex].text);
     });
   }
+
+  // Background color picker
+  const backgroundColorPicker = content.querySelector('#backgroundColorPicker');
+  if (backgroundColorPicker) {
+    backgroundColorPicker.addEventListener('input', (e) => {
+      // Save current color as previous before changing
+      if (settingsApp.settings.backgroundColor !== e.target.value) {
+        settingsApp.settings.previousBackgroundColor = settingsApp.settings.backgroundColor;
+      }
+      settingsApp.settings.backgroundColor = e.target.value;
+      settingsApp.applySettings();
+      settingsApp.saveSettings();
+    });
+    backgroundColorPicker.addEventListener('change', (e) => {
+      showNotification('Background color changed');
+    });
+  }
+
+  // Reset background color button
+  const resetBackgroundBtn = content.querySelector('#resetBackgroundColor');
+  if (resetBackgroundBtn) {
+    resetBackgroundBtn.addEventListener('click', () => {
+      settingsApp.settings.backgroundColor = '#42477a';
+      settingsApp.applySettings();
+      settingsApp.saveSettings();
+      if (backgroundColorPicker) {
+        backgroundColorPicker.value = '#42477a';
+      }
+      showNotification('Background color reset to default');
+    });
+  }
+
+  // Color preset buttons
+  content.querySelectorAll('.color-preset').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const color = btn.dataset.color;
+      settingsApp.settings.backgroundColor = color;
+      settingsApp.applySettings();
+      settingsApp.saveSettings();
+      if (backgroundColorPicker) {
+        backgroundColorPicker.value = color;
+      }
+      showNotification('Background color changed');
+    });
+  });
 
   // Store settings instance
   settingsWindow.settingsApp = settingsApp;

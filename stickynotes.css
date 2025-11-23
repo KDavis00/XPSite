@@ -1,0 +1,183 @@
+/* STICKY NOTES STYLES */
+
+.sticky-note {
+  position: absolute;
+  min-width: 150px;
+  min-height: 150px;
+  background: #fff740;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  border: 1px solid #808080;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  font-family: 'MS Sans Serif', Tahoma, sans-serif;
+  resize: both;
+  overflow: hidden;
+}
+
+.sticky-note-header {
+  display: flex;
+  justify-content: flex-end;
+  gap: 2px;
+  padding: 2px;
+  background: inherit;
+  cursor: move;
+  user-select: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.sticky-note-color,
+.sticky-note-close {
+  background: #c0c0c0;
+  border: 2px outset #fff;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'MS Sans Serif', sans-serif;
+}
+
+.sticky-note-color:hover,
+.sticky-note-close:hover {
+  background: #d0d0d0;
+}
+
+.sticky-note-color:active,
+.sticky-note-close:active {
+  border-style: inset;
+  background: #b0b0b0;
+}
+
+.sticky-note-close {
+  font-size: 14px;
+  font-weight: bold;
+  color: #000;
+}
+
+.sticky-note-content {
+  flex: 1;
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: 8px;
+  font-size: 11px;
+  line-height: 1.4;
+  resize: none;
+  outline: none;
+  font-family: 'MS Sans Serif', Tahoma, sans-serif;
+  color: #000;
+}
+
+.sticky-note-content::placeholder {
+  color: rgba(0, 0, 0, 0.4);
+  font-style: normal;
+}
+
+/* Sticky Notes Button in Taskbar/Start Menu */
+.sticky-notes-btn {
+  background: #fff740;
+  border: 2px outset #fff;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-family: 'MS Sans Serif', sans-serif;
+  font-size: 11px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.sticky-notes-btn:hover {
+  background: #ffff60;
+}
+
+.sticky-notes-btn:active {
+  border-style: inset;
+}
+
+/* Dark Mode */
+.dark-mode .sticky-note {
+  border: 1px solid #000;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+}
+
+.dark-mode .sticky-note-header {
+  background: inherit;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .sticky-note-color,
+.dark-mode .sticky-note-close {
+  background: #2d2d2d;
+  color: #e0e0e0;
+  border-color: #444 #000 #000 #444;
+}
+
+.dark-mode .sticky-note-color:hover,
+.dark-mode .sticky-note-close:hover {
+  background: #3d3d3d;
+}
+
+.dark-mode .sticky-note-color:active,
+.dark-mode .sticky-note-close:active {
+  border-color: #000 #444 #444 #000;
+}
+
+.dark-mode .sticky-note-content {
+  color: #000;
+}
+
+/* High Contrast Dark */
+.high-contrast .sticky-note {
+  border: 3px solid #fff;
+  box-shadow: 3px 3px 0px #000;
+}
+
+.high-contrast .sticky-note-header {
+  background: inherit;
+  border-bottom: 2px solid #fff;
+}
+
+.high-contrast .sticky-note-color,
+.high-contrast .sticky-note-close {
+  background: #000;
+  color: #ffff00;
+  border: 2px solid #fff;
+  font-weight: bold;
+}
+
+.high-contrast .sticky-note-color:hover,
+.high-contrast .sticky-note-close:hover {
+  background: #333;
+}
+
+.high-contrast .sticky-note-content {
+  color: #000;
+  font-weight: bold;
+}
+
+/* High Contrast Light */
+.high-contrast-light .sticky-note {
+  border: 3px solid #000;
+  box-shadow: 3px 3px 0px #000;
+}
+
+.high-contrast-light .sticky-note-header {
+  background: inherit;
+  border-bottom: 2px solid #000;
+}
+
+.high-contrast-light .sticky-note-color,
+.high-contrast-light .sticky-note-close {
+  background: #fff;
+  color: #000;
+  border: 2px solid #000;
+  font-weight: bold;
+}
+
+.high-contrast-light .sticky-note-color:hover,
+.high-contrast-light .sticky-note-close:hover {
+  background: #e0e0e0;
+}
