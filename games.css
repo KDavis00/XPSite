@@ -8,6 +8,88 @@
   gap: 10px;
 }
 
+/* SUDOKU STYLES */
+#sudokuGame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #c0c0c0;
+}
+
+.sudoku-header {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  background: #c0c0c0;
+  justify-content: center;
+  width: 100%;
+}
+
+.sudoku-board-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  overflow: hidden;
+}
+
+.sudoku-board {
+  display: grid;
+  grid-template-columns: repeat(9, 32px);
+  grid-template-rows: repeat(9, 32px);
+  gap: 1px;
+  background: #000;
+  border: 3px solid #808080;
+}
+
+.sudoku-cell {
+  width: 32px;
+  height: 32px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  background: #fff;
+  font-family: 'MS Sans Serif', Arial, sans-serif;
+  outline: none;
+  cursor: pointer;
+}
+
+.sudoku-cell.fixed {
+  background: #e0e0e0;
+  color: #000;
+  font-weight: bold;
+  cursor: not-allowed;
+}
+
+.sudoku-cell.invalid {
+  background: #ffcccc;
+  color: #cc0000;
+}
+
+.sudoku-cell:focus:not(.fixed) {
+  background: #ffffcc;
+  outline: 2px solid #0066cc;
+  outline-offset: -2px;
+}
+
+.sudoku-cell.left-border {
+  border-left: 2px solid #000;
+}
+
+.sudoku-cell.top-border {
+  border-top: 2px solid #000;
+}
+
+.sudoku-status {
+  text-align: center;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  background: #c0c0c0;
+  width: 100%;
+}
+
 .minesweeper-header {
   display: flex;
   justify-content: space-between;
@@ -90,6 +172,12 @@
   user-select: none;
 }
 
+.mine-cell:focus {
+  outline: 2px solid #0066cc;
+  outline-offset: -4px;
+  z-index: 1;
+}
+
 .mine-cell:active {
   border: 1px solid #808080;
 }
@@ -169,6 +257,12 @@
   cursor: pointer;
   position: absolute;
   box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.card:focus {
+  outline: 3px solid #ffff00;
+  outline-offset: 2px;
+  z-index: 100;
 }
 
 .card-back {
@@ -352,123 +446,88 @@
   border-radius: 5px;
 }
 
-/* PINBALL STYLES */
-.pinball-container {
-  padding: 20px;
-  background: #0f0f1e;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-}
-
-.pinball-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  max-width: 400px;
-  color: white;
-}
-
-.pinball-info {
-  display: flex;
-  gap: 30px;
-  background: rgba(255,255,255,0.1);
-  padding: 10px 15px;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-.new-pinball-btn {
-  background: #d4d0c8;
-  border: 2px solid;
-  border-color: #fff #808080 #808080 #fff;
-  padding: 5px 15px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.new-pinball-btn:active {
-  border-color: #808080 #fff #fff #808080;
-}
-
-#pinballCanvas {
-  border: 3px solid #4ecdc4;
-  border-radius: 10px;
-  box-shadow: 0 0 20px rgba(78, 205, 196, 0.5);
-}
-
-.pinball-controls {
-  display: flex;
-  gap: 10px;
-  width: 100%;
-  max-width: 400px;
-}
-
-.flipper-btn,
-.launch-btn {
-  flex: 1;
-  background: #d4d0c8;
-  border: 2px solid;
-  border-color: #fff #808080 #808080 #fff;
-  padding: 10px;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 12px;
-}
-
-.flipper-btn:active,
-.launch-btn:active {
-  border-color: #808080 #fff #fff #808080;
-  background: #4ecdc4;
-  color: white;
-}
-
 /* RESPONSIVE DESIGN FOR GAMES */
 @media (max-width: 768px) {
   .minesweeper-container {
     padding: 8px;
+    overflow-x: auto;
   }
 
-  .mine-grid {
-    gap: 1px;
+  .minesweeper-grid {
+    margin: 0 auto;
+    max-width: 100%;
   }
 
   .mine-cell {
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
     font-size: 11px;
+  }
+
+  .minesweeper-header {
+    padding: 8px;
+    gap: 10px;
+  }
+
+  .minesweeper-controls {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .difficulty-select {
+    font-size: 12px;
+    padding: 4px;
   }
 
   .solitaire-container {
     padding: 8px;
-    transform: scale(0.9);
-    transform-origin: top center;
+    overflow: auto;
   }
 
-  .solitaire-card {
-    width: 50px;
-    height: 70px;
+  .card {
+    width: 45px;
+    height: 63px;
+    font-size: 14px;
+  }
+
+  .solitaire-header {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .solitaire-header button,
+  .solitaire-header select {
+    font-size: 11px;
+    padding: 6px;
+  }
+
+  .sudoku-board-container {
+    overflow: auto;
+    padding: 5px;
+  }
+
+  .sudoku-cell {
+    width: 28px;
+    height: 28px;
     font-size: 16px;
   }
 
-  .solitaire-controls {
-    flex-direction: column;
-    gap: 5px;
-  }
-
-  .solitaire-controls button {
-    width: 100%;
-    font-size: 11px;
+  .sudoku-header {
+    flex-wrap: wrap;
+    gap: 6px;
     padding: 6px;
   }
 }
 
 @media (max-width: 480px) {
+  .minesweeper-grid {
+    max-width: 100vw;
+    overflow-x: auto;
+  }
+
   .mine-cell {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     font-size: 10px;
   }
 
@@ -476,20 +535,34 @@
   .timer {
     font-size: 16px;
     min-width: 35px;
+    padding: 4px 6px;
   }
 
-  .solitaire-container {
-    transform: scale(0.75);
+  .reset-btn {
+    font-size: 18px;
+    padding: 4px 8px;
   }
 
-  .solitaire-card {
-    width: 45px;
-    height: 63px;
+  .card {
+    width: 40px;
+    height: 56px;
+    font-size: 12px;
+  }
+
+  .sudoku-cell {
+    width: 24px;
+    height: 24px;
     font-size: 14px;
   }
 
-  .pinball-container {
-    transform: scale(0.8);
-    transform-origin: top center;
+  .sudoku-board {
+    grid-template-columns: repeat(9, 24px);
+    grid-template-rows: repeat(9, 24px);
+  }
+
+  .win-button,
+  .win-select {
+    font-size: 10px;
+    padding: 4px;
   }
 }

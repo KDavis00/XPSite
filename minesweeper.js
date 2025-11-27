@@ -1,20 +1,11 @@
-// MINESWEEPER GAME
-// A classic Minesweeper game implementation
-// Features:
-// - 9x9 grid with 10 mines
-// - Left-click to reveal cells
-// - Right-click to place flags
-// - Timer and mine counter
-// - Hint systemk
-// - Win/loss detection
+// Classic Minesweeper game: 9x9 grid with 10 mines
+// Features: left-click to reveal, right-click to flag, timer, hint system
 class Minesweeper {
-  // Initialize game with default settings
-  // Sets up 9x9 grid with 10 mines
+  // Initialize game with 9x9 grid and 10 mines
   constructor(container) {
     this.container = container;
-    this.rows = 9;
-    this.cols = 9;
-    this.mines = 10;
+    this.difficulty = 'medium';
+    this.setDifficulty('medium');
     this.grid = [];
     this.revealed = [];
     this.flagged = [];
@@ -23,7 +14,22 @@ class Minesweeper {
     this.init();
   }
 
-  // Create the game UI: header (counter, reset, timer), controls, and grid
+  // Set difficulty parameters
+  setDifficulty(level) {
+    const difficulties = {
+      easy: { rows: 8, cols: 8, mines: 10 },
+      medium: { rows: 9, cols: 9, mines: 10 },
+      hard: { rows: 16, cols: 16, mines: 40 },
+      expert: { rows: 16, cols: 30, mines: 99 }
+    };
+    const config = difficulties[level];
+    this.rows = config.rows;
+    this.cols = config.cols;
+    this.mines = config.mines;
+    this.difficulty = level;
+  }
+
+  // Create game UI with header, controls, and grid
   init() {
     this.container.innerHTML = `
       <div class="minesweeper-header">
@@ -32,6 +38,12 @@ class Minesweeper {
         <div class="timer">000</div>
       </div>
       <div class="minesweeper-controls">
+        <select class="difficulty-select">
+          <option value="easy">Easy (8×8)</option>
+          <option value="medium" selected>Medium (9×9)</option>
+          <option value="hard">Hard (16×16)</option>
+          <option value="expert">Expert (16×30)</option>
+        </select>
         <button class="hint-btn-mine">Hint</button>
       </div>
       <div class="minesweeper-grid"></div>
@@ -42,9 +54,14 @@ class Minesweeper {
     this.timerElement = this.container.querySelector('.timer');
     this.resetBtn = this.container.querySelector('.reset-btn');
     this.hintBtn = this.container.querySelector('.hint-btn-mine');
+    this.difficultySelect = this.container.querySelector('.difficulty-select');
     
     this.resetBtn.addEventListener('click', () => this.reset());
     this.hintBtn.addEventListener('click', () => this.showHint());
+    this.difficultySelect.addEventListener('change', (e) => {
+      this.setDifficulty(e.target.value);
+      this.reset();
+    });
     this.createGrid();
   }
 
@@ -58,6 +75,8 @@ class Minesweeper {
     this.firstClick = true;
     this.gridElement.innerHTML = '';
     this.gridElement.style.gridTemplateColumns = `repeat(${this.cols}, 20px)`;
+    this.gridElement.style.gridTemplateRows = `repeat(${this.rows}, 20px)`;
+    this.updateCounter();
     
     // Initialize 2D arrays for game state
     // grid: stores mine locations (-1) and adjacent mine counts (0-8)
@@ -77,6 +96,7 @@ class Minesweeper {
         cell.className = 'mine-cell';
         cell.dataset.row = r;
         cell.dataset.col = c;
+        cell.tabIndex = 0;
         
         // Left-click: Reveal cell
         cell.addEventListener('click', () => this.handleClick(r, c));
@@ -84,6 +104,28 @@ class Minesweeper {
         cell.addEventListener('contextmenu', (e) => {
           e.preventDefault();
           this.handleRightClick(r, c);
+        });
+        // Keyboard support
+        cell.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            this.handleClick(r, c);
+          } else if (e.key === 'f' || e.key === 'F') {
+            e.preventDefault();
+            this.handleRightClick(r, c);
+          } else if (e.key === 'ArrowUp' && r > 0) {
+            e.preventDefault();
+            this.gridElement.children[(r-1) * this.cols + c].focus();
+          } else if (e.key === 'ArrowDown' && r < this.rows - 1) {
+            e.preventDefault();
+            this.gridElement.children[(r+1) * this.cols + c].focus();
+          } else if (e.key === 'ArrowLeft' && c > 0) {
+            e.preventDefault();
+            this.gridElement.children[r * this.cols + (c-1)].focus();
+          } else if (e.key === 'ArrowRight' && c < this.cols - 1) {
+            e.preventDefault();
+            this.gridElement.children[r * this.cols + (c+1)].focus();
+          }
         });
         
         this.gridElement.appendChild(cell);
@@ -145,8 +187,7 @@ class Minesweeper {
     this.checkWin();
   }
 
-  // Handle right-click on a cell to toggle flag
-  // Flags mark suspected mine locations
+  // Toggle flag on cell (marks suspected mines)
   handleRightClick(r, c) {
     if (this.gameOver || this.revealed[r][c]) return;
     
@@ -156,8 +197,7 @@ class Minesweeper {
     this.updateCounter();
   }
 
-  // Recursively reveal cells
-  // If cell has no adjacent mines (value 0), automatically reveal all neighbors
+  // Recursively reveal cells (flood fill for empty cells)
   reveal(r, c) {
     if (r < 0 || r >= this.rows || c < 0 || c >= this.cols || this.revealed[r][c] || this.flagged[r][c]) {
       return;
@@ -181,7 +221,7 @@ class Minesweeper {
     }
   }
 
-  // Reveal all mine locations (called on game over)
+  // Reveal all mines on game over
   revealMines() {
     for (let r = 0; r < this.rows; r++) {
       for (let c = 0; c < this.cols; c++) {
@@ -194,8 +234,7 @@ class Minesweeper {
     }
   }
 
-  // Check if player has won
-  // Win condition: all non-mine cells are revealed
+  // Check win condition (all non-mine cells revealed)
   checkWin() {
     let revealedCount = 0;
     for (let r = 0; r < this.rows; r++) {
@@ -210,8 +249,7 @@ class Minesweeper {
     }
   }
 
-  // Update the mine counter display
-  // Shows remaining mines (total mines - flags placed)
+  // Update mine counter (total mines - flags placed)
   updateCounter() {
     let flagCount = 0;
     for (let r = 0; r < this.rows; r++) {
@@ -223,8 +261,7 @@ class Minesweeper {
     this.counterElement.textContent = remaining.toString().padStart(3, '0');
   }
 
-  // Start the game timer
-  // Increments every second, maxes out at 999
+  // Start timer (increments every second, max 999)
   startTimer() {
     let seconds = 0;
     this.timerInterval = setInterval(() => {
@@ -267,12 +304,26 @@ class Minesweeper {
     alert('No safe cells found or all cells revealed!');
   }
 
-  // Reset the game to initial state
-  // Clears timer, resets UI, and creates new grid
+  // Reset game to initial state
   reset() {
     if (this.timerInterval) clearInterval(this.timerInterval);
     this.timerElement.textContent = '000';
     this.resetBtn.textContent = '🙂';
     this.createGrid();
+  }
+}
+
+// Initialize game when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('minesweeperGame');
+    if (container) {
+      new Minesweeper(container);
+    }
+  });
+} else {
+  const container = document.getElementById('minesweeperGame');
+  if (container) {
+    new Minesweeper(container);
   }
 }
