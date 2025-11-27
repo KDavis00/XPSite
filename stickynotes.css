@@ -7,7 +7,7 @@
   background: #fff740;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
   border: 1px solid #808080;
-  z-index: 1000;
+  z-index: 100;
   display: flex;
   flex-direction: column;
   font-family: 'MS Sans Serif', Tahoma, sans-serif;
@@ -28,7 +28,7 @@
 
 .sticky-note-color,
 .sticky-note-close {
-  background: #c0c0c0;
+  background: inherit;
   border: 2px outset #fff;
   width: 18px;
   height: 18px;
@@ -42,13 +42,13 @@
 
 .sticky-note-color:hover,
 .sticky-note-close:hover {
-  background: #d0d0d0;
+  filter: brightness(1.1);
 }
 
 .sticky-note-color:active,
 .sticky-note-close:active {
   border-style: inset;
-  background: #b0b0b0;
+  filter: brightness(0.9);
 }
 
 .sticky-note-close {
@@ -180,4 +180,50 @@
 .high-contrast-light .sticky-note-color:hover,
 .high-contrast-light .sticky-note-close:hover {
   background: #e0e0e0;
+}
+
+/* RESPONSIVE DESIGN FOR STICKY NOTES */
+@media (max-width: 768px) {
+  .sticky-note {
+    min-width: 120px;
+    min-height: 120px;
+    max-width: 90vw;
+    max-height: 80vh;
+  }
+
+  .sticky-note-header {
+    padding: 3px;
+  }
+
+  .sticky-note-color,
+  .sticky-note-close {
+    width: 24px;
+    height: 24px;
+    font-size: 13px;
+  }
+
+  .sticky-note-content {
+    font-size: 13px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sticky-note {
+    min-width: 100px;
+    min-height: 100px;
+    max-width: 95vw;
+    max-height: 75vh;
+  }
+
+  .sticky-note-color,
+  .sticky-note-close {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+
+  .sticky-note-content {
+    font-size: 14px;
+  }
 }

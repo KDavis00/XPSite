@@ -1,19 +1,11 @@
-// WINDOWS MEDIA PLAYER: VIDEO PLAYBACK
-// A nostalgic Windows 2000 style media player
-// Features:
-// - Video playback with controls
-// - Seekbar for navigation
-// - Volume control
-// - Media information display
-// - Logo screen when no media is loaded
+// Windows Media Player-style video player with controls and seekbar
 const mediaPlayer = {
   video: null,
   seekbar: null,
   volume: null,
   logo: null,
 
-  // Initialize media player components and event listeners
-  // Sets up references to DOM elements and wires up all controls
+  // Initialize player with event listeners and controls
   init() {
     this.video = document.getElementById('mediaVideo');
     this.seekbar = document.getElementById('seekbar');
@@ -22,18 +14,16 @@ const mediaPlayer = {
 
     if (!this.video) return;
 
-    // Event listeners for video element
-    // timeupdate: Updates seekbar position as video plays
+    // Video event listeners
     this.video.addEventListener('timeupdate', () => this.updateSeekbar());
-    // loadedmetadata: Updates info display when new media loads
+    // Update info when media loads
     this.video.addEventListener('loadedmetadata', () => this.updateInfo());
-    // play/pause/ended: Update UI based on playback state
+    // Update UI on playback state changes
     this.video.addEventListener('play', () => this.onPlay());
     this.video.addEventListener('pause', () => this.onPause());
-    this.video.addEventListener('ended', () => this.onStop());
+    this.video.addEventListener('ended', () => this.showLogo());
     
-    // User input controls
-    // Seekbar: Allow user to jump to different time positions
+    // Seekbar control
     this.seekbar.addEventListener('input', (e) => this.seek(e.target.value));
     // Volume: Adjust audio level (0-100)
     this.volume.addEventListener('input', (e) => this.setVolume(e.target.value));
@@ -45,8 +35,7 @@ const mediaPlayer = {
     this.showLogo();
   },
 
-  // Display the Windows Media Player logo screen
-  // Hides the video element and shows the logo (classic WMP appearance)
+  // Show Windows Media Player logo screen
   showLogo() {
     if (this.logo && this.video) {
       this.logo.style.display = 'block';
@@ -54,8 +43,7 @@ const mediaPlayer = {
     }
   },
 
-  // Hide the logo and show the video player
-  // Called when media starts playing
+  // Hide logo and show video
   hideLogo() {
     if (this.logo && this.video) {
       this.logo.style.display = 'none';
@@ -63,8 +51,7 @@ const mediaPlayer = {
     }
   },
 
-  // Play the currently loaded video
-  // If no video is loaded, loads a sample video for demonstration
+  // Play video (loads sample if none loaded)
   play() {
     if (this.video.src) {
       this.video.play();
@@ -83,8 +70,7 @@ const mediaPlayer = {
     this.video.pause();
   },
 
-  // Stop video playback and reset to beginning
-  // Shows the logo screen again
+  // Stop playback and reset to beginning
   stop() {
     this.video.pause();
     this.video.currentTime = 0;

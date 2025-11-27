@@ -458,10 +458,41 @@ function playVideo(url) {
 // WINDOW Z-INDEX MANAGEMENT
 // Bring a window to the front by adjusting z-index
 // Resets all other windows to background layer
+// WINDOW MANAGEMENT: BRING TO FRONT ON CLICK
+// Bring window or sticky note to front when clicked
+document.addEventListener('click', (e) => {
+  const window = e.target.closest('.window');
+  const stickyNote = e.target.closest('.sticky-note');
+  
+  if (window && window.style.display !== 'none') {
+    bringToFront(window);
+  } else if (stickyNote) {
+    bringNoteToFront(stickyNote);
+  }
+});
+
 function bringToFront(window) {
   const allWindows = document.querySelectorAll('.window');
+  const allNotes = document.querySelectorAll('.sticky-note');
+  
+  // Reset all windows and sticky notes to base z-index
   allWindows.forEach(w => w.style.zIndex = '1');
+  allNotes.forEach(n => n.style.zIndex = '100');
+  
+  // Bring clicked window to front (above everything)
   window.style.zIndex = '1000';
+}
+
+function bringNoteToFront(note) {
+  const allWindows = document.querySelectorAll('.window');
+  const allNotes = document.querySelectorAll('.sticky-note');
+  
+  // Reset all windows and notes
+  allWindows.forEach(w => w.style.zIndex = '1');
+  allNotes.forEach(n => n.style.zIndex = '100');
+  
+  // Bring clicked note to front (above everything)
+  note.style.zIndex = '1000';
 }
 
 // Update taskbar
@@ -481,6 +512,7 @@ function addToTaskbar(id, name) {
     span.addEventListener('click', () => {
       const win = document.getElementById(id);
       win.style.display = 'block';
+      bringToFront(win);
     });
     taskbarItems.appendChild(span);
   }
@@ -943,9 +975,6 @@ function moveToRecycleBin(element) {
   
   // Save to localStorage
   saveRecycleBinState();
-  
-  // Show notification
-  console.log(`"${itemData.name}" moved to Recycle Bin`);
 }
 
 // Update recycle bin window display
@@ -1070,8 +1099,6 @@ function restoreItem(itemId) {
   
   // Save to localStorage
   saveRecycleBinState();
-  
-  console.log(`"${item.name}" restored from Recycle Bin`);
 }
 
 // Delete item permanently from recycle bin
@@ -1098,8 +1125,6 @@ function deleteItemPermanently(itemId) {
   
   // Save to localStorage
   saveRecycleBinState();
-  
-  console.log(`"${item.name}" permanently deleted`);
 }
 
 // Empty entire recycle bin
@@ -1127,8 +1152,6 @@ function emptyRecycleBin() {
   
   // Save to localStorage
   saveRecycleBinState();
-  
-  console.log('Recycle Bin emptied');
 }
 
 // Restore all items from recycle bin to desktop
@@ -1144,7 +1167,6 @@ function restoreAllItems() {
   itemsToRestore.forEach(item => {
     restoreItem(item.id);
   });
-  
-  console.log('All items restored from Recycle Bin');
 }
+
 

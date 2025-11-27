@@ -1,5 +1,4 @@
-// STICKY NOTES APPLICATION
-// Classic Windows sticky notes for desktop reminders
+// Sticky notes app for desktop reminders
 
 class StickyNotes {
   constructor() {
@@ -39,7 +38,7 @@ class StickyNotes {
     return note;
   }
 
-  // Render a sticky note to the DOM
+  // Render sticky note to DOM
   renderNote(note) {
     const noteEl = document.createElement('div');
     noteEl.className = 'sticky-note';
@@ -97,7 +96,10 @@ class StickyNotes {
       initialX = e.clientX - note.x;
       initialY = e.clientY - note.y;
       
-      element.style.zIndex = this.getTopZIndex() + 1;
+      // Bring note to front when dragging starts
+      if (typeof bringNoteToFront === 'function') {
+        bringNoteToFront(element);
+      }
     });
     
     document.addEventListener('mousemove', (e) => {

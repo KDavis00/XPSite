@@ -141,6 +141,7 @@ body {
   box-sizing: border-box;
   flex: 1;
   min-height: 0;
+  max-height: calc(100vh - 100px);
 }
 
 .window-content iframe {
@@ -202,6 +203,7 @@ body {
   height: 28px;
   padding: 2px;
   box-shadow: inset 0 1px 0 #fff;
+  z-index: 10000;
 }
 
 /* START BUTTON */
@@ -945,6 +947,11 @@ body {
     max-height: 85vh !important;
   }
 
+  .window-content {
+    max-height: calc(85vh - 80px);
+    overflow-y: auto;
+  }
+
   .start-menu {
     width: 280px;
   }
@@ -981,12 +988,19 @@ body {
   .datetime-right {
     width: 100% !important;
   }
+
+  /* Better paint canvas scaling */
+  canvas {
+    max-width: 100% !important;
+    height: auto !important;
+  }
 }
 
 /* MOBILE DEVICES (PORTRAIT PHONES) */
 @media (max-width: 768px) {
   body {
     overflow: hidden;
+    font-size: 14px;
   }
 
   .desktop {
@@ -1027,6 +1041,7 @@ body {
   .window-content {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    max-height: calc(80vh - 100px);
   }
 
   .title-bar {
