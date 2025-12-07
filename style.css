@@ -236,6 +236,49 @@ body {
   padding: 3px 4px 1px 6px;
 }
 
+/* QUICK LAUNCH */
+.quick-launch {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 0 4px;
+}
+
+.quick-launch-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  padding: 2px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 22px;
+}
+
+.quick-launch-btn img {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+.quick-launch-btn:hover {
+  background: #e8e4dc;
+  border: 1px outset #fff;
+}
+
+.quick-launch-btn:active {
+  border-style: inset;
+  background: #d4d0c8;
+}
+
+.taskbar-separator {
+  width: 2px;
+  height: 20px;
+  background: linear-gradient(to right, #808080, #fff);
+  margin: 0 2px;
+}
+
 /* TASKBAR ITEMS */
 .taskbar-items {
   flex: 1;
@@ -276,6 +319,19 @@ body {
   font-size: 11px;
   color: black;
   min-width: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1.2;
+}
+
+.clock-time {
+  font-size: 11px;
+}
+
+.clock-date {
+  font-size: 9px;
+  margin-top: 1px;
 }
 
 /* START MENU */
@@ -447,7 +503,7 @@ body {
   position: fixed;
   bottom: 70px;
   right: 10px;
-  width: 420px;
+  width: 450px;
   background: #d4d0c8;
   border: 2px outset #fff;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
@@ -473,6 +529,7 @@ body {
 
 .datetime-content {
   padding: 8px;
+  overflow: hidden;
 }
 
 .datetime-tab {
@@ -486,8 +543,9 @@ body {
 
 .datetime-sections {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   margin-bottom: 10px;
+  overflow: hidden;
 }
 
 .datetime-left,
@@ -497,8 +555,9 @@ body {
 
 .datetime-group {
   border: 2px groove #fff;
-  padding: 8px;
+  padding: 6px;
   margin-bottom: 8px;
+  overflow: hidden;
 }
 
 .datetime-group label {
@@ -536,11 +595,13 @@ body {
   border: 2px inset #808080;
   padding: 4px;
   font-size: 10px;
+  overflow: hidden;
 }
 
 .calendar table {
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed;
 }
 
 .calendar th {
@@ -548,23 +609,29 @@ body {
   padding: 2px;
   font-weight: bold;
   font-size: 9px;
+  width: 14.28%;
 }
 
 .calendar td {
   text-align: center;
-  padding: 3px;
+  padding: 2px;
   cursor: pointer;
+  width: 14.28%;
+  overflow: hidden;
 }
 
 .calendar td:hover {
-  background: #000080;
-  color: white;
+  background: #c0c0c0;
+  color: black;
+  border: 1px solid #000080;
 }
 
 .calendar td.today {
   background: #000080;
   color: white;
   font-weight: bold;
+  border: 2px solid #ff0000;
+  box-shadow: inset 0 0 3px rgba(255, 255, 255, 0.5);
 }
 
 .analog-clock {
@@ -911,6 +978,308 @@ body {
   font-size: 11px;
   word-wrap: break-word;
   color: #000;
+}
+
+/* TASKBAR CONTEXT MENU */
+.taskbar-context-menu {
+  background: #d4d0c8;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  min-width: 150px;
+  padding: 2px;
+  font-size: 11px;
+}
+
+.context-menu-item {
+  padding: 4px 24px 4px 8px;
+  cursor: pointer;
+  color: #000;
+  user-select: none;
+}
+
+.context-menu-item:hover {
+  background: #0a246a;
+  color: #ffffff;
+}
+
+.context-menu-separator {
+  height: 1px;
+  background: #808080;
+  margin: 2px 1px;
+  border-top: 1px solid #ffffff;
+}
+
+/* ========================================
+   CALCULATOR STYLES
+   ======================================== */
+
+.calc-menu-bar {
+  background: #d4d0c8;
+  padding: 2px 4px;
+  border-bottom: 1px solid #808080;
+  font-size: 11px;
+  display: flex;
+  gap: 10px;
+}
+
+.calc-menu-bar span {
+  padding: 2px 6px;
+  cursor: pointer;
+}
+
+.calc-menu-bar span:hover {
+  background: #0a246a;
+  color: white;
+}
+
+#calculatorContent {
+  background: #d4d0c8;
+  padding: 4px;
+  overflow: visible;
+}
+
+.calc-display {
+  background: white;
+  border: 2px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+  padding: 4px 8px;
+  text-align: right;
+  font-size: 18px;
+  font-family: 'Courier New', monospace;
+  margin-bottom: 4px;
+  min-height: 26px;
+  line-height: 26px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.calc-buttons {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2px;
+}
+
+.calc-btn {
+  padding: 8px 3px;
+  font-size: 10px;
+  font-family: Tahoma, sans-serif;
+  background: #d4d0c8;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  cursor: pointer;
+  min-height: 26px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calc-btn:hover {
+  filter: brightness(1.05);
+}
+
+.calc-btn:active {
+  border-color: #808080 #ffffff #ffffff #808080;
+  padding: 9px 2px 7px 4px;
+}
+
+.calc-btn.calc-blank {
+  background: #d4d0c8;
+  border: none;
+  cursor: default;
+  visibility: hidden;
+}
+
+.calc-btn.calc-operator {
+  color: #0000c0;
+  font-weight: bold;
+}
+
+.calc-btn.calc-action {
+  color: #c00000;
+  font-weight: bold;
+  font-size: 9px;
+}
+
+.calc-scientific {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2px;
+  margin-bottom: 4px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #808080;
+}
+
+.calc-btn.calc-sci {
+  padding: 8px 4px;
+  font-size: 9px;
+  background: #d4d0c8;
+  min-height: 26px;
+  color: #0000c0;
+  font-weight: bold;
+}
+
+.calc-btn.calc-sci:active {
+  border-color: #808080 #ffffff #ffffff #808080;
+  padding: 9px 3px 7px 5px;
+}
+
+/* ========================================
+   ON-SCREEN KEYBOARD STYLES
+   ======================================== */
+
+.osk-menu-bar {
+  background: #d4d0c8;
+  padding: 2px 4px;
+  border-bottom: 1px solid #808080;
+  font-size: 11px;
+  display: flex;
+  gap: 10px;
+}
+
+.osk-menu-bar span {
+  padding: 2px 6px;
+  cursor: pointer;
+}
+
+.osk-menu-bar span:hover {
+  background: #0a246a;
+  color: white;
+}
+
+#oskContent {
+  background: #d4d0c8;
+  padding: 8px;
+  overflow: visible;
+}
+
+.osk-row {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 2px;
+  margin-bottom: 2px;
+}
+
+.osk-row:nth-child(1) {
+  grid-template-columns: repeat(13, 1fr) 1.5fr;
+}
+
+.osk-row:nth-child(2) {
+  grid-template-columns: 1.5fr repeat(12, 1fr) 1fr;
+}
+
+.osk-row:nth-child(3) {
+  grid-template-columns: 1.8fr repeat(10, 1fr) 1fr 1.7fr;
+}
+
+.osk-row:nth-child(4) {
+  grid-template-columns: 2fr repeat(10, 1fr) 2.5fr;
+}
+
+.osk-row:nth-child(5) {
+  grid-template-columns: 1.5fr 1.5fr 6fr 1.5fr 1.5fr;
+}
+
+.osk-key {
+  padding: 4px 6px;
+  font-size: 9px;
+  font-family: Tahoma, sans-serif;
+  background: #d4d0c8;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  cursor: pointer;
+  min-height: 32px;
+  text-align: center;
+  line-height: 1.1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.osk-key:active {
+  border-color: #808080 #ffffff #ffffff #808080;
+  padding: 5px 5px 3px 7px;
+}
+
+.osk-key.osk-active {
+  background: #0a246a;
+  color: white;
+  border-color: #808080 #ffffff #ffffff #808080;
+}
+
+.osk-key.osk-fn {
+  background: #b4b0a8;
+  font-size: 8px;
+  padding: 4px 3px;
+  min-width: 28px;
+}
+
+.osk-key.osk-special {
+  background: #b4b0a8;
+  font-size: 8px;
+}
+
+.osk-key.osk-numpad {
+  background: #c4c0b8;
+}
+
+/* ========================================
+   NOTEPAD STYLES
+   ======================================== */
+
+.notepad-menu-bar {
+  background: #d4d0c8;
+  padding: 2px 4px;
+  border-bottom: 1px solid #808080;
+  font-size: 11px;
+  display: flex;
+  gap: 10px;
+}
+
+.notepad-menu-bar span {
+  padding: 2px 6px;
+  cursor: pointer;
+}
+
+.notepad-menu-bar span:hover {
+  background: #0a246a;
+  color: white;
+}
+
+.notepad-textarea {
+  width: 100%;
+  height: 100%;
+  padding: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  border: none;
+  outline: none;
+  resize: none;
+  background: white;
+  color: #000;
+  box-sizing: border-box;
+}
+
+.osk-key.osk-tall {
+  min-height: 64px;
+  align-self: stretch;
+}
+
+.osk-spacer {
+  min-width: 30px;
+}
+
+.osk-key.osk-tall {
+  min-height: 68px;
+  align-self: stretch;
+}
+
+.osk-spacer {
+  min-width: 32px;
 }
 
 /* ========================================

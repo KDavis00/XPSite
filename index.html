@@ -58,16 +58,16 @@
       <img src="Windows 2000/Movie Maker.ico" alt="Media Folder">
       <span>Videos</span>
     </div>
-    <div class="icon" data-window="settingsWindow" role="button" tabindex="0" aria-label="Settings">
-      <img src="Windows 2000/Control Panel.ico" alt="Settings">
-      <span>Settings</span>
+    <div class="icon" data-window="settingsWindow" role="button" tabindex="0" aria-label="Control Panel">
+      <img src="Windows 2000/Control Panel.ico" alt="Control Panel">
+      <span>Control Panel</span>
     </div>
     <div class="icon" data-window="mediaPlayerWindow" role="button" tabindex="0" aria-label="Media Player">
       <img src="Windows 2000/Windows_Media_Player_4.svg" alt="" aria-hidden="true">
       <span>Media Player</span>
     </div>
     <div class="icon" data-window="artFolderWindow" role="button" tabindex="0" aria-label="Art Folder">
-      <img src="Windows 2000/Paint (2).ico" alt="" aria-hidden="true">
+      <img src="Windows 2000/Folder Closed.ico" alt="" aria-hidden="true">
       <span>Art</span>
     </div>
     <div class="icon" data-window="musicPlayerWindow" role="button" tabindex="0" aria-label="Music Player">
@@ -78,9 +78,9 @@
       <img src="Windows 2000/Write.ico" alt="" aria-hidden="true">
       <span>Sticky Notes</span>
     </div>
-    <div class="icon" data-window="sudokuWindow" role="button" tabindex="0" aria-label="Sudoku">
-      <img src="Windows 2000/Sudoku.ico" alt="" aria-hidden="true">
-      <span>Sudoku</span>
+    <div class="icon" data-window="notepadWindow" role="button" tabindex="0" aria-label="Notepad">
+      <img src="Windows 2000/Notepad16.svg" alt="" aria-hidden="true">
+      <span>Notepad</span>
     </div>
     <div class="icon" data-window="gamesFolderWindow" role="button" tabindex="0" aria-label="Games Folder">
       <img src="Windows 2000/joystick.ico" alt="" aria-hidden="true">
@@ -272,17 +272,17 @@
         </div>
       </div>
       <div class="window-content folder-content" id="artFolderContent">
-        <div class="file-icon">
-          <img src="Windows 2000/Paint (3).ico" alt="Artwork">
-          <span>Sketch 1</span>
+        <div class="file-icon" onclick="openImageViewer('img/art/K1_cool.png', 'K1 Cool')">
+          <img src="Windows 2000/JPEG.ico" alt="Artwork">
+          <span>K1_cool.png</span>
         </div>
-        <div class="file-icon">
-          <img src="Windows 2000/Paint (4).ico" alt="Artwork">
-          <span>Digital Art</span>
+        <div class="file-icon" onclick="openImageViewer('img/art/buffsona.jpg', 'Buffsona')">
+          <img src="Windows 2000/JPEG.ico" alt="Artwork">
+          <span>buffsona.jpg</span>
         </div>
-        <div class="file-icon">
-          <img src="Windows 2000/Paint (5).ico" alt="Artwork">
-          <span>Portfolio</span>
+        <div class="file-icon" onclick="openImageViewer('img/art/k_ded.png', 'K Ded')">
+          <img src="Windows 2000/JPEG.ico" alt="Artwork">
+          <span>k_ded.png</span>
         </div>
       </div>
     </div>
@@ -431,6 +431,26 @@
       </div>
     </div>
 
+    <!-- Notepad Window -->
+    <div class="window" id="notepadWindow" style="width: 600px; height: 450px;">
+      <div class="title-bar">
+        <span class="title">Untitled - Notepad</span>
+        <div class="window-controls">
+          <button class="minimize">_</button>
+          <button class="maximize">□</button>
+          <button class="close">×</button>
+        </div>
+      </div>
+      <div class="notepad-menu-bar">
+        <span onclick="notepadApp.newFile()">File</span>
+        <span onclick="notepadApp.editMenu()">Edit</span>
+        <span onclick="notepadApp.formatMenu()">Format</span>
+      </div>
+      <div class="window-content" style="padding: 0; display: block; height: calc(100% - 50px);">
+        <textarea id="notepadTextarea" class="notepad-textarea" placeholder="Type your text here..."></textarea>
+      </div>
+    </div>
+
     <!-- About Me Window -->
     <div class="window" id="aboutWindow" style="width: 500px; height: auto;">
       <div class="title-bar">
@@ -517,10 +537,10 @@
       </div>
     </div>
 
-    <!-- Settings Window -->
+    <!-- Control Panel Window -->
     <div class="window" id="settingsWindow" style="width: 650px; height: 500px;">
       <div class="title-bar">
-        <span class="title">⚙️ Settings</span>
+        <span class="title">Control Panel</span>
         <div class="window-controls">
           <button class="minimize">_</button>
           <button class="maximize">□</button>
@@ -529,6 +549,245 @@
       </div>
       <div class="window-content" style="padding: 0;">
         <div id="settingsContent"></div>
+      </div>
+    </div>
+
+    <!-- Image Viewer Window -->
+    <div class="window" id="imageViewerWindow" style="width: 600px; height: auto; display: none;">
+      <div class="title-bar">
+        <span class="title" id="imageViewerTitle">Image Viewer</span>
+        <div class="window-controls">
+          <button class="minimize">_</button>
+          <button class="maximize">□</button>
+          <button class="close">×</button>
+        </div>
+      </div>
+      <div class="window-content" style="padding: 10px; text-align: center; background: #fff;">
+        <img id="imageViewerImg" src="" alt="Artwork" style="max-width: 100%; max-height: 70vh; border: 2px solid #808080;">
+      </div>
+    </div>
+
+    <!-- Calculator Window -->
+    <div class="window" id="calculatorWindow" style="width: 230px; height: auto; display: none;">
+      <div class="title-bar">
+        <span class="title">Calculator</span>
+        <div class="window-controls">
+          <button class="minimize">_</button>
+          <button class="maximize">□</button>
+          <button class="close">×</button>
+        </div>
+      </div>
+      <div class="calc-menu-bar">
+        <span>Edit</span>
+        <span onclick="calculator.toggleScientificMode()" style="cursor: pointer;">View</span>
+        <span>Help</span>
+      </div>
+      <div class="window-content" id="calculatorContent">
+        <div class="calc-display" id="calcDisplay">0</div>
+        <div class="calc-scientific" id="scientificPanel" style="display: none;">
+          <button class="calc-btn calc-sci" onclick="calculator.scientific('sin')">sin</button>
+          <button class="calc-btn calc-sci" onclick="calculator.scientific('cos')">cos</button>
+          <button class="calc-btn calc-sci" onclick="calculator.scientific('tan')">tan</button>
+          <button class="calc-btn calc-sci" onclick="calculator.scientific('log')">log</button>
+          <button class="calc-btn calc-sci" onclick="calculator.scientific('ln')">ln</button>
+          
+          <button class="calc-btn calc-sci" onclick="calculator.scientific('x2')">x²</button>
+          <button class="calc-btn calc-sci" onclick="calculator.scientific('x3')">x³</button>
+          <button class="calc-btn calc-sci" onclick="calculator.scientific('exp')">exp</button>
+          <button class="calc-btn calc-sci" onclick="calculator.scientific('pi')">π</button>
+          <button class="calc-btn calc-sci" onclick="calculator.scientific('e')">e</button>
+          
+          <button class="calc-btn calc-sci" onclick="calculator.sqrt()">√</button>
+          <button class="calc-btn calc-sci" onclick="calculator.reciprocal()">1/x</button>
+          <button class="calc-btn calc-sci" onclick="calculator.scientific('fact')">n!</button>
+          <button class="calc-btn calc-sci" onclick="calculator.percent()">%</button>
+          <button class="calc-btn calc-sci" onclick="calculator.plusMinus()">+/-</button>
+        </div>
+        <div class="calc-buttons">
+          <button class="calc-btn calc-action" onclick="calculator.backspace()">Back</button>
+          <button class="calc-btn calc-action" onclick="calculator.clearEntry()">CE</button>
+          <button class="calc-btn calc-action" onclick="calculator.clear()">C</button>
+          <button class="calc-btn calc-blank"></button>
+          <button class="calc-btn calc-blank"></button>
+          
+          <button class="calc-btn" onclick="calculator.inputNumber('7')">7</button>
+          <button class="calc-btn" onclick="calculator.inputNumber('8')">8</button>
+          <button class="calc-btn" onclick="calculator.inputNumber('9')">9</button>
+          <button class="calc-btn calc-operator" onclick="calculator.divide()">/</button>
+          <button class="calc-btn calc-operator" onclick="calculator.sqrt()">sqrt</button>
+          
+          <button class="calc-btn" onclick="calculator.inputNumber('4')">4</button>
+          <button class="calc-btn" onclick="calculator.inputNumber('5')">5</button>
+          <button class="calc-btn" onclick="calculator.inputNumber('6')">6</button>
+          <button class="calc-btn calc-operator" onclick="calculator.multiply()">*</button>
+          <button class="calc-btn calc-operator" onclick="calculator.percent()">%</button>
+          
+          <button class="calc-btn" onclick="calculator.inputNumber('1')">1</button>
+          <button class="calc-btn" onclick="calculator.inputNumber('2')">2</button>
+          <button class="calc-btn" onclick="calculator.inputNumber('3')">3</button>
+          <button class="calc-btn calc-operator" onclick="calculator.subtract()">-</button>
+          <button class="calc-btn calc-operator" onclick="calculator.reciprocal()">1/x</button>
+          
+          <button class="calc-btn" onclick="calculator.inputNumber('0')">0</button>
+          <button class="calc-btn" onclick="calculator.plusMinus()">+/-</button>
+          <button class="calc-btn" onclick="calculator.decimal()">.</button>
+          <button class="calc-btn calc-operator" onclick="calculator.add()">+</button>
+          <button class="calc-btn calc-operator" onclick="calculator.equals()">=</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- On-Screen Keyboard Window -->
+    <div class="window" id="oskWindow" style="width: 640px; height: auto; display: none;">
+      <div class="title-bar">
+        <span class="title">On-Screen Keyboard</span>
+        <div class="window-controls">
+          <button class="minimize">_</button>
+          <button class="maximize">□</button>
+          <button class="close">×</button>
+        </div>
+      </div>
+      <div class="osk-menu-bar">
+        <span>File</span>
+        <span>Help</span>
+        <div style="margin-left: auto; display: flex; align-items: center; gap: 8px;">
+          <label for="keyboardLayoutSelect" style="font-size: 11px;">Layout:</label>
+          <select id="keyboardLayoutSelect" onchange="onScreenKeyboard.changeLayout(this.value)" style="font-size: 11px; padding: 2px 4px; background: white; border: 1px solid #808080;">
+            <option value="us">US English</option>
+            <option value="uk">UK English</option>
+            <option value="de">German (QWERTZ)</option>
+            <option value="fr">French (AZERTY)</option>
+            <option value="es">Spanish</option>
+            <option value="it">Italian</option>
+            <option value="se">Swedish</option>
+          </select>
+        </div>
+      </div>
+      <div class="window-content" id="oskContent">
+        <div class="osk-row">
+          <button class="osk-key osk-special" data-key="Escape">esc</button>
+          <button class="osk-key osk-fn" data-key="F1">F1</button>
+          <button class="osk-key osk-fn" data-key="F2">F2</button>
+          <button class="osk-key osk-fn" data-key="F3">F3</button>
+          <button class="osk-key osk-fn" data-key="F4">F4</button>
+          <button class="osk-key osk-fn" data-key="F5">F5</button>
+          <button class="osk-key osk-fn" data-key="F6">F6</button>
+          <button class="osk-key osk-fn" data-key="F7">F7</button>
+          <button class="osk-key osk-fn" data-key="F8">F8</button>
+          <button class="osk-key osk-fn" data-key="F9">F9</button>
+          <button class="osk-key osk-fn" data-key="F10">F10</button>
+          <button class="osk-key osk-fn" data-key="F11">F11</button>
+          <button class="osk-key osk-fn" data-key="F12">F12</button>
+          <button class="osk-key osk-special" data-key="psc">psc</button>
+          <button class="osk-key osk-special" data-key="slk">slk</button>
+          <button class="osk-key osk-special" data-key="brk">brk</button>
+        </div>
+        
+        <div class="osk-row">
+          <button class="osk-key" data-key="`">~<br>`</button>
+          <button class="osk-key" data-key="1">!<br>1</button>
+          <button class="osk-key" data-key="2">@<br>2</button>
+          <button class="osk-key" data-key="3">#<br>3</button>
+          <button class="osk-key" data-key="4">$<br>4</button>
+          <button class="osk-key" data-key="5">%<br>5</button>
+          <button class="osk-key" data-key="6">^<br>6</button>
+          <button class="osk-key" data-key="7">&<br>7</button>
+          <button class="osk-key" data-key="8">*<br>8</button>
+          <button class="osk-key" data-key="9">(<br>9</button>
+          <button class="osk-key" data-key="0">)<br>0</button>
+          <button class="osk-key" data-key="-">_<br>-</button>
+          <button class="osk-key" data-key="=">+<br>=</button>
+          <button class="osk-key osk-wide" data-key="Backspace">bksp</button>
+          <button class="osk-key osk-special" data-key="ins">ins</button>
+          <button class="osk-key osk-special" data-key="hm">hm</button>
+          <button class="osk-key osk-special" data-key="pup">pup</button>
+          <button class="osk-key osk-special" data-key="nlk">nlk</button>
+          <button class="osk-key osk-special" data-key="/">/</button>
+          <button class="osk-key osk-special" data-key="*">*</button>
+          <button class="osk-key osk-special" data-key="-">-</button>
+        </div>
+        
+        <div class="osk-row">
+          <button class="osk-key osk-wide" data-key="Tab">tab</button>
+          <button class="osk-key" data-key="q">Q</button>
+          <button class="osk-key" data-key="w">W</button>
+          <button class="osk-key" data-key="e">E</button>
+          <button class="osk-key" data-key="r">R</button>
+          <button class="osk-key" data-key="t">T</button>
+          <button class="osk-key" data-key="y">Y</button>
+          <button class="osk-key" data-key="u">U</button>
+          <button class="osk-key" data-key="i">I</button>
+          <button class="osk-key" data-key="o">O</button>
+          <button class="osk-key" data-key="p">P</button>
+          <button class="osk-key" data-key="[">{<br>[</button>
+          <button class="osk-key" data-key="]">}<br>]</button>
+          <button class="osk-key osk-wide" data-key="\">|<br>\</button>
+          <button class="osk-key osk-special" data-key="del">del</button>
+          <button class="osk-key osk-special" data-key="end">end</button>
+          <button class="osk-key osk-special" data-key="pdn">pdn</button>
+          <button class="osk-key osk-numpad" data-key="7">7</button>
+          <button class="osk-key osk-numpad" data-key="8">8</button>
+          <button class="osk-key osk-numpad" data-key="9">9</button>
+          <button class="osk-key osk-numpad osk-tall" data-key="+">+</button>
+        </div>
+        
+        <div class="osk-row">
+          <button class="osk-key osk-caps" data-key="CapsLock">lock</button>
+          <button class="osk-key" data-key="a">A</button>
+          <button class="osk-key" data-key="s">S</button>
+          <button class="osk-key" data-key="d">D</button>
+          <button class="osk-key" data-key="f">F</button>
+          <button class="osk-key" data-key="g">G</button>
+          <button class="osk-key" data-key="h">H</button>
+          <button class="osk-key" data-key="j">J</button>
+          <button class="osk-key" data-key="k">K</button>
+          <button class="osk-key" data-key="l">L</button>
+          <button class="osk-key" data-key=";">:<br>;</button>
+          <button class="osk-key" data-key="'">"<br>'</button>
+          <button class="osk-key osk-enter" data-key="Enter">ent</button>
+          <div class="osk-spacer"></div>
+          <button class="osk-key osk-numpad" data-key="4">4</button>
+          <button class="osk-key osk-numpad" data-key="5">5</button>
+          <button class="osk-key osk-numpad" data-key="6">6</button>
+        </div>
+        
+        <div class="osk-row">
+          <button class="osk-key osk-shift" data-key="Shift">shift</button>
+          <button class="osk-key" data-key="z">Z</button>
+          <button class="osk-key" data-key="x">X</button>
+          <button class="osk-key" data-key="c">C</button>
+          <button class="osk-key" data-key="v">V</button>
+          <button class="osk-key" data-key="b">B</button>
+          <button class="osk-key" data-key="n">N</button>
+          <button class="osk-key" data-key="m">M</button>
+          <button class="osk-key" data-key=",">&lt;<br>,</button>
+          <button class="osk-key" data-key=".">&gt;<br>.</button>
+          <button class="osk-key" data-key="/">?<br>/</button>
+          <button class="osk-key osk-shift" data-key="Shift">shift</button>
+          <div class="osk-spacer"></div>
+          <button class="osk-key osk-special" data-key="ArrowUp">↑</button>
+          <div class="osk-spacer"></div>
+          <button class="osk-key osk-numpad" data-key="1">1</button>
+          <button class="osk-key osk-numpad" data-key="2">2</button>
+          <button class="osk-key osk-numpad" data-key="3">3</button>
+          <button class="osk-key osk-numpad osk-tall" data-key="Enter">ent</button>
+        </div>
+        
+        <div class="osk-row">
+          <button class="osk-key osk-ctrl" data-key="ctrl">ctrl</button>
+          <button class="osk-key osk-special" data-key="Windows">⊞</button>
+          <button class="osk-key osk-alt" data-key="alt">alt</button>
+          <button class="osk-key osk-space" data-key=" "></button>
+          <button class="osk-key osk-alt" data-key="alt">alt</button>
+          <button class="osk-key osk-special" data-key="Windows">⊞</button>
+          <button class="osk-key osk-special" data-key="Menu">▤</button>
+          <button class="osk-key osk-ctrl" data-key="ctrl">ctrl</button>
+          <button class="osk-key osk-special" data-key="ArrowLeft">←</button>
+          <button class="osk-key osk-special" data-key="ArrowDown">↓</button>
+          <button class="osk-key osk-special" data-key="ArrowRight">→</button>
+          <button class="osk-key osk-numpad osk-wide" data-key="0">0</button>
+          <button class="osk-key osk-numpad" data-key=".">.</button>
+        </div>
       </div>
     </div>
 
@@ -615,8 +874,23 @@
     <!-- Taskbar -->
     <div class="taskbar" role="navigation" aria-label="Taskbar">
       <button class="start-button" aria-label="Start Menu" aria-expanded="false"><img src="Windows 2000/Windows_start_button.svg" alt="" aria-hidden="true"> Start</button>
+      <div class="quick-launch">
+        <button class="quick-launch-btn" onclick="openWindow('ieWindow')" title="Internet Explorer">
+          <img src="Windows 2000/Internet.ico" alt="Internet Explorer">
+        </button>
+        <button class="quick-launch-btn" onclick="openWindow('contactWindow')" title="Contact">
+          <img src="Windows 2000/Network (3).ico" alt="Contact">
+        </button>
+        <button class="quick-launch-btn" onclick="openWindow('paintWindow')" title="Paint">
+          <img src="Windows 2000/Paint.ico" alt="Paint">
+        </button>
+      </div>
+      <div class="taskbar-separator"></div>
       <div class="taskbar-items" role="list" aria-label="Open windows"></div>
-      <div class="time" id="clock" role="timer" aria-live="polite"></div>
+      <div class="time" id="clock" role="timer" aria-live="polite">
+        <div class="clock-time"></div>
+        <div class="clock-date" style="display: none;"></div>
+      </div>
     </div>
 
     <!-- Date/Time Panel -->
@@ -641,14 +915,14 @@
                   <option>February</option>
                   <option>March</option>
                   <option>April</option>
-                  <option selected>May</option>
+                  <option>May</option>
                   <option>June</option>
                   <option>July</option>
                   <option>August</option>
                   <option>September</option>
                   <option>October</option>
                   <option>November</option>
-                  <option>December</option>
+                  <option selected>December</option>
                 </select>
                 <select class="datetime-select" id="yearSelect">
                   <option>2024</option>
@@ -672,10 +946,45 @@
         <div class="datetime-timezone">
           <label>Time zone</label>
           <select class="datetime-select-wide">
+            <option>(GMT-12:00) International Date Line West</option>
+            <option>(GMT-11:00) Midway Island, Samoa</option>
+            <option>(GMT-10:00) Hawaii</option>
+            <option>(GMT-09:00) Alaska</option>
+            <option>(GMT-08:00) Pacific Time (US & Canada)</option>
+            <option>(GMT-07:00) Mountain Time (US & Canada)</option>
+            <option>(GMT-06:00) Central Time (US & Canada)</option>
             <option>(GMT-05:00) Eastern Time (US & Canada)</option>
+            <option>(GMT-04:00) Atlantic Time (Canada)</option>
+            <option>(GMT-03:30) Newfoundland</option>
+            <option>(GMT-03:00) Brasilia, Buenos Aires</option>
+            <option>(GMT-02:00) Mid-Atlantic</option>
+            <option>(GMT-01:00) Azores, Cape Verde Islands</option>
+            <option>(GMT+00:00) London, Dublin, Lisbon</option>
+            <option>(GMT+01:00) Paris, Berlin, Rome</option>
+            <option>(GMT+02:00) Athens, Cairo, Jerusalem</option>
+            <option>(GMT+03:00) Moscow, Baghdad, Kuwait</option>
+            <option>(GMT+03:30) Tehran</option>
+            <option>(GMT+04:00) Abu Dhabi, Muscat, Baku</option>
+            <option>(GMT+04:30) Kabul</option>
+            <option>(GMT+05:00) Islamabad, Karachi, Tashkent</option>
+            <option>(GMT+05:30) Mumbai, Kolkata, Chennai</option>
+            <option>(GMT+05:45) Kathmandu</option>
+            <option>(GMT+06:00) Dhaka, Almaty</option>
+            <option>(GMT+06:30) Yangon (Rangoon)</option>
+            <option>(GMT+07:00) Bangkok, Jakarta, Hanoi</option>
+            <option>(GMT+08:00) Beijing, Singapore, Hong Kong</option>
+            <option>(GMT+09:00) Tokyo, Seoul, Osaka</option>
+            <option>(GMT+09:30) Adelaide, Darwin</option>
+            <option>(GMT+10:00) Sydney, Melbourne, Brisbane</option>
+            <option>(GMT+11:00) Magadan, Solomon Islands</option>
+            <option>(GMT+12:00) Auckland, Wellington, Fiji</option>
+            <option>(GMT+13:00) Nuku'alofa, Samoa</option>
           </select>
           <label class="datetime-checkbox">
             <input type="checkbox" checked> Automatically adjust clock for daylight saving changes
+          </label>
+          <label class="datetime-checkbox">
+            <input type="checkbox" id="taskbarDateCheckbox"> Show date in taskbar
           </label>
         </div>
         <div class="datetime-buttons">
@@ -709,6 +1018,25 @@
             <ul class="submenu">
               <li class="submenu-parent">
                 <img src="Windows 2000/Folder Closed.ico" alt="">
+                Accessories
+                <span class="arrow">►</span>
+                <ul class="submenu">
+                  <li onclick="openCalculator()">
+                    <img src="Windows 2000/calculator.ico" alt="">
+                    Calculator
+                  </li>
+                  <li onclick="openOnScreenKeyboard()">
+                    <img src="Windows 2000/keyboard.ico" alt="">
+                    On-Screen Keyboard
+                  </li>
+                  <li onclick="createStickyNote()">
+                    <img src="Windows 2000/Write.ico" alt="">
+                    Sticky Notes
+                  </li>
+                </ul>
+              </li>
+              <li class="submenu-parent">
+                <img src="Windows 2000/Folder Closed.ico" alt="">
                 Games
                 <span class="arrow">►</span>
                 <ul class="submenu">
@@ -725,9 +1053,8 @@
             <span class="arrow">►</span>
           </li>
           <li class="submenu-parent" data-window="settingsWindow">
-            <img src="Windows 2000/Settings.ico" alt="">
-            Settings
-            <span class="arrow">►</span>
+            <img src="Windows 2000/Control Panel.ico" alt="">
+            Control Panel
           </li>
           <li onclick="createStickyNote()">
             <img src="Windows 2000/Default Document.ico" alt="">
@@ -767,6 +1094,9 @@
 <script src="paint.js"></script>
 <script src="mediaplayer.js"></script>
 <script src="stickynotes.js"></script>
+<script src="calculator.js"></script>
+<script src="keyboard.js"></script>
+<script src="notepad.js"></script>
 <script src="boot.js"></script>
 <script src="script.js"></script>
 </body>
