@@ -51,6 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initializeDateTimePanel();
   initializeRecycleBin();
   initializeKeyboardShortcuts();
+  initializeInputTracking();
 });
 
 // KEYBOARD SHORTCUTS
@@ -125,6 +126,23 @@ function initializeKeyboardShortcuts() {
       showBSOD();
     }
   });
+}
+
+// INPUT TRACKING FOR ON-SCREEN KEYBOARD
+// Track the last focused input/textarea so on-screen keyboard knows where to type
+function initializeInputTracking() {
+  // Track all text inputs and textareas
+  document.addEventListener('focusin', (e) => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+      window.lastFocusedInput = e.target;
+    }
+  });
+  
+  // Also set initial focus on page load if there's an input
+  const firstInput = document.querySelector('input[type=\"text\"], textarea');
+  if (firstInput) {
+    window.lastFocusedInput = firstInput;
+  }
 }
 
 // RECYCLE BIN: INITIALIZATION
@@ -455,6 +473,22 @@ function playVideo(url) {
     }
   }
 
+// Open image viewer window with artwork
+function openImageViewer(imagePath, imageName) {
+  const viewerWindow = document.getElementById('imageViewerWindow');
+  const viewerTitle = document.getElementById('imageViewerTitle');
+  const viewerImg = document.getElementById('imageViewerImg');
+  
+  if (viewerWindow && viewerTitle && viewerImg) {
+    viewerTitle.textContent = imageName;
+    viewerImg.src = imagePath;
+    viewerImg.alt = imageName;
+    viewerWindow.style.display = 'block';
+    bringToFront(viewerWindow);
+    addToTaskbar('imageViewerWindow', imageName);
+  }
+}
+
 // WINDOW Z-INDEX MANAGEMENT
 // Bring a window to the front by adjusting z-index
 // Resets all other windows to background layer
@@ -514,8 +548,77 @@ function addToTaskbar(id, name) {
       win.style.display = 'block';
       bringToFront(win);
     });
+    
+    // Add right-click context menu for taskbar tab
+    span.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+      showTaskbarContextMenu(e, id, name);
+    });
+    
     taskbarItems.appendChild(span);
   }
+}
+
+// Show context menu for taskbar tabs
+function showTaskbarContextMenu(e, windowId, windowName) {
+  // Remove any existing context menu
+  const existingMenu = document.querySelector('.taskbar-context-menu');
+  if (existingMenu) existingMenu.remove();
+  
+  const menu = document.createElement('div');
+  menu.className = 'taskbar-context-menu';
+  menu.style.position = 'fixed';
+  menu.style.left = e.clientX + 'px';
+  menu.style.bottom = '30px'; // Position above taskbar
+  menu.style.zIndex = '100000';
+  
+  const win = document.getElementById(windowId);
+  const isMinimized = win.style.display === 'none';
+  
+  menu.innerHTML = `
+    <div class="context-menu-item" data-action="restore">${isMinimized ? 'Restore' : 'Minimize'}</div>
+    <div class="context-menu-item" data-action="maximize">Maximize</div>
+    <div class="context-menu-separator"></div>
+    <div class="context-menu-item" data-action="close">Close</div>
+  `;
+  
+  // Handle menu item clicks
+  menu.querySelectorAll('.context-menu-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const action = item.dataset.action;
+      
+      if (action === 'restore') {
+        if (isMinimized) {
+          win.style.display = 'block';
+          bringToFront(win);
+        } else {
+          win.style.display = 'none';
+        }
+      } else if (action === 'maximize') {
+        win.style.display = 'block';
+        bringToFront(win);
+        // Trigger maximize button click
+        const maximizeBtn = win.querySelector('.maximize');
+        if (maximizeBtn) maximizeBtn.click();
+      } else if (action === 'close') {
+        const closeBtn = win.querySelector('.close');
+        if (closeBtn) closeBtn.click();
+      }
+      
+      menu.remove();
+    });
+  });
+  
+  document.body.appendChild(menu);
+  
+  // Close menu when clicking elsewhere
+  const closeMenu = (event) => {
+    if (!menu.contains(event.target)) {
+      menu.remove();
+      document.removeEventListener('click', closeMenu);
+    }
+  };
+  setTimeout(() => document.addEventListener('click', closeMenu), 10);
 }
 
 function removeFromTaskbar(id) {
@@ -525,15 +628,37 @@ function removeFromTaskbar(id) {
 
 // TASKBAR CLOCK: REAL-TIME DISPLAY
 // Initialize and update the taskbar clock every second
-// Displays current time in 12-hour format
+// Displays current time in 12-hour format with optional date below
 function initializeClock() {
   function updateClock() {
     const clock = document.getElementById('clock');
+    const clockTime = clock.querySelector('.clock-time');
+    const clockDate = clock.querySelector('.clock-date');
     const now = new Date();
-    clock.textContent = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    
+    if (clockTime) {
+      clockTime.textContent = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    } else {
+      // Fallback for old clock structure
+      clock.textContent = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    }
+    
+    // Update date if element exists
+    if (clockDate) {
+      const settings = JSON.parse(localStorage.getItem('accessibilitySettings') || '{}');
+      if (settings.showTaskbarDate) {
+        clockDate.style.display = 'block';
+        clockDate.textContent = now.toLocaleDateString([], {month: '2-digit', day: '2-digit', year: 'numeric'});
+      } else {
+        clockDate.style.display = 'none';
+      }
+    }
   }
   setInterval(updateClock, 1000);
   updateClock();
+  
+  // Expose updateClock globally for settings to trigger updates
+  window.updateClockDisplay = updateClock;
 }
 
 // DATE/TIME PANEL: DETAILED TIME DISPLAY
@@ -568,6 +693,39 @@ function initializeDateTimePanel() {
     }
   }, 1000);
 
+  // Month/Year selector change listeners
+  const monthSelect = document.getElementById('monthSelect');
+  const yearSelect = document.getElementById('yearSelect');
+  if (monthSelect) {
+    monthSelect.addEventListener('change', () => {
+      generateCalendar();
+    });
+  }
+  if (yearSelect) {
+    yearSelect.addEventListener('change', () => {
+      generateCalendar();
+    });
+  }
+
+  // Taskbar date checkbox listener
+  const taskbarDateCheckbox = document.getElementById('taskbarDateCheckbox');
+  if (taskbarDateCheckbox) {
+    // Set initial state from localStorage
+    const settings = JSON.parse(localStorage.getItem('accessibilitySettings') || '{}');
+    taskbarDateCheckbox.checked = settings.showTaskbarDate || false;
+    
+    taskbarDateCheckbox.addEventListener('change', (e) => {
+      const settings = JSON.parse(localStorage.getItem('accessibilitySettings') || '{}');
+      settings.showTaskbarDate = e.target.checked;
+      localStorage.setItem('accessibilitySettings', JSON.stringify(settings));
+      
+      // Update clock display immediately
+      if (typeof window.updateClockDisplay === 'function') {
+        window.updateClockDisplay();
+      }
+    });
+  }
+
   // IE address bar - navigate on Enter key
   const addressBar = document.getElementById('ieAddressBar');
   if (addressBar) {
@@ -584,15 +742,27 @@ function initializeDateTimePanel() {
 // Creates a table with day headers and properly aligned dates
 function generateCalendar() {
   const calendar = document.getElementById('calendar');
+  const monthSelect = document.getElementById('monthSelect');
+  const yearSelect = document.getElementById('yearSelect');
+  
   const now = new Date();
-  const year = now.getFullYear();
-  const month = now.getMonth();
+  const currentYear = now.getFullYear();
+  const currentMonth = now.getMonth();
   const today = now.getDate();
+  
+  // Get selected month/year or use current date
+  const months = ['January', 'February', 'March', 'April', 'May', 'June', 
+                  'July', 'August', 'September', 'October', 'November', 'December'];
+  const selectedMonth = monthSelect ? months.indexOf(monthSelect.value) : currentMonth;
+  const selectedYear = yearSelect ? parseInt(yearSelect.value) : currentYear;
+  
+  const year = selectedYear;
+  const month = selectedMonth;
   
   const firstDay = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   
-  let html = '<table><tr>';
+  let html = '<table class="calendar"><tr>';
   const days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
   days.forEach(day => html += `<th>${day}</th>`);
   html += '</tr><tr>';
@@ -606,7 +776,8 @@ function generateCalendar() {
     if (i % 7 === 0 && i !== 0) {
       html += '</tr><tr>';
     }
-    const isToday = day === today ? ' class="today"' : '';
+    // Only highlight today if we're viewing the current month and year
+    const isToday = (day === today && month === currentMonth && year === currentYear) ? ' class="today"' : '';
     html += `<td${isToday}>${day}</td>`;
     day++;
   }
@@ -695,6 +866,16 @@ function updateDateTime() {
   const digitalTime = document.getElementById('digitalTime');
   digitalTime.textContent = now.toLocaleTimeString([], {hour: 'numeric', minute:'2-digit', second:'2-digit', hour12: true});
   generateCalendar();
+  
+  // Update month and year selectors to current date
+  const monthSelect = document.getElementById('monthSelect');
+  const yearSelect = document.getElementById('yearSelect');
+  if (monthSelect && yearSelect) {
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 
+                    'July', 'August', 'September', 'October', 'November', 'December'];
+    monthSelect.value = months[now.getMonth()];
+    yearSelect.value = now.getFullYear().toString();
+  }
 }
 
 // IE Navigation function

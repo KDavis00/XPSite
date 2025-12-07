@@ -590,7 +590,7 @@ body {
   margin-bottom: 8px;
 }
 
-.calendar {
+#calendar {
   background: white;
   border: 2px inset #808080;
   padding: 4px;
@@ -598,13 +598,15 @@ body {
   overflow: hidden;
 }
 
-.calendar table {
+.calendar,
+#calendar table {
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed;
 }
 
-.calendar th {
+.calendar th,
+#calendar th {
   background: #d4d0c8;
   padding: 2px;
   font-weight: bold;
@@ -612,21 +614,17 @@ body {
   width: 14.28%;
 }
 
-.calendar td {
+.calendar td,
+#calendar td {
   text-align: center;
   padding: 2px;
-  cursor: pointer;
+  cursor: default;
   width: 14.28%;
   overflow: hidden;
 }
 
-.calendar td:hover {
-  background: #c0c0c0;
-  color: black;
-  border: 1px solid #000080;
-}
-
-.calendar td.today {
+.calendar td.today,
+#calendar td.today {
   background: #000080;
   color: white;
   font-weight: bold;

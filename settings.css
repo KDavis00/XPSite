@@ -448,10 +448,8 @@
 .dark-mode .explorer-left,
 .dark-mode .settings-sidebar {
   background: #2d2d2d;
-  border-right-color: #000;
-}
 
-.dark-mode .settings-nav-item:hover {
+.dark-mode .settings-sidebar {
   background: #3d3d3d;
 }
 

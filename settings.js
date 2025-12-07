@@ -32,7 +32,8 @@ class Settings {
       colorBlindMode: 'none', // none, deuteranopia, protanopia, tritanopia
       rtlMode: false, // Right-to-left text direction
       backgroundColor: '#42477a', // Desktop background color
-      previousBackgroundColor: null // Previous background color
+      previousBackgroundColor: null, // Previous background color
+      showTaskbarDate: false // Show date in taskbar below time
     };
     
     const saved = localStorage.getItem('accessibilitySettings');
@@ -42,6 +43,7 @@ class Settings {
   // Save current settings to localStorage and apply them to the UI
   // Called whenever a setting is changed
   saveSettings() {
+    console.log('Saving settings:', this.settings);
     localStorage.setItem('accessibilitySettings', JSON.stringify(this.settings));
     this.applySettings();
   }
@@ -50,24 +52,39 @@ class Settings {
   // Modifies CSS classes, styles, and DOM attributes based on settings
   applySettings() {
     const root = document.documentElement;
+    const body = document.body;
     
-    // Remove all theme classes first
+    console.log('Applying theme:', this.settings.theme);
+    
+    // Remove all theme classes first from both root and body
     root.classList.remove('high-contrast', 'high-contrast-light', 'dark-mode', 'theme-default');
+    body.classList.remove('high-contrast', 'high-contrast-light', 'dark-mode', 'theme-default');
     
-    // Apply theme
+    // Reset inline styles first
+    body.style.background = '';
+    body.style.color = '';
+    
+    // Apply theme to both root and body for better compatibility
     if (this.settings.theme === 'highContrast' || this.settings.highContrast) {
       root.classList.add('high-contrast');
+      body.classList.add('high-contrast');
       this.settings.theme = 'highContrast';
     } else if (this.settings.theme === 'highContrastLight') {
       root.classList.add('high-contrast-light');
+      body.classList.add('high-contrast-light');
       this.settings.theme = 'highContrastLight';
     } else if (this.settings.theme === 'dark' || this.settings.darkMode) {
       root.classList.add('dark-mode');
+      body.classList.add('dark-mode');
       this.settings.theme = 'dark';
     } else {
       root.classList.add('theme-default');
+      body.classList.add('theme-default');
       this.settings.theme = 'default';
     }
+    
+    console.log('HTML classes:', root.className);
+    console.log('Body classes:', body.className);
 
     // Text Size - Scales all text using CSS zoom
     const zoomValue = this.settings.textSize / 100;
@@ -140,6 +157,11 @@ class Settings {
     // Background Color - Custom desktop background
     if (this.settings.backgroundColor) {
       document.querySelector('.desktop').style.backgroundColor = this.settings.backgroundColor;
+    }
+    
+    // Trigger clock update to show/hide date
+    if (typeof window.updateClockDisplay === 'function') {
+      window.updateClockDisplay();
     }
   }
 
@@ -365,7 +387,7 @@ function initSettings() {
             <h3>Theme</h3>
             <div class="setting-item">
               <div class="setting-name">Color Theme</div>
-              <select id="themeSelect" class="setting-select">
+              <select id="displayThemeSelect" class="setting-select">
                 <option value="default" ${settingsApp.settings.theme === 'default' ? 'selected' : ''}>Windows 2000 Classic</option>
                 <option value="dark" ${settingsApp.settings.theme === 'dark' ? 'selected' : ''}>Dark Mode</option>
                 <option value="highContrast" ${settingsApp.settings.theme === 'highContrast' ? 'selected' : ''}>High Contrast (Dark)</option>
@@ -449,6 +471,17 @@ function initSettings() {
               <p class="setting-desc">Choose a custom color for your desktop background</p>
             </div>
           </div>
+
+          <div class="settings-section">
+            <h3>Taskbar</h3>
+            <div class="setting-item">
+              <label class="setting-label">
+                <input type="checkbox" id="showTaskbarDate" ${settingsApp.settings.showTaskbarDate ? 'checked' : ''}>
+                <span class="setting-name">Show Date in Taskbar</span>
+              </label>
+              <p class="setting-desc">Display the current date below the time in the taskbar</p>
+            </div>
+          </div>
         </div>
 
         <div class="settings-tab" id="about-tab">
@@ -514,6 +547,7 @@ function initSettings() {
   const textSizeSelect = content.querySelector('#textSize');
   const iconSizeSelect = content.querySelector('#iconSize');
   const themeSelect = content.querySelector('#themeSelect');
+  const displayThemeSelect = content.querySelector('#displayThemeSelect');
 
   if (textSizeSelect) {
     textSizeSelect.value = settingsApp.settings.textSize;
@@ -535,15 +569,37 @@ function initSettings() {
     });
   }
 
-  // Theme selector
+  // Theme selector (old location for backwards compatibility)
   if (themeSelect) {
     themeSelect.value = settingsApp.settings.theme;
     themeSelect.addEventListener('change', (e) => {
       settingsApp.settings.theme = e.target.value;
-      settingsApp.settings.highContrast = e.target.value === 'highContrast';
+      settingsApp.settings.highContrast = e.target.value === 'highContrast' || e.target.value === 'highContrastLight';
       settingsApp.settings.darkMode = e.target.value === 'dark';
       settingsApp.applySettings();
       settingsApp.saveSettings();
+      showNotification('Theme changed to ' + e.target.options[e.target.selectedIndex].text);
+    });
+  }
+
+  // Display theme selector (new location in Display tab)
+  if (displayThemeSelect) {
+    displayThemeSelect.value = settingsApp.settings.theme;
+    displayThemeSelect.addEventListener('change', (e) => {
+      const selectedTheme = e.target.value;
+      console.log('Theme selected:', selectedTheme);
+      
+      settingsApp.settings.theme = selectedTheme;
+      settingsApp.settings.highContrast = selectedTheme === 'highContrast' || selectedTheme === 'highContrastLight';
+      settingsApp.settings.darkMode = selectedTheme === 'dark';
+      
+      console.log('Applying settings:', settingsApp.settings);
+      settingsApp.applySettings();
+      settingsApp.saveSettings();
+      
+      console.log('Root classes:', document.documentElement.className);
+      console.log('Body classes:', document.body.className);
+      
       showNotification('Theme changed to ' + e.target.options[e.target.selectedIndex].text);
     });
   }
