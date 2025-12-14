@@ -719,51 +719,7 @@ body {
   width: 500px;
 }
 
-.boot-logo h1 {
-  font-size: 32px;
-  margin: 10px 0 0 0;
-  font-weight: bold;
-}
-
-.boot-logo p {
-  font-size: 18px;
-  margin-top: -4px;
-}
-
-.boot-image {
-  width: 180px;
-  margin-bottom: 10px;
-}
-
-.boot-progress {
-  width: 300px;
-  height: 10px;
-  background: #222;
-  border: 1px solid #555;
-  margin: 20px auto;
-  position: relative;
-  overflow: hidden;
-}
-
-.boot-bar {
-  width: 50px;
-  height: 100%;
-  background: #2a7bdc;
-  position: absolute;
-  left: -50px;
-  animation: bootBarMove 1.8s linear infinite;
-}
-
-@keyframes bootBarMove {
-  from { left: -50px; }
-  to { left: 300px; }
-}
-
-.boot-text {
-  margin-top: 20px;
-  font-size: 14px;
-  opacity: 0.9;
-}
+/* boot styles moved to boot.css */
 
 /* BSOD SCREEN */
 #bsodScreen {

@@ -13,7 +13,11 @@ function showBootSequence() {
         <p>Aspiring Professional</p>
       </div>
       <div class="boot-progress">
-        <div class="boot-bar"></div>
+        <div class="boot-bar boot-bar-1"></div>
+        <div class="boot-bar boot-bar-2"></div>
+        <div class="boot-bar boot-bar-3"></div>
+        <div class="boot-bar boot-bar-4"></div>
+        <div class="boot-bar boot-bar-5"></div>
       </div>
       <div class="boot-text">Starting Windows...</div>
     </div>

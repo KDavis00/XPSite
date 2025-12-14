@@ -1,0 +1,73 @@
+/* Boot screen styles moved to their own file */
+#bootScreen {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  font-family: Tahoma, sans-serif;
+  transition: opacity 0.5s ease;
+}
+
+.boot-content {
+  text-align: center;
+  width: 500px;
+  color: #fff;
+}
+
+.boot-logo h1 {
+  font-size: 32px;
+  margin: 10px 0 0 0;
+  font-weight: bold;
+}
+
+.boot-logo p {
+  font-size: 18px;
+  margin-top: -4px;
+}
+
+.boot-image {
+  width: 180px;
+  margin-bottom: 10px;
+}
+
+.boot-progress {
+  width: 300px;
+  height: 16px;
+  background: #111;
+  border: 1px solid #444;
+  border-radius: 6px;
+  margin: 20px auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.boot-bar {
+  width: 5px;
+  height: 100%;
+  background: linear-gradient(to bottom, #2a7bdc, #00bcf2);
+  position: absolute;
+  left: -6px;
+  border-radius: 1px;
+  animation: bootBarMove 2s linear infinite;
+}
+
+.boot-bar-1 { animation-delay: 0s; }
+.boot-bar-2 { animation-delay: 0.052s; }
+.boot-bar-3 { animation-delay: 0.104s; }
+.boot-bar-4 { animation-delay: 0.156s; }
+.boot-bar-5 { animation-delay: 0.208s; }
+
+@keyframes bootBarMove {
+  from { left: -6px; }
+  to { left: calc(100% + 6px); }
+}
+
+.boot-text {
+  margin-top: 20px;
+  font-size: 14px;
+  opacity: 0.9;
+}
