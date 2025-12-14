@@ -1,0 +1,110 @@
+/* SHUTDOWN AND SHUTDOWN SCREENS */
+
+/* SHUTDOWN SCREEN */
+#shutdownScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.shutdown-content {
+  text-align: center;
+  color: #fff;
+  font-size: 24px;
+}
+
+.shutdown-spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid #666;
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.shutdown-message {
+  margin-top: 30px;
+}
+
+.shutdown-box {
+  background: #c0c0c0;
+  border: 2px outset #fff;
+  padding: 20px;
+  display: inline-block;
+}
+
+.shutdown-box p {
+  margin: 0 0 15px 0;
+  font-size: 14px;
+}
+
+.shutdown-btn {
+  background: #d4d0c8;
+  border: 2px outset #fff;
+  padding: 6px 20px;
+  font-size: 11px;
+  cursor: pointer;
+  font-family: Tahoma, sans-serif;
+}
+
+.shutdown-btn:hover {
+  background: #e8e4dc;
+}
+
+.shutdown-btn:active {
+  border-style: inset;
+  padding: 7px 19px 5px 21px;
+}
+
+/* BLUE SCREEN OF DEATH */
+#bsodScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #0000aa;
+  color: #ffffff;
+  font-family: "Lucida Console", monospace;
+  font-size: 16px;
+  padding: 40px;
+  z-index: 100000;
+}
+
+.bsod-content {
+  max-width: 800px;
+  margin: auto;
+  line-height: 1.4;
+}
+
+.bsod-content h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.bsod-content p {
+  margin-bottom: 15px;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.bsod-footer {
+  margin-top: 40px;
+  border-top: 1px solid #ffffff;
+  padding-top: 20px;
+  font-size: 14px;
+}

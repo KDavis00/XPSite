@@ -1,0 +1,102 @@
+/* DESKTOP BASE STYLES */
+html {
+  font-size: 16px; /* BASE FONT SIZE FOR SCALING */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Tahoma, sans-serif;
+  background: #42477a; /* BLURPLE DESKTOP BACKGROUND */
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+
+.desktop {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 30px);
+}
+
+/* DESKTOP ICONS */
+.icon {
+  width: 100px;
+  height: 110px;
+  text-align: center;
+  color: white;
+  position: absolute;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ICONS THAT HAVE BEEN MANUALLY POSITIONED */
+.icon.positioned {
+  position: absolute;
+}
+
+.icon.dragging {
+  opacity: 0.5;
+  outline: none;
+}
+
+.icon:active {
+  outline: none;
+}
+
+.icon img {
+  width: 32px;
+  height: 32px;
+  pointer-events: none;
+  margin-bottom: 4px;
+}
+
+.icon span {
+  display: block;
+  font-size: 11px;
+  text-align: center;
+  pointer-events: none;
+  color: white;
+  line-height: 1.2;
+  max-width: 100px;
+  word-wrap: break-word;
+  padding: 0 2px;
+}
+
+/* DATE/TIME PANEL */
+.date-time-panel {
+  position: fixed;
+  bottom: 8px;
+  right: 10px;
+  z-index: 99999;
+  background: transparent;
+  padding: 0;
+}
+
+.date-time-display {
+  font-size: 11px;
+  color: white;
+  font-weight: bold;
+  text-align: right;
+  user-select: none;
+}
+
+.date-time-display div {
+  line-height: 1.2;
+}
+
+@media (max-width: 768px) {
+  .date-time-panel {
+    bottom: 35px;
+    right: 5px;
+  }
+
+  .date-time-display {
+    font-size: 9px;
+  }
+}

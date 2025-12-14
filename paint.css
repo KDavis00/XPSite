@@ -1,0 +1,91 @@
+/* PAINT APPLICATION STYLES */
+.paint-container {
+  background: #d4d0c8;
+  padding: 0;
+}
+
+.paint-toolbar {
+  background: #d4d0c8;
+  padding: 4px;
+  border-bottom: 2px solid #808080;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.paint-tools {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.tool-btn {
+  background: #d4d0c8;
+  border: 2px solid;
+  border-color: #fff #808080 #808080 #fff;
+  padding: 2px 6px;
+  cursor: pointer;
+  font-size: 11px;
+}
+
+.tool-btn.active {
+  border-color: #808080 #fff #fff #808080;
+  background: #b0b0b0;
+}
+
+.tool-btn:hover {
+  background: #e0e0e0;
+}
+
+.paint-colors {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.color-palette {
+  display: grid;
+  grid-template-columns: repeat(10, 24px);
+  gap: 3px;
+}
+
+.color-box {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  border: 2px solid;
+  border-color: #fff #808080 #808080 #fff;
+}
+
+.color-box:hover {
+  border-color: #808080 #fff #fff #808080;
+}
+
+.color-display {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.current-color {
+  width: 30px;
+  height: 30px;
+  border: 2px solid #808080;
+}
+
+#paintCanvas {
+  width: 100%;
+  flex: 1;
+  background: white;
+  cursor: crosshair;
+  display: block;
+}
+
+.paint-status {
+  background: #d4d0c8;
+  padding: 4px 6px;
+  border-top: 1px solid #808080;
+  font-size: 11px;
+  text-align: right;
+}

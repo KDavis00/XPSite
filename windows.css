@@ -1,0 +1,127 @@
+/* WINDOWS 2000 WINDOW STYLES */
+
+/* WINDOWS */
+.window {
+  width: 400px;
+  position: absolute;
+  display: none;
+  background: #d4d0c8; /* MUTED GRAY CONTENT */
+  border: 2px solid #808080; /* GRAY BORDER */
+  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #404040;
+}
+
+.window[style*="display: block"],
+.window[style*="display: flex"] {
+  display: flex !important;
+  flex-direction: column;
+}
+
+.window[style*="display: none"] {
+  display: none !important;
+}
+
+/* WINDOWS 2000 TITLE BAR */
+.title-bar {
+  background: linear-gradient(to bottom, #000080 0%, #000060 100%);
+  color: white;
+  padding: 4px 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  cursor: move;
+  border-bottom: 2px solid #c0c0c0;
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.title {
+  flex: 1;
+}
+
+.window-controls {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.window-controls button {
+  background: #d4d0c8;
+  border: 2px outset #fff;
+  width: 16px;
+  height: 14px;
+  font-size: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 0;
+  line-height: 1;
+  box-sizing: border-box;
+}
+
+.window-controls button:hover {
+  background: #e8e4dc;
+}
+
+.window-controls button:active {
+  border-style: inset;
+  padding: 1px 0 0 1px;
+}
+
+.window-content {
+  background: #d4d0c8;
+  padding: 10px;
+  border-top: 2px solid #fff;
+  border-left: 2px solid #fff;
+  border-right: 2px solid #404040;
+  border-bottom: 2px solid #404040;
+  overflow: auto;
+  box-sizing: border-box;
+  flex: 1;
+  min-height: 0;
+  max-height: calc(100vh - 100px);
+}
+
+.window-content iframe {
+  flex: 1;
+  height: 100%;
+  width: 100%;
+}
+
+.window.maximized .window-content {
+  overflow: auto;
+}
+
+.window.maximized .window-content iframe {
+  height: 100%;
+  width: 100%;
+}
+
+/* FOLDER CONTENT */
+.folder-content {
+  background: #ffffff;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 10px;
+}
+
+/* FOLDER CONTENT ICONS */
+.folder-content .file-icon {
+  width: 60px;
+  text-align: center;
+  margin: 5px;
+  cursor: pointer;
+  color: #000;
+}
+
+.folder-content .file-icon img {
+  width: 32px;
+  height: 32px;
+}
+
+.folder-content .file-icon span {
+  display: block;
+  font-size: 12px;
+  margin-top: 2px;
+  pointer-events: none;
+}
