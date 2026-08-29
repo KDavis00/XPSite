@@ -396,21 +396,6 @@
       </div>
     </div>
 
-    <!-- Minesweeper Window -->
-    <div class="window" id="minesweeperWindow" style="width: 250px; height: auto;">
-      <div class="title-bar">
-        <span class="title">Minesweeper</span>
-        <div class="window-controls">
-          <button class="minimize">_</button>
-          <button class="maximize">□</button>
-          <button class="close">×</button>
-        </div>
-      </div>
-      <div class="window-content" style="padding: 0; display: block;">
-        <div class="minesweeper-container" id="minesweeperGame"></div>
-      </div>
-    </div>
-
     <!-- Solitaire Window -->
     <div class="window" id="solitaireWindow" style="width: 600px; height: auto;">
       <div class="title-bar">
@@ -487,10 +472,6 @@
         </div>
       </div>
       <div class="window-content folder-content">
-        <div class="file-icon" onclick="openWindow('minesweeperWindow')">
-          <img src="Windows 2000/Minesweeper.ico" alt="Minesweeper">
-          <span>Minesweeper</span>
-        </div>
         <div class="file-icon" onclick="openWindow('solitaireWindow')">
           <img src="Windows 2000/Solitair.ico" alt="Solitaire">
           <span>Solitaire</span>
@@ -1050,7 +1031,6 @@
                 Games
                 <span class="arrow">►</span>
                 <ul class="submenu">
-                  <li data-window="minesweeperWindow">Minesweeper</li>
                   <li data-window="solitaireWindow">Solitaire</li>
                   <li data-window="sudokuWindow">Sudoku</li>
                 </ul>
@@ -1098,7 +1078,6 @@
 
     <script src="portfolio.js"></script>
 <script src="settings.js"></script>
-<script src="minesweeper.js"></script>
 <script src="solitaire.js"></script>
 <script src="sudoku.js"></script>
 <script src="paint.js"></script>
